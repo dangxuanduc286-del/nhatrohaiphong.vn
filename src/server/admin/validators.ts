@@ -8,7 +8,7 @@ export const userStatusUpdateSchema = idSchema.merge(statusSchema);
 
 export const roomModerationSchema = z.object({
   id: z.string().min(1),
-  action: z.enum(["APPROVE", "REJECT", "HIDE", "LOCK"]),
+  action: z.enum(["APPROVE", "REJECT", "HIDE", "LOCK", "REOPEN", "MAINTENANCE", "OCCUPIED", "RESERVED"]),
   reason: z.string().trim().max(500).optional(),
 });
 

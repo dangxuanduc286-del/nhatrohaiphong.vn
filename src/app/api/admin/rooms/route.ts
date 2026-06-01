@@ -8,7 +8,11 @@ const nextStatusByAction = {
   APPROVE: "AVAILABLE",
   REJECT: "HIDDEN",
   HIDE: "HIDDEN",
+  REOPEN: "AVAILABLE",
   LOCK: "MAINTENANCE",
+  MAINTENANCE: "MAINTENANCE",
+  OCCUPIED: "OCCUPIED",
+  RESERVED: "RESERVED",
 } as const;
 
 export async function GET(request: Request) {
