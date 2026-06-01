@@ -1245,14 +1245,6 @@ export type RoomUncheckedUpdateManyWithoutBuildingNestedInput = {
   deleteMany?: Prisma.RoomScalarWhereInput | Prisma.RoomScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type EnumRoomStatusFieldUpdateOperationsInput = {
   set?: $Enums.RoomStatus
 }

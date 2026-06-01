@@ -50,6 +50,35 @@ type LandingPageSeed = {
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
+const roles = [
+  { id: "role_user", name: "USER", slug: "user", description: "Default renter/user role" },
+  { id: "role_landlord", name: "LANDLORD", slug: "landlord", description: "Landlord role" },
+  { id: "role_admin", name: "ADMIN", slug: "admin", description: "Administrator role" },
+] as const;
+
+const permissions = [
+  { id: "permission_room_view", name: "room.view", slug: "room.view", description: "View rooms" },
+  { id: "permission_room_favorite", name: "room.favorite", slug: "room.favorite", description: "Favorite rooms" },
+  { id: "permission_appointment_create", name: "appointment.create", slug: "appointment.create", description: "Create appointments" },
+  { id: "permission_room_create", name: "room.create", slug: "room.create", description: "Create rooms" },
+  { id: "permission_room_update", name: "room.update", slug: "room.update", description: "Update rooms" },
+  { id: "permission_room_delete", name: "room.delete", slug: "room.delete", description: "Delete rooms" },
+  { id: "permission_tenant_manage", name: "tenant.manage", slug: "tenant.manage", description: "Manage tenants" },
+  { id: "permission_contract_manage", name: "contract.manage", slug: "contract.manage", description: "Manage contracts" },
+  { id: "permission_invoice_manage", name: "invoice.manage", slug: "invoice.manage", description: "Manage invoices" },
+  { id: "permission_system_manage", name: "system.manage", slug: "system.manage", description: "Manage system" },
+  { id: "permission_user_manage", name: "user.manage", slug: "user.manage", description: "Manage users" },
+  { id: "permission_role_manage", name: "role.manage", slug: "role.manage", description: "Manage roles" },
+  { id: "permission_permission_manage", name: "permission.manage", slug: "permission.manage", description: "Manage permissions" },
+  { id: "permission_audit_manage", name: "audit.manage", slug: "audit.manage", description: "Manage audit logs" },
+] as const;
+
+const rolePermissions = {
+  user: ["room.view", "room.favorite", "appointment.create"],
+  landlord: ["room.view", "room.favorite", "appointment.create", "room.create", "room.update", "room.delete", "tenant.manage", "contract.manage", "invoice.manage"],
+  admin: permissions.map((permission) => permission.slug),
+} as const;
+
 const cities: CitySeed[] = [
   { id: "city_hai_phong", name: "Hải Phòng", slug: "hai-phong", code: "HP", status: "ACTIVE" },
   { id: "city_hai_duong", name: "Hải Dương", slug: "hai-duong", code: "HD", status: "ACTIVE" },
@@ -306,13 +335,57 @@ async function seedLandingPages() {
   }
 }
 
+async function seedRbac() {
+  for (const role of roles) {
+    await query(
+      `INSERT INTO "roles" ("id", "name", "slug", "description", "createdAt", "updatedAt")
+       VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+       ON CONFLICT ("slug") DO UPDATE SET
+         "name" = EXCLUDED."name",
+         "description" = EXCLUDED."description",
+         "deletedAt" = NULL,
+         "updatedAt" = CURRENT_TIMESTAMP`,
+      [role.id, role.name, role.slug, role.description],
+    );
+  }
+
+  for (const permission of permissions) {
+    await query(
+      `INSERT INTO "permissions" ("id", "name", "slug", "description", "createdAt", "updatedAt")
+       VALUES ($1, $2, $3, $4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+       ON CONFLICT ("slug") DO UPDATE SET
+         "name" = EXCLUDED."name",
+         "description" = EXCLUDED."description",
+         "deletedAt" = NULL,
+         "updatedAt" = CURRENT_TIMESTAMP`,
+      [permission.id, permission.name, permission.slug, permission.description],
+    );
+  }
+
+  for (const [roleSlug, permissionSlugs] of Object.entries(rolePermissions)) {
+    for (const permissionSlug of permissionSlugs) {
+      await query(
+        `INSERT INTO "role_permissions" ("roleId", "permissionId", "createdAt")
+         SELECT r."id", p."id", CURRENT_TIMESTAMP
+         FROM "roles" r, "permissions" p
+         WHERE r."slug" = $1 AND p."slug" = $2
+         ON CONFLICT ("roleId", "permissionId") DO NOTHING`,
+        [roleSlug, permissionSlug],
+      );
+    }
+  }
+}
+
 async function main() {
+  await seedRbac();
   await seedCities();
   await seedDistrictsAndWards();
   await seedPointsOfInterest();
   await seedLandingPages();
 
   console.info("Seed completed", {
+    roles: roles.length,
+    permissions: permissions.length,
     cities: cities.length,
     districts: haiPhongDistricts.length + haiDuongDistricts.length,
     wards: [...haiPhongDistricts, ...haiDuongDistricts].reduce((total, district) => total + district.wards.length, 0),

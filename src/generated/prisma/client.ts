@@ -67,6 +67,21 @@ export type UserRole = Prisma.UserRoleModel
  */
 export type RolePermission = Prisma.RolePermissionModel
 /**
+ * Model UserSession
+ * 
+ */
+export type UserSession = Prisma.UserSessionModel
+/**
+ * Model EmailVerificationToken
+ * 
+ */
+export type EmailVerificationToken = Prisma.EmailVerificationTokenModel
+/**
+ * Model PasswordResetToken
+ * 
+ */
+export type PasswordResetToken = Prisma.PasswordResetTokenModel
+/**
  * Model AuditLog
  * 
  */
