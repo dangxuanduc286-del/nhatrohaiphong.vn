@@ -1,0 +1,39 @@
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+
+Error: Prisma schema validation - (validate wasm)
+Error code: P1012
+[1;91merror[0m: [1mError validating: This line is invalid. It does not start with any known Prisma schema keyword.[0m
+  [1;94m-->[0m  [4mE:\Nhatrohaiphong.vn\prisma\schema.prisma:1[0m
+[1;94m   | [0m
+[1;94m   | [0m
+[1;94m 1 | [0m[1;91m﻿generator client {[0m
+[1;94m 2 | [0m  provider = "prisma-client"
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating: This line is invalid. It does not start with any known Prisma schema keyword.[0m
+  [1;94m-->[0m  [4mE:\Nhatrohaiphong.vn\prisma\schema.prisma:2[0m
+[1;94m   | [0m
+[1;94m 1 | [0m﻿generator client {
+[1;94m 2 | [0m  [1;91mprovider = "prisma-client"[0m
+[1;94m 3 | [0m  output   = "../src/generated/prisma"
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating: This line is invalid. It does not start with any known Prisma schema keyword.[0m
+  [1;94m-->[0m  [4mE:\Nhatrohaiphong.vn\prisma\schema.prisma:3[0m
+[1;94m   | [0m
+[1;94m 2 | [0m  provider = "prisma-client"
+[1;94m 3 | [0m  [1;91moutput   = "../src/generated/prisma"[0m
+[1;94m 4 | [0m}
+[1;94m   | [0m
+[1;91merror[0m: [1mError validating: This line is invalid. It does not start with any known Prisma schema keyword.[0m
+  [1;94m-->[0m  [4mE:\Nhatrohaiphong.vn\prisma\schema.prisma:4[0m
+[1;94m   | [0m
+[1;94m 3 | [0m  output   = "../src/generated/prisma"
+[1;94m 4 | [0m[1;91m}[0m
+[1;94m 5 | [0m
+[1;94m   | [0m
+
+Validation Error Count: 4
+[Context: validate]
+
+Prisma CLI Version : 7.8.0
