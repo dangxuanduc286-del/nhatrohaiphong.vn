@@ -461,6 +461,7 @@ export type RoomWhereInput = {
   appointments?: Prisma.AppointmentListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   reports?: Prisma.ReportListRelationFilter
+  boosts?: Prisma.RoomBoostListRelationFilter
 }
 
 export type RoomOrderByWithRelationInput = {
@@ -509,6 +510,7 @@ export type RoomOrderByWithRelationInput = {
   appointments?: Prisma.AppointmentOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   reports?: Prisma.ReportOrderByRelationAggregateInput
+  boosts?: Prisma.RoomBoostOrderByRelationAggregateInput
 }
 
 export type RoomWhereUniqueInput = Prisma.AtLeast<{
@@ -560,6 +562,7 @@ export type RoomWhereUniqueInput = Prisma.AtLeast<{
   appointments?: Prisma.AppointmentListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   reports?: Prisma.ReportListRelationFilter
+  boosts?: Prisma.RoomBoostListRelationFilter
 }, "id" | "roomCode" | "slug">
 
 export type RoomOrderByWithAggregationInput = {
@@ -673,6 +676,7 @@ export type RoomCreateInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateInput = {
@@ -716,6 +720,7 @@ export type RoomUncheckedCreateInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUpdateInput = {
@@ -759,6 +764,7 @@ export type RoomUpdateInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateInput = {
@@ -802,6 +808,7 @@ export type RoomUncheckedUpdateInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateManyInput = {
@@ -1421,6 +1428,20 @@ export type RoomUpdateOneWithoutReportsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RoomUpdateToOneWithWhereWithoutReportsInput, Prisma.RoomUpdateWithoutReportsInput>, Prisma.RoomUncheckedUpdateWithoutReportsInput>
 }
 
+export type RoomCreateNestedOneWithoutBoostsInput = {
+  create?: Prisma.XOR<Prisma.RoomCreateWithoutBoostsInput, Prisma.RoomUncheckedCreateWithoutBoostsInput>
+  connectOrCreate?: Prisma.RoomCreateOrConnectWithoutBoostsInput
+  connect?: Prisma.RoomWhereUniqueInput
+}
+
+export type RoomUpdateOneRequiredWithoutBoostsNestedInput = {
+  create?: Prisma.XOR<Prisma.RoomCreateWithoutBoostsInput, Prisma.RoomUncheckedCreateWithoutBoostsInput>
+  connectOrCreate?: Prisma.RoomCreateOrConnectWithoutBoostsInput
+  upsert?: Prisma.RoomUpsertWithoutBoostsInput
+  connect?: Prisma.RoomWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RoomUpdateToOneWithWhereWithoutBoostsInput, Prisma.RoomUpdateWithoutBoostsInput>, Prisma.RoomUncheckedUpdateWithoutBoostsInput>
+}
+
 export type RoomCreateWithoutCreatorInput = {
   id?: string
   roomCode: string
@@ -1461,6 +1482,7 @@ export type RoomCreateWithoutCreatorInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutCreatorInput = {
@@ -1503,6 +1525,7 @@ export type RoomUncheckedCreateWithoutCreatorInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutCreatorInput = {
@@ -1555,6 +1578,7 @@ export type RoomCreateWithoutUpdaterInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutUpdaterInput = {
@@ -1597,6 +1621,7 @@ export type RoomUncheckedCreateWithoutUpdaterInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutUpdaterInput = {
@@ -1715,6 +1740,7 @@ export type RoomCreateWithoutDistrictInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutDistrictInput = {
@@ -1757,6 +1783,7 @@ export type RoomUncheckedCreateWithoutDistrictInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutDistrictInput = {
@@ -1825,6 +1852,7 @@ export type RoomCreateWithoutWardInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutWardInput = {
@@ -1867,6 +1895,7 @@ export type RoomUncheckedCreateWithoutWardInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutWardInput = {
@@ -1935,6 +1964,7 @@ export type RoomCreateWithoutBuildingInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutBuildingInput = {
@@ -1977,6 +2007,7 @@ export type RoomUncheckedCreateWithoutBuildingInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutBuildingInput = {
@@ -2045,6 +2076,7 @@ export type RoomCreateWithoutImagesInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutImagesInput = {
@@ -2087,6 +2119,7 @@ export type RoomUncheckedCreateWithoutImagesInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutImagesInput = {
@@ -2145,6 +2178,7 @@ export type RoomUpdateWithoutImagesInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutImagesInput = {
@@ -2187,6 +2221,7 @@ export type RoomUncheckedUpdateWithoutImagesInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutAmenitiesInput = {
@@ -2229,6 +2264,7 @@ export type RoomCreateWithoutAmenitiesInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutAmenitiesInput = {
@@ -2271,6 +2307,7 @@ export type RoomUncheckedCreateWithoutAmenitiesInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutAmenitiesInput = {
@@ -2329,6 +2366,7 @@ export type RoomUpdateWithoutAmenitiesInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutAmenitiesInput = {
@@ -2371,6 +2409,7 @@ export type RoomUncheckedUpdateWithoutAmenitiesInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutContractsInput = {
@@ -2413,6 +2452,7 @@ export type RoomCreateWithoutContractsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutContractsInput = {
@@ -2455,6 +2495,7 @@ export type RoomUncheckedCreateWithoutContractsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutContractsInput = {
@@ -2513,6 +2554,7 @@ export type RoomUpdateWithoutContractsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutContractsInput = {
@@ -2555,6 +2597,7 @@ export type RoomUncheckedUpdateWithoutContractsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutElectricReadingsInput = {
@@ -2597,6 +2640,7 @@ export type RoomCreateWithoutElectricReadingsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutElectricReadingsInput = {
@@ -2639,6 +2683,7 @@ export type RoomUncheckedCreateWithoutElectricReadingsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutElectricReadingsInput = {
@@ -2697,6 +2742,7 @@ export type RoomUpdateWithoutElectricReadingsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutElectricReadingsInput = {
@@ -2739,6 +2785,7 @@ export type RoomUncheckedUpdateWithoutElectricReadingsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutWaterReadingsInput = {
@@ -2781,6 +2828,7 @@ export type RoomCreateWithoutWaterReadingsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutWaterReadingsInput = {
@@ -2823,6 +2871,7 @@ export type RoomUncheckedCreateWithoutWaterReadingsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutWaterReadingsInput = {
@@ -2881,6 +2930,7 @@ export type RoomUpdateWithoutWaterReadingsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutWaterReadingsInput = {
@@ -2923,6 +2973,7 @@ export type RoomUncheckedUpdateWithoutWaterReadingsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutUtilitySettingsInput = {
@@ -2965,6 +3016,7 @@ export type RoomCreateWithoutUtilitySettingsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutUtilitySettingsInput = {
@@ -3007,6 +3059,7 @@ export type RoomUncheckedCreateWithoutUtilitySettingsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutUtilitySettingsInput = {
@@ -3065,6 +3118,7 @@ export type RoomUpdateWithoutUtilitySettingsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutUtilitySettingsInput = {
@@ -3107,6 +3161,7 @@ export type RoomUncheckedUpdateWithoutUtilitySettingsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutInvoiceItemsInput = {
@@ -3149,6 +3204,7 @@ export type RoomCreateWithoutInvoiceItemsInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutInvoiceItemsInput = {
@@ -3191,6 +3247,7 @@ export type RoomUncheckedCreateWithoutInvoiceItemsInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutInvoiceItemsInput = {
@@ -3249,6 +3306,7 @@ export type RoomUpdateWithoutInvoiceItemsInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutInvoiceItemsInput = {
@@ -3291,6 +3349,7 @@ export type RoomUncheckedUpdateWithoutInvoiceItemsInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutFavoritesInput = {
@@ -3333,6 +3392,7 @@ export type RoomCreateWithoutFavoritesInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutFavoritesInput = {
@@ -3375,6 +3435,7 @@ export type RoomUncheckedCreateWithoutFavoritesInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutFavoritesInput = {
@@ -3433,6 +3494,7 @@ export type RoomUpdateWithoutFavoritesInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutFavoritesInput = {
@@ -3475,6 +3537,7 @@ export type RoomUncheckedUpdateWithoutFavoritesInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutRecentlyViewedInput = {
@@ -3517,6 +3580,7 @@ export type RoomCreateWithoutRecentlyViewedInput = {
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutRecentlyViewedInput = {
@@ -3559,6 +3623,7 @@ export type RoomUncheckedCreateWithoutRecentlyViewedInput = {
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutRecentlyViewedInput = {
@@ -3617,6 +3682,7 @@ export type RoomUpdateWithoutRecentlyViewedInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutRecentlyViewedInput = {
@@ -3659,6 +3725,7 @@ export type RoomUncheckedUpdateWithoutRecentlyViewedInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutAppointmentsInput = {
@@ -3701,6 +3768,7 @@ export type RoomCreateWithoutAppointmentsInput = {
   recentlyViewed?: Prisma.RecentlyViewedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutAppointmentsInput = {
@@ -3743,6 +3811,7 @@ export type RoomUncheckedCreateWithoutAppointmentsInput = {
   recentlyViewed?: Prisma.RecentlyViewedUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutAppointmentsInput = {
@@ -3801,6 +3870,7 @@ export type RoomUpdateWithoutAppointmentsInput = {
   recentlyViewed?: Prisma.RecentlyViewedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutAppointmentsInput = {
@@ -3843,6 +3913,7 @@ export type RoomUncheckedUpdateWithoutAppointmentsInput = {
   recentlyViewed?: Prisma.RecentlyViewedUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutReviewsInput = {
@@ -3885,6 +3956,7 @@ export type RoomCreateWithoutReviewsInput = {
   recentlyViewed?: Prisma.RecentlyViewedCreateNestedManyWithoutRoomInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutReviewsInput = {
@@ -3927,6 +3999,7 @@ export type RoomUncheckedCreateWithoutReviewsInput = {
   recentlyViewed?: Prisma.RecentlyViewedUncheckedCreateNestedManyWithoutRoomInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutReviewsInput = {
@@ -3985,6 +4058,7 @@ export type RoomUpdateWithoutReviewsInput = {
   recentlyViewed?: Prisma.RecentlyViewedUpdateManyWithoutRoomNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutReviewsInput = {
@@ -4027,6 +4101,7 @@ export type RoomUncheckedUpdateWithoutReviewsInput = {
   recentlyViewed?: Prisma.RecentlyViewedUncheckedUpdateManyWithoutRoomNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateWithoutReportsInput = {
@@ -4069,6 +4144,7 @@ export type RoomCreateWithoutReportsInput = {
   recentlyViewed?: Prisma.RecentlyViewedCreateNestedManyWithoutRoomInput
   appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostCreateNestedManyWithoutRoomInput
 }
 
 export type RoomUncheckedCreateWithoutReportsInput = {
@@ -4111,6 +4187,7 @@ export type RoomUncheckedCreateWithoutReportsInput = {
   recentlyViewed?: Prisma.RecentlyViewedUncheckedCreateNestedManyWithoutRoomInput
   appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
+  boosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutRoomInput
 }
 
 export type RoomCreateOrConnectWithoutReportsInput = {
@@ -4169,6 +4246,7 @@ export type RoomUpdateWithoutReportsInput = {
   recentlyViewed?: Prisma.RecentlyViewedUpdateManyWithoutRoomNestedInput
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutReportsInput = {
@@ -4211,6 +4289,195 @@ export type RoomUncheckedUpdateWithoutReportsInput = {
   recentlyViewed?: Prisma.RecentlyViewedUncheckedUpdateManyWithoutRoomNestedInput
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
+}
+
+export type RoomCreateWithoutBoostsInput = {
+  id?: string
+  roomCode: string
+  title: string
+  slug: string
+  description?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deposit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  area: runtime.Decimal | runtime.DecimalJsLike | number | string
+  floor?: number | null
+  capacity?: number
+  electricPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  waterPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  internetFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  serviceFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  parkingFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.RoomStatus
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address: string
+  availableFrom?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  district: Prisma.DistrictCreateNestedOneWithoutRoomsInput
+  ward: Prisma.WardCreateNestedOneWithoutRoomsInput
+  building: Prisma.BuildingCreateNestedOneWithoutRoomsInput
+  creator?: Prisma.UserCreateNestedOneWithoutCreatedRoomsInput
+  updater?: Prisma.UserCreateNestedOneWithoutUpdatedRoomsInput
+  images?: Prisma.RoomImageCreateNestedManyWithoutRoomInput
+  amenities?: Prisma.RoomAmenityCreateNestedManyWithoutRoomInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutRoomInput
+  electricReadings?: Prisma.ElectricReadingCreateNestedManyWithoutRoomInput
+  waterReadings?: Prisma.WaterReadingCreateNestedManyWithoutRoomInput
+  utilitySettings?: Prisma.UtilitySettingCreateNestedManyWithoutRoomInput
+  invoiceItems?: Prisma.InvoiceItemCreateNestedManyWithoutRoomInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutRoomInput
+  recentlyViewed?: Prisma.RecentlyViewedCreateNestedManyWithoutRoomInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutRoomInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutRoomInput
+  reports?: Prisma.ReportCreateNestedManyWithoutRoomInput
+}
+
+export type RoomUncheckedCreateWithoutBoostsInput = {
+  id?: string
+  roomCode: string
+  title: string
+  slug: string
+  description?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  deposit?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  area: runtime.Decimal | runtime.DecimalJsLike | number | string
+  floor?: number | null
+  capacity?: number
+  electricPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  waterPrice?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  internetFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  serviceFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  parkingFee?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.RoomStatus
+  latitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address: string
+  districtId: string
+  wardId: string
+  buildingId: string
+  availableFrom?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  createdBy?: string | null
+  updatedBy?: string | null
+  images?: Prisma.RoomImageUncheckedCreateNestedManyWithoutRoomInput
+  amenities?: Prisma.RoomAmenityUncheckedCreateNestedManyWithoutRoomInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutRoomInput
+  electricReadings?: Prisma.ElectricReadingUncheckedCreateNestedManyWithoutRoomInput
+  waterReadings?: Prisma.WaterReadingUncheckedCreateNestedManyWithoutRoomInput
+  utilitySettings?: Prisma.UtilitySettingUncheckedCreateNestedManyWithoutRoomInput
+  invoiceItems?: Prisma.InvoiceItemUncheckedCreateNestedManyWithoutRoomInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutRoomInput
+  recentlyViewed?: Prisma.RecentlyViewedUncheckedCreateNestedManyWithoutRoomInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutRoomInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutRoomInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutRoomInput
+}
+
+export type RoomCreateOrConnectWithoutBoostsInput = {
+  where: Prisma.RoomWhereUniqueInput
+  create: Prisma.XOR<Prisma.RoomCreateWithoutBoostsInput, Prisma.RoomUncheckedCreateWithoutBoostsInput>
+}
+
+export type RoomUpsertWithoutBoostsInput = {
+  update: Prisma.XOR<Prisma.RoomUpdateWithoutBoostsInput, Prisma.RoomUncheckedUpdateWithoutBoostsInput>
+  create: Prisma.XOR<Prisma.RoomCreateWithoutBoostsInput, Prisma.RoomUncheckedCreateWithoutBoostsInput>
+  where?: Prisma.RoomWhereInput
+}
+
+export type RoomUpdateToOneWithWhereWithoutBoostsInput = {
+  where?: Prisma.RoomWhereInput
+  data: Prisma.XOR<Prisma.RoomUpdateWithoutBoostsInput, Prisma.RoomUncheckedUpdateWithoutBoostsInput>
+}
+
+export type RoomUpdateWithoutBoostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  roomCode?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deposit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  area?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  floor?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  electricPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  waterPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  internetFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  serviceFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  parkingFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumRoomStatusFieldUpdateOperationsInput | $Enums.RoomStatus
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  district?: Prisma.DistrictUpdateOneRequiredWithoutRoomsNestedInput
+  ward?: Prisma.WardUpdateOneRequiredWithoutRoomsNestedInput
+  building?: Prisma.BuildingUpdateOneRequiredWithoutRoomsNestedInput
+  creator?: Prisma.UserUpdateOneWithoutCreatedRoomsNestedInput
+  updater?: Prisma.UserUpdateOneWithoutUpdatedRoomsNestedInput
+  images?: Prisma.RoomImageUpdateManyWithoutRoomNestedInput
+  amenities?: Prisma.RoomAmenityUpdateManyWithoutRoomNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutRoomNestedInput
+  electricReadings?: Prisma.ElectricReadingUpdateManyWithoutRoomNestedInput
+  waterReadings?: Prisma.WaterReadingUpdateManyWithoutRoomNestedInput
+  utilitySettings?: Prisma.UtilitySettingUpdateManyWithoutRoomNestedInput
+  invoiceItems?: Prisma.InvoiceItemUpdateManyWithoutRoomNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutRoomNestedInput
+  recentlyViewed?: Prisma.RecentlyViewedUpdateManyWithoutRoomNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+}
+
+export type RoomUncheckedUpdateWithoutBoostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  roomCode?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  deposit?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  area?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  floor?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  capacity?: Prisma.IntFieldUpdateOperationsInput | number
+  electricPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  waterPrice?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  internetFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  serviceFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  parkingFee?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumRoomStatusFieldUpdateOperationsInput | $Enums.RoomStatus
+  latitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  longitude?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  address?: Prisma.StringFieldUpdateOperationsInput | string
+  districtId?: Prisma.StringFieldUpdateOperationsInput | string
+  wardId?: Prisma.StringFieldUpdateOperationsInput | string
+  buildingId?: Prisma.StringFieldUpdateOperationsInput | string
+  availableFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  updatedBy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  images?: Prisma.RoomImageUncheckedUpdateManyWithoutRoomNestedInput
+  amenities?: Prisma.RoomAmenityUncheckedUpdateManyWithoutRoomNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutRoomNestedInput
+  electricReadings?: Prisma.ElectricReadingUncheckedUpdateManyWithoutRoomNestedInput
+  waterReadings?: Prisma.WaterReadingUncheckedUpdateManyWithoutRoomNestedInput
+  utilitySettings?: Prisma.UtilitySettingUncheckedUpdateManyWithoutRoomNestedInput
+  invoiceItems?: Prisma.InvoiceItemUncheckedUpdateManyWithoutRoomNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutRoomNestedInput
+  recentlyViewed?: Prisma.RecentlyViewedUncheckedUpdateManyWithoutRoomNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomCreateManyCreatorInput = {
@@ -4313,6 +4580,7 @@ export type RoomUpdateWithoutCreatorInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutCreatorInput = {
@@ -4355,6 +4623,7 @@ export type RoomUncheckedUpdateWithoutCreatorInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateManyWithoutCreatorInput = {
@@ -4427,6 +4696,7 @@ export type RoomUpdateWithoutUpdaterInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutUpdaterInput = {
@@ -4469,6 +4739,7 @@ export type RoomUncheckedUpdateWithoutUpdaterInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateManyWithoutUpdaterInput = {
@@ -4571,6 +4842,7 @@ export type RoomUpdateWithoutDistrictInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutDistrictInput = {
@@ -4613,6 +4885,7 @@ export type RoomUncheckedUpdateWithoutDistrictInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateManyWithoutDistrictInput = {
@@ -4715,6 +4988,7 @@ export type RoomUpdateWithoutWardInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutWardInput = {
@@ -4757,6 +5031,7 @@ export type RoomUncheckedUpdateWithoutWardInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateManyWithoutWardInput = {
@@ -4859,6 +5134,7 @@ export type RoomUpdateWithoutBuildingInput = {
   appointments?: Prisma.AppointmentUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateWithoutBuildingInput = {
@@ -4901,6 +5177,7 @@ export type RoomUncheckedUpdateWithoutBuildingInput = {
   appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutRoomNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutRoomNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutRoomNestedInput
+  boosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutRoomNestedInput
 }
 
 export type RoomUncheckedUpdateManyWithoutBuildingInput = {
@@ -4951,6 +5228,7 @@ export type RoomCountOutputType = {
   appointments: number
   reviews: number
   reports: number
+  boosts: number
 }
 
 export type RoomCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4966,6 +5244,7 @@ export type RoomCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   appointments?: boolean | RoomCountOutputTypeCountAppointmentsArgs
   reviews?: boolean | RoomCountOutputTypeCountReviewsArgs
   reports?: boolean | RoomCountOutputTypeCountReportsArgs
+  boosts?: boolean | RoomCountOutputTypeCountBoostsArgs
 }
 
 /**
@@ -5062,6 +5341,13 @@ export type RoomCountOutputTypeCountReportsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.ReportWhereInput
 }
 
+/**
+ * RoomCountOutputType without action
+ */
+export type RoomCountOutputTypeCountBoostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RoomBoostWhereInput
+}
+
 
 export type RoomSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -5109,6 +5395,7 @@ export type RoomSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   appointments?: boolean | Prisma.Room$appointmentsArgs<ExtArgs>
   reviews?: boolean | Prisma.Room$reviewsArgs<ExtArgs>
   reports?: boolean | Prisma.Room$reportsArgs<ExtArgs>
+  boosts?: boolean | Prisma.Room$boostsArgs<ExtArgs>
   _count?: boolean | Prisma.RoomCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["room"]>
 
@@ -5234,6 +5521,7 @@ export type RoomInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   appointments?: boolean | Prisma.Room$appointmentsArgs<ExtArgs>
   reviews?: boolean | Prisma.Room$reviewsArgs<ExtArgs>
   reports?: boolean | Prisma.Room$reportsArgs<ExtArgs>
+  boosts?: boolean | Prisma.Room$boostsArgs<ExtArgs>
   _count?: boolean | Prisma.RoomCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type RoomIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5271,6 +5559,7 @@ export type $RoomPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     appointments: Prisma.$AppointmentPayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     reports: Prisma.$ReportPayload<ExtArgs>[]
+    boosts: Prisma.$RoomBoostPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -5712,6 +6001,7 @@ export interface Prisma__RoomClient<T, Null = never, ExtArgs extends runtime.Typ
   appointments<T extends Prisma.Room$appointmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.Room$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reports<T extends Prisma.Room$reportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  boosts<T extends Prisma.Room$boostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Room$boostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomBoostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6493,6 +6783,30 @@ export type Room$reportsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.ReportScalarFieldEnum | Prisma.ReportScalarFieldEnum[]
+}
+
+/**
+ * Room.boosts
+ */
+export type Room$boostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RoomBoost
+   */
+  select?: Prisma.RoomBoostSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RoomBoost
+   */
+  omit?: Prisma.RoomBoostOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomBoostInclude<ExtArgs> | null
+  where?: Prisma.RoomBoostWhereInput
+  orderBy?: Prisma.RoomBoostOrderByWithRelationInput | Prisma.RoomBoostOrderByWithRelationInput[]
+  cursor?: Prisma.RoomBoostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RoomBoostScalarFieldEnum | Prisma.RoomBoostScalarFieldEnum[]
 }
 
 /**

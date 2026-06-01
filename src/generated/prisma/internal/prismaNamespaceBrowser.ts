@@ -97,6 +97,11 @@ export const ModelName = {
   SupportTicket: 'SupportTicket',
   Plan: 'Plan',
   Subscription: 'Subscription',
+  RoomBoost: 'RoomBoost',
+  Wallet: 'Wallet',
+  WalletTransaction: 'WalletTransaction',
+  PaymentIntent: 'PaymentIntent',
+  BillingRecord: 'BillingRecord',
   SubscriptionInvoice: 'SubscriptionInvoice'
 } as const
 
@@ -817,9 +822,13 @@ export const PlanScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
+  description: 'description',
   price: 'price',
   durationDays: 'durationDays',
+  listingLimit: 'listingLimit',
+  displayOrder: 'displayOrder',
   features: 'features',
+  benefits: 'benefits',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -836,12 +845,101 @@ export const SubscriptionScalarFieldEnum = {
   status: 'status',
   startsAt: 'startsAt',
   endsAt: 'endsAt',
+  cancelledAt: 'cancelledAt',
+  metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
 } as const
 
 export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]
+
+
+export const RoomBoostScalarFieldEnum = {
+  id: 'id',
+  roomId: 'roomId',
+  userId: 'userId',
+  planId: 'planId',
+  type: 'type',
+  status: 'status',
+  priority: 'priority',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type RoomBoostScalarFieldEnum = (typeof RoomBoostScalarFieldEnum)[keyof typeof RoomBoostScalarFieldEnum]
+
+
+export const WalletScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  balance: 'balance',
+  lockedBalance: 'lockedBalance',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type WalletScalarFieldEnum = (typeof WalletScalarFieldEnum)[keyof typeof WalletScalarFieldEnum]
+
+
+export const WalletTransactionScalarFieldEnum = {
+  id: 'id',
+  walletId: 'walletId',
+  type: 'type',
+  status: 'status',
+  amount: 'amount',
+  balanceAfter: 'balanceAfter',
+  referenceType: 'referenceType',
+  referenceId: 'referenceId',
+  idempotencyKey: 'idempotencyKey',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type WalletTransactionScalarFieldEnum = (typeof WalletTransactionScalarFieldEnum)[keyof typeof WalletTransactionScalarFieldEnum]
+
+
+export const PaymentIntentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  paymentId: 'paymentId',
+  provider: 'provider',
+  status: 'status',
+  amount: 'amount',
+  currency: 'currency',
+  externalId: 'externalId',
+  idempotencyKey: 'idempotencyKey',
+  callbackVerifiedAt: 'callbackVerifiedAt',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentIntentScalarFieldEnum = (typeof PaymentIntentScalarFieldEnum)[keyof typeof PaymentIntentScalarFieldEnum]
+
+
+export const BillingRecordScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  userId: 'userId',
+  subscriptionId: 'subscriptionId',
+  roomBoostId: 'roomBoostId',
+  type: 'type',
+  status: 'status',
+  amount: 'amount',
+  paidAt: 'paidAt',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type BillingRecordScalarFieldEnum = (typeof BillingRecordScalarFieldEnum)[keyof typeof BillingRecordScalarFieldEnum]
 
 
 export const SubscriptionInvoiceScalarFieldEnum = {

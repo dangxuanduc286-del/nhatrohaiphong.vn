@@ -29,19 +29,26 @@ export type AggregatePlan = {
 export type PlanAvgAggregateOutputType = {
   price: runtime.Decimal | null
   durationDays: number | null
+  listingLimit: number | null
+  displayOrder: number | null
 }
 
 export type PlanSumAggregateOutputType = {
   price: runtime.Decimal | null
   durationDays: number | null
+  listingLimit: number | null
+  displayOrder: number | null
 }
 
 export type PlanMinAggregateOutputType = {
   id: string | null
   code: $Enums.PlanCode | null
   name: string | null
+  description: string | null
   price: runtime.Decimal | null
   durationDays: number | null
+  listingLimit: number | null
+  displayOrder: number | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -52,8 +59,11 @@ export type PlanMaxAggregateOutputType = {
   id: string | null
   code: $Enums.PlanCode | null
   name: string | null
+  description: string | null
   price: runtime.Decimal | null
   durationDays: number | null
+  listingLimit: number | null
+  displayOrder: number | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -64,9 +74,13 @@ export type PlanCountAggregateOutputType = {
   id: number
   code: number
   name: number
+  description: number
   price: number
   durationDays: number
+  listingLimit: number
+  displayOrder: number
   features: number
+  benefits: number
   isActive: number
   createdAt: number
   updatedAt: number
@@ -78,19 +92,26 @@ export type PlanCountAggregateOutputType = {
 export type PlanAvgAggregateInputType = {
   price?: true
   durationDays?: true
+  listingLimit?: true
+  displayOrder?: true
 }
 
 export type PlanSumAggregateInputType = {
   price?: true
   durationDays?: true
+  listingLimit?: true
+  displayOrder?: true
 }
 
 export type PlanMinAggregateInputType = {
   id?: true
   code?: true
   name?: true
+  description?: true
   price?: true
   durationDays?: true
+  listingLimit?: true
+  displayOrder?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -101,8 +122,11 @@ export type PlanMaxAggregateInputType = {
   id?: true
   code?: true
   name?: true
+  description?: true
   price?: true
   durationDays?: true
+  listingLimit?: true
+  displayOrder?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -113,9 +137,13 @@ export type PlanCountAggregateInputType = {
   id?: true
   code?: true
   name?: true
+  description?: true
   price?: true
   durationDays?: true
+  listingLimit?: true
+  displayOrder?: true
   features?: true
+  benefits?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -213,9 +241,13 @@ export type PlanGroupByOutputType = {
   id: string
   code: $Enums.PlanCode
   name: string
+  description: string | null
   price: runtime.Decimal
   durationDays: number
+  listingLimit: number
+  displayOrder: number
   features: runtime.JsonValue | null
+  benefits: runtime.JsonValue | null
   isActive: boolean
   createdAt: Date
   updatedAt: Date
@@ -249,28 +281,38 @@ export type PlanWhereInput = {
   id?: Prisma.StringFilter<"Plan"> | string
   code?: Prisma.EnumPlanCodeFilter<"Plan"> | $Enums.PlanCode
   name?: Prisma.StringFilter<"Plan"> | string
+  description?: Prisma.StringNullableFilter<"Plan"> | string | null
   price?: Prisma.DecimalFilter<"Plan"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays?: Prisma.IntFilter<"Plan"> | number
+  listingLimit?: Prisma.IntFilter<"Plan"> | number
+  displayOrder?: Prisma.IntFilter<"Plan"> | number
   features?: Prisma.JsonNullableFilter<"Plan">
+  benefits?: Prisma.JsonNullableFilter<"Plan">
   isActive?: Prisma.BoolFilter<"Plan"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Plan"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Plan"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Plan"> | Date | string | null
   subscriptions?: Prisma.SubscriptionListRelationFilter
+  roomBoosts?: Prisma.RoomBoostListRelationFilter
 }
 
 export type PlanOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   price?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  listingLimit?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   features?: Prisma.SortOrderInput | Prisma.SortOrder
+  benefits?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
+  roomBoosts?: Prisma.RoomBoostOrderByRelationAggregateInput
 }
 
 export type PlanWhereUniqueInput = Prisma.AtLeast<{
@@ -280,23 +322,32 @@ export type PlanWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.PlanWhereInput[]
   NOT?: Prisma.PlanWhereInput | Prisma.PlanWhereInput[]
   name?: Prisma.StringFilter<"Plan"> | string
+  description?: Prisma.StringNullableFilter<"Plan"> | string | null
   price?: Prisma.DecimalFilter<"Plan"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays?: Prisma.IntFilter<"Plan"> | number
+  listingLimit?: Prisma.IntFilter<"Plan"> | number
+  displayOrder?: Prisma.IntFilter<"Plan"> | number
   features?: Prisma.JsonNullableFilter<"Plan">
+  benefits?: Prisma.JsonNullableFilter<"Plan">
   isActive?: Prisma.BoolFilter<"Plan"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Plan"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Plan"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Plan"> | Date | string | null
   subscriptions?: Prisma.SubscriptionListRelationFilter
+  roomBoosts?: Prisma.RoomBoostListRelationFilter
 }, "id" | "code">
 
 export type PlanOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
   price?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  listingLimit?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   features?: Prisma.SortOrderInput | Prisma.SortOrder
+  benefits?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -315,9 +366,13 @@ export type PlanScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Plan"> | string
   code?: Prisma.EnumPlanCodeWithAggregatesFilter<"Plan"> | $Enums.PlanCode
   name?: Prisma.StringWithAggregatesFilter<"Plan"> | string
+  description?: Prisma.StringNullableWithAggregatesFilter<"Plan"> | string | null
   price?: Prisma.DecimalWithAggregatesFilter<"Plan"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays?: Prisma.IntWithAggregatesFilter<"Plan"> | number
+  listingLimit?: Prisma.IntWithAggregatesFilter<"Plan"> | number
+  displayOrder?: Prisma.IntWithAggregatesFilter<"Plan"> | number
   features?: Prisma.JsonNullableWithAggregatesFilter<"Plan">
+  benefits?: Prisma.JsonNullableWithAggregatesFilter<"Plan">
   isActive?: Prisma.BoolWithAggregatesFilter<"Plan"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Plan"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Plan"> | Date | string
@@ -328,65 +383,89 @@ export type PlanCreateInput = {
   id?: string
   code: $Enums.PlanCode
   name: string
+  description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays: number
+  listingLimit?: number
+  displayOrder?: number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutPlanInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutPlanInput
 }
 
 export type PlanUncheckedCreateInput = {
   id?: string
   code: $Enums.PlanCode
   name: string
+  description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays: number
+  listingLimit?: number
+  displayOrder?: number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutPlanInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutPlanInput
 }
 
 export type PlanUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumPlanCodeFieldUpdateOperationsInput | $Enums.PlanCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  listingLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutPlanNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutPlanNestedInput
 }
 
 export type PlanUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumPlanCodeFieldUpdateOperationsInput | $Enums.PlanCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  listingLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutPlanNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutPlanNestedInput
 }
 
 export type PlanCreateManyInput = {
   id?: string
   code: $Enums.PlanCode
   name: string
+  description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays: number
+  listingLimit?: number
+  displayOrder?: number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -397,9 +476,13 @@ export type PlanUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumPlanCodeFieldUpdateOperationsInput | $Enums.PlanCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  listingLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -410,9 +493,13 @@ export type PlanUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumPlanCodeFieldUpdateOperationsInput | $Enums.PlanCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  listingLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -423,9 +510,13 @@ export type PlanCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   price?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  listingLimit?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   features?: Prisma.SortOrder
+  benefits?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -435,14 +526,19 @@ export type PlanCountOrderByAggregateInput = {
 export type PlanAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  listingLimit?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
 }
 
 export type PlanMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   price?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  listingLimit?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -453,8 +549,11 @@ export type PlanMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   price?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  listingLimit?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -464,11 +563,18 @@ export type PlanMinOrderByAggregateInput = {
 export type PlanSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
   durationDays?: Prisma.SortOrder
+  listingLimit?: Prisma.SortOrder
+  displayOrder?: Prisma.SortOrder
 }
 
 export type PlanScalarRelationFilter = {
   is?: Prisma.PlanWhereInput
   isNot?: Prisma.PlanWhereInput
+}
+
+export type PlanNullableScalarRelationFilter = {
+  is?: Prisma.PlanWhereInput | null
+  isNot?: Prisma.PlanWhereInput | null
 }
 
 export type EnumPlanCodeFieldUpdateOperationsInput = {
@@ -489,30 +595,56 @@ export type PlanUpdateOneRequiredWithoutSubscriptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.PlanUpdateToOneWithWhereWithoutSubscriptionsInput, Prisma.PlanUpdateWithoutSubscriptionsInput>, Prisma.PlanUncheckedUpdateWithoutSubscriptionsInput>
 }
 
+export type PlanCreateNestedOneWithoutRoomBoostsInput = {
+  create?: Prisma.XOR<Prisma.PlanCreateWithoutRoomBoostsInput, Prisma.PlanUncheckedCreateWithoutRoomBoostsInput>
+  connectOrCreate?: Prisma.PlanCreateOrConnectWithoutRoomBoostsInput
+  connect?: Prisma.PlanWhereUniqueInput
+}
+
+export type PlanUpdateOneWithoutRoomBoostsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlanCreateWithoutRoomBoostsInput, Prisma.PlanUncheckedCreateWithoutRoomBoostsInput>
+  connectOrCreate?: Prisma.PlanCreateOrConnectWithoutRoomBoostsInput
+  upsert?: Prisma.PlanUpsertWithoutRoomBoostsInput
+  disconnect?: Prisma.PlanWhereInput | boolean
+  delete?: Prisma.PlanWhereInput | boolean
+  connect?: Prisma.PlanWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlanUpdateToOneWithWhereWithoutRoomBoostsInput, Prisma.PlanUpdateWithoutRoomBoostsInput>, Prisma.PlanUncheckedUpdateWithoutRoomBoostsInput>
+}
+
 export type PlanCreateWithoutSubscriptionsInput = {
   id?: string
   code: $Enums.PlanCode
   name: string
+  description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays: number
+  listingLimit?: number
+  displayOrder?: number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutPlanInput
 }
 
 export type PlanUncheckedCreateWithoutSubscriptionsInput = {
   id?: string
   code: $Enums.PlanCode
   name: string
+  description?: string | null
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays: number
+  listingLimit?: number
+  displayOrder?: number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutPlanInput
 }
 
 export type PlanCreateOrConnectWithoutSubscriptionsInput = {
@@ -535,26 +667,124 @@ export type PlanUpdateWithoutSubscriptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumPlanCodeFieldUpdateOperationsInput | $Enums.PlanCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  listingLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutPlanNestedInput
 }
 
 export type PlanUncheckedUpdateWithoutSubscriptionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumPlanCodeFieldUpdateOperationsInput | $Enums.PlanCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  listingLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
   features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutPlanNestedInput
+}
+
+export type PlanCreateWithoutRoomBoostsInput = {
+  id?: string
+  code: $Enums.PlanCode
+  name: string
+  description?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  durationDays: number
+  listingLimit?: number
+  displayOrder?: number
+  features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutPlanInput
+}
+
+export type PlanUncheckedCreateWithoutRoomBoostsInput = {
+  id?: string
+  code: $Enums.PlanCode
+  name: string
+  description?: string | null
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  durationDays: number
+  listingLimit?: number
+  displayOrder?: number
+  features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutPlanInput
+}
+
+export type PlanCreateOrConnectWithoutRoomBoostsInput = {
+  where: Prisma.PlanWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlanCreateWithoutRoomBoostsInput, Prisma.PlanUncheckedCreateWithoutRoomBoostsInput>
+}
+
+export type PlanUpsertWithoutRoomBoostsInput = {
+  update: Prisma.XOR<Prisma.PlanUpdateWithoutRoomBoostsInput, Prisma.PlanUncheckedUpdateWithoutRoomBoostsInput>
+  create: Prisma.XOR<Prisma.PlanCreateWithoutRoomBoostsInput, Prisma.PlanUncheckedCreateWithoutRoomBoostsInput>
+  where?: Prisma.PlanWhereInput
+}
+
+export type PlanUpdateToOneWithWhereWithoutRoomBoostsInput = {
+  where?: Prisma.PlanWhereInput
+  data: Prisma.XOR<Prisma.PlanUpdateWithoutRoomBoostsInput, Prisma.PlanUncheckedUpdateWithoutRoomBoostsInput>
+}
+
+export type PlanUpdateWithoutRoomBoostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.EnumPlanCodeFieldUpdateOperationsInput | $Enums.PlanCode
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  listingLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutPlanNestedInput
+}
+
+export type PlanUncheckedUpdateWithoutRoomBoostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.EnumPlanCodeFieldUpdateOperationsInput | $Enums.PlanCode
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  durationDays?: Prisma.IntFieldUpdateOperationsInput | number
+  listingLimit?: Prisma.IntFieldUpdateOperationsInput | number
+  displayOrder?: Prisma.IntFieldUpdateOperationsInput | number
+  features?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  benefits?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutPlanNestedInput
 }
 
 
@@ -564,10 +794,12 @@ export type PlanUncheckedUpdateWithoutSubscriptionsInput = {
 
 export type PlanCountOutputType = {
   subscriptions: number
+  roomBoosts: number
 }
 
 export type PlanCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscriptions?: boolean | PlanCountOutputTypeCountSubscriptionsArgs
+  roomBoosts?: boolean | PlanCountOutputTypeCountRoomBoostsArgs
 }
 
 /**
@@ -587,19 +819,31 @@ export type PlanCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.SubscriptionWhereInput
 }
 
+/**
+ * PlanCountOutputType without action
+ */
+export type PlanCountOutputTypeCountRoomBoostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RoomBoostWhereInput
+}
+
 
 export type PlanSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   code?: boolean
   name?: boolean
+  description?: boolean
   price?: boolean
   durationDays?: boolean
+  listingLimit?: boolean
+  displayOrder?: boolean
   features?: boolean
+  benefits?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   subscriptions?: boolean | Prisma.Plan$subscriptionsArgs<ExtArgs>
+  roomBoosts?: boolean | Prisma.Plan$roomBoostsArgs<ExtArgs>
   _count?: boolean | Prisma.PlanCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["plan"]>
 
@@ -607,9 +851,13 @@ export type PlanSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   code?: boolean
   name?: boolean
+  description?: boolean
   price?: boolean
   durationDays?: boolean
+  listingLimit?: boolean
+  displayOrder?: boolean
   features?: boolean
+  benefits?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -620,9 +868,13 @@ export type PlanSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   id?: boolean
   code?: boolean
   name?: boolean
+  description?: boolean
   price?: boolean
   durationDays?: boolean
+  listingLimit?: boolean
+  displayOrder?: boolean
   features?: boolean
+  benefits?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -633,18 +885,23 @@ export type PlanSelectScalar = {
   id?: boolean
   code?: boolean
   name?: boolean
+  description?: boolean
   price?: boolean
   durationDays?: boolean
+  listingLimit?: boolean
+  displayOrder?: boolean
   features?: boolean
+  benefits?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type PlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "price" | "durationDays" | "features" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["plan"]>
+export type PlanOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "price" | "durationDays" | "listingLimit" | "displayOrder" | "features" | "benefits" | "isActive" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["plan"]>
 export type PlanInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   subscriptions?: boolean | Prisma.Plan$subscriptionsArgs<ExtArgs>
+  roomBoosts?: boolean | Prisma.Plan$roomBoostsArgs<ExtArgs>
   _count?: boolean | Prisma.PlanCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PlanIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -654,14 +911,19 @@ export type $PlanPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Plan"
   objects: {
     subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
+    roomBoosts: Prisma.$RoomBoostPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     code: $Enums.PlanCode
     name: string
+    description: string | null
     price: runtime.Decimal
     durationDays: number
+    listingLimit: number
+    displayOrder: number
     features: runtime.JsonValue | null
+    benefits: runtime.JsonValue | null
     isActive: boolean
     createdAt: Date
     updatedAt: Date
@@ -1061,6 +1323,7 @@ readonly fields: PlanFieldRefs;
 export interface Prisma__PlanClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   subscriptions<T extends Prisma.Plan$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Plan$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  roomBoosts<T extends Prisma.Plan$roomBoostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Plan$roomBoostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomBoostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1093,9 +1356,13 @@ export interface PlanFieldRefs {
   readonly id: Prisma.FieldRef<"Plan", 'String'>
   readonly code: Prisma.FieldRef<"Plan", 'PlanCode'>
   readonly name: Prisma.FieldRef<"Plan", 'String'>
+  readonly description: Prisma.FieldRef<"Plan", 'String'>
   readonly price: Prisma.FieldRef<"Plan", 'Decimal'>
   readonly durationDays: Prisma.FieldRef<"Plan", 'Int'>
+  readonly listingLimit: Prisma.FieldRef<"Plan", 'Int'>
+  readonly displayOrder: Prisma.FieldRef<"Plan", 'Int'>
   readonly features: Prisma.FieldRef<"Plan", 'Json'>
+  readonly benefits: Prisma.FieldRef<"Plan", 'Json'>
   readonly isActive: Prisma.FieldRef<"Plan", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Plan", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Plan", 'DateTime'>
@@ -1514,6 +1781,30 @@ export type Plan$subscriptionsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.SubscriptionScalarFieldEnum | Prisma.SubscriptionScalarFieldEnum[]
+}
+
+/**
+ * Plan.roomBoosts
+ */
+export type Plan$roomBoostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RoomBoost
+   */
+  select?: Prisma.RoomBoostSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RoomBoost
+   */
+  omit?: Prisma.RoomBoostOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomBoostInclude<ExtArgs> | null
+  where?: Prisma.RoomBoostWhereInput
+  orderBy?: Prisma.RoomBoostOrderByWithRelationInput | Prisma.RoomBoostOrderByWithRelationInput[]
+  cursor?: Prisma.RoomBoostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RoomBoostScalarFieldEnum | Prisma.RoomBoostScalarFieldEnum[]
 }
 
 /**

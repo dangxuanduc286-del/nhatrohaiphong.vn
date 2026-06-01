@@ -248,6 +248,31 @@ export type Plan = Prisma.PlanModel
  */
 export type Subscription = Prisma.SubscriptionModel
 /**
+ * Model RoomBoost
+ * 
+ */
+export type RoomBoost = Prisma.RoomBoostModel
+/**
+ * Model Wallet
+ * 
+ */
+export type Wallet = Prisma.WalletModel
+/**
+ * Model WalletTransaction
+ * 
+ */
+export type WalletTransaction = Prisma.WalletTransactionModel
+/**
+ * Model PaymentIntent
+ * 
+ */
+export type PaymentIntent = Prisma.PaymentIntentModel
+/**
+ * Model BillingRecord
+ * 
+ */
+export type BillingRecord = Prisma.BillingRecordModel
+/**
  * Model SubscriptionInvoice
  * 
  */

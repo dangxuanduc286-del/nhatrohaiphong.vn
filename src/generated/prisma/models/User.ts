@@ -300,6 +300,10 @@ export type UserWhereInput = {
   reports?: Prisma.ReportListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
+  wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
+  roomBoosts?: Prisma.RoomBoostListRelationFilter
+  billingRecords?: Prisma.BillingRecordListRelationFilter
+  paymentIntents?: Prisma.PaymentIntentListRelationFilter
   supportTickets?: Prisma.SupportTicketListRelationFilter
   sessions?: Prisma.UserSessionListRelationFilter
   emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter
@@ -333,6 +337,10 @@ export type UserOrderByWithRelationInput = {
   reports?: Prisma.ReportOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
+  wallet?: Prisma.WalletOrderByWithRelationInput
+  roomBoosts?: Prisma.RoomBoostOrderByRelationAggregateInput
+  billingRecords?: Prisma.BillingRecordOrderByRelationAggregateInput
+  paymentIntents?: Prisma.PaymentIntentOrderByRelationAggregateInput
   supportTickets?: Prisma.SupportTicketOrderByRelationAggregateInput
   sessions?: Prisma.UserSessionOrderByRelationAggregateInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenOrderByRelationAggregateInput
@@ -369,6 +377,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reports?: Prisma.ReportListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
+  wallet?: Prisma.XOR<Prisma.WalletNullableScalarRelationFilter, Prisma.WalletWhereInput> | null
+  roomBoosts?: Prisma.RoomBoostListRelationFilter
+  billingRecords?: Prisma.BillingRecordListRelationFilter
+  paymentIntents?: Prisma.PaymentIntentListRelationFilter
   supportTickets?: Prisma.SupportTicketListRelationFilter
   sessions?: Prisma.UserSessionListRelationFilter
   emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter
@@ -444,6 +456,10 @@ export type UserCreateInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -477,6 +493,10 @@ export type UserUncheckedCreateInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -510,6 +530,10 @@ export type UserUpdateInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -543,6 +567,10 @@ export type UserUncheckedUpdateInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -931,6 +959,62 @@ export type UserUpdateOneRequiredWithoutSubscriptionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSubscriptionsInput, Prisma.UserUpdateWithoutSubscriptionsInput>, Prisma.UserUncheckedUpdateWithoutSubscriptionsInput>
 }
 
+export type UserCreateNestedOneWithoutRoomBoostsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRoomBoostsInput, Prisma.UserUncheckedCreateWithoutRoomBoostsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRoomBoostsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutRoomBoostsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutRoomBoostsInput, Prisma.UserUncheckedCreateWithoutRoomBoostsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutRoomBoostsInput
+  upsert?: Prisma.UserUpsertWithoutRoomBoostsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRoomBoostsInput, Prisma.UserUpdateWithoutRoomBoostsInput>, Prisma.UserUncheckedUpdateWithoutRoomBoostsInput>
+}
+
+export type UserCreateNestedOneWithoutWalletInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWalletInput, Prisma.UserUncheckedCreateWithoutWalletInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWalletInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWalletNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWalletInput, Prisma.UserUncheckedCreateWithoutWalletInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWalletInput
+  upsert?: Prisma.UserUpsertWithoutWalletInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWalletInput, Prisma.UserUpdateWithoutWalletInput>, Prisma.UserUncheckedUpdateWithoutWalletInput>
+}
+
+export type UserCreateNestedOneWithoutPaymentIntentsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentIntentsInput, Prisma.UserUncheckedCreateWithoutPaymentIntentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentIntentsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPaymentIntentsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentIntentsInput, Prisma.UserUncheckedCreateWithoutPaymentIntentsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentIntentsInput
+  upsert?: Prisma.UserUpsertWithoutPaymentIntentsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentIntentsInput, Prisma.UserUpdateWithoutPaymentIntentsInput>, Prisma.UserUncheckedUpdateWithoutPaymentIntentsInput>
+}
+
+export type UserCreateNestedOneWithoutBillingRecordsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBillingRecordsInput, Prisma.UserUncheckedCreateWithoutBillingRecordsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBillingRecordsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBillingRecordsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBillingRecordsInput, Prisma.UserUncheckedCreateWithoutBillingRecordsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBillingRecordsInput
+  upsert?: Prisma.UserUpsertWithoutBillingRecordsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBillingRecordsInput, Prisma.UserUpdateWithoutBillingRecordsInput>, Prisma.UserUncheckedUpdateWithoutBillingRecordsInput>
+}
+
 export type UserCreateWithoutRolesInput = {
   id?: string
   email: string
@@ -957,6 +1041,10 @@ export type UserCreateWithoutRolesInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -989,6 +1077,10 @@ export type UserUncheckedCreateWithoutRolesInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -1037,6 +1129,10 @@ export type UserUpdateWithoutRolesInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -1069,6 +1165,10 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -1102,6 +1202,10 @@ export type UserCreateWithoutSessionsInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -1134,6 +1238,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -1182,6 +1290,10 @@ export type UserUpdateWithoutSessionsInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -1214,6 +1326,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -1246,6 +1362,10 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -1278,6 +1398,10 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -1326,6 +1450,10 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -1358,6 +1486,10 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -1390,6 +1522,10 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -1422,6 +1558,10 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -1470,6 +1610,10 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -1502,6 +1646,10 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -1533,6 +1681,10 @@ export type UserCreateWithoutAuditLogsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -1565,6 +1717,10 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -1613,6 +1769,10 @@ export type UserUpdateWithoutAuditLogsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -1645,6 +1805,10 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -1677,6 +1841,10 @@ export type UserCreateWithoutPropertiesInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -1709,6 +1877,10 @@ export type UserUncheckedCreateWithoutPropertiesInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -1757,6 +1929,10 @@ export type UserUpdateWithoutPropertiesInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -1789,6 +1965,10 @@ export type UserUncheckedUpdateWithoutPropertiesInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -1821,6 +2001,10 @@ export type UserCreateWithoutCreatedRoomsInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -1853,6 +2037,10 @@ export type UserUncheckedCreateWithoutCreatedRoomsInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -1890,6 +2078,10 @@ export type UserCreateWithoutUpdatedRoomsInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -1922,6 +2114,10 @@ export type UserUncheckedCreateWithoutUpdatedRoomsInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -1970,6 +2166,10 @@ export type UserUpdateWithoutCreatedRoomsInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -2002,6 +2202,10 @@ export type UserUncheckedUpdateWithoutCreatedRoomsInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2045,6 +2249,10 @@ export type UserUpdateWithoutUpdatedRoomsInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -2077,6 +2285,10 @@ export type UserUncheckedUpdateWithoutUpdatedRoomsInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2109,6 +2321,10 @@ export type UserCreateWithoutTenantsInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -2141,6 +2357,10 @@ export type UserUncheckedCreateWithoutTenantsInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2189,6 +2409,10 @@ export type UserUpdateWithoutTenantsInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -2221,6 +2445,10 @@ export type UserUncheckedUpdateWithoutTenantsInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2253,6 +2481,10 @@ export type UserCreateWithoutFavoritesInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -2285,6 +2517,10 @@ export type UserUncheckedCreateWithoutFavoritesInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2333,6 +2569,10 @@ export type UserUpdateWithoutFavoritesInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -2365,6 +2605,10 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2397,6 +2641,10 @@ export type UserCreateWithoutRecentlyViewedInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -2429,6 +2677,10 @@ export type UserUncheckedCreateWithoutRecentlyViewedInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2477,6 +2729,10 @@ export type UserUpdateWithoutRecentlyViewedInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -2509,6 +2765,10 @@ export type UserUncheckedUpdateWithoutRecentlyViewedInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2541,6 +2801,10 @@ export type UserCreateWithoutAppointmentsInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -2573,6 +2837,10 @@ export type UserUncheckedCreateWithoutAppointmentsInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2621,6 +2889,10 @@ export type UserUpdateWithoutAppointmentsInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -2653,6 +2925,10 @@ export type UserUncheckedUpdateWithoutAppointmentsInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2685,6 +2961,10 @@ export type UserCreateWithoutReviewsInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -2717,6 +2997,10 @@ export type UserUncheckedCreateWithoutReviewsInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2765,6 +3049,10 @@ export type UserUpdateWithoutReviewsInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -2797,6 +3085,10 @@ export type UserUncheckedUpdateWithoutReviewsInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2829,6 +3121,10 @@ export type UserCreateWithoutReportsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -2861,6 +3157,10 @@ export type UserUncheckedCreateWithoutReportsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -2909,6 +3209,10 @@ export type UserUpdateWithoutReportsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -2941,6 +3245,10 @@ export type UserUncheckedUpdateWithoutReportsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -2974,6 +3282,10 @@ export type UserCreateWithoutSupportTicketsInput = {
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
@@ -3006,6 +3318,10 @@ export type UserUncheckedCreateWithoutSupportTicketsInput = {
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3054,6 +3370,10 @@ export type UserUpdateWithoutSupportTicketsInput = {
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
@@ -3086,6 +3406,10 @@ export type UserUncheckedUpdateWithoutSupportTicketsInput = {
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -3117,6 +3441,10 @@ export type UserCreateWithoutSubscriptionsInput = {
   reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
   reports?: Prisma.ReportCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
@@ -3149,6 +3477,10 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
   reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
   supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
@@ -3197,6 +3529,10 @@ export type UserUpdateWithoutSubscriptionsInput = {
   reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
   reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
@@ -3229,6 +3565,650 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
   reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutRoomBoostsInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  fullName: string
+  avatarUrl?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutOwnerInput
+  tenants?: Prisma.TenantCreateNestedManyWithoutUserInput
+  createdRooms?: Prisma.RoomCreateNestedManyWithoutCreatorInput
+  updatedRooms?: Prisma.RoomCreateNestedManyWithoutUpdaterInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  recentlyViewed?: Prisma.RecentlyViewedCreateNestedManyWithoutUserInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  reports?: Prisma.ReportCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutRoomBoostsInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  fullName: string
+  avatarUrl?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutOwnerInput
+  tenants?: Prisma.TenantUncheckedCreateNestedManyWithoutUserInput
+  createdRooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCreatorInput
+  updatedRooms?: Prisma.RoomUncheckedCreateNestedManyWithoutUpdaterInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  recentlyViewed?: Prisma.RecentlyViewedUncheckedCreateNestedManyWithoutUserInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutRoomBoostsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutRoomBoostsInput, Prisma.UserUncheckedCreateWithoutRoomBoostsInput>
+}
+
+export type UserUpsertWithoutRoomBoostsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutRoomBoostsInput, Prisma.UserUncheckedUpdateWithoutRoomBoostsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutRoomBoostsInput, Prisma.UserUncheckedCreateWithoutRoomBoostsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutRoomBoostsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutRoomBoostsInput, Prisma.UserUncheckedUpdateWithoutRoomBoostsInput>
+}
+
+export type UserUpdateWithoutRoomBoostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutOwnerNestedInput
+  tenants?: Prisma.TenantUpdateManyWithoutUserNestedInput
+  createdRooms?: Prisma.RoomUpdateManyWithoutCreatorNestedInput
+  updatedRooms?: Prisma.RoomUpdateManyWithoutUpdaterNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  recentlyViewed?: Prisma.RecentlyViewedUpdateManyWithoutUserNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutRoomBoostsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutOwnerNestedInput
+  tenants?: Prisma.TenantUncheckedUpdateManyWithoutUserNestedInput
+  createdRooms?: Prisma.RoomUncheckedUpdateManyWithoutCreatorNestedInput
+  updatedRooms?: Prisma.RoomUncheckedUpdateManyWithoutUpdaterNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  recentlyViewed?: Prisma.RecentlyViewedUncheckedUpdateManyWithoutUserNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutWalletInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  fullName: string
+  avatarUrl?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutOwnerInput
+  tenants?: Prisma.TenantCreateNestedManyWithoutUserInput
+  createdRooms?: Prisma.RoomCreateNestedManyWithoutCreatorInput
+  updatedRooms?: Prisma.RoomCreateNestedManyWithoutUpdaterInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  recentlyViewed?: Prisma.RecentlyViewedCreateNestedManyWithoutUserInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  reports?: Prisma.ReportCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutWalletInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  fullName: string
+  avatarUrl?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutOwnerInput
+  tenants?: Prisma.TenantUncheckedCreateNestedManyWithoutUserInput
+  createdRooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCreatorInput
+  updatedRooms?: Prisma.RoomUncheckedCreateNestedManyWithoutUpdaterInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  recentlyViewed?: Prisma.RecentlyViewedUncheckedCreateNestedManyWithoutUserInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutWalletInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWalletInput, Prisma.UserUncheckedCreateWithoutWalletInput>
+}
+
+export type UserUpsertWithoutWalletInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWalletInput, Prisma.UserUncheckedUpdateWithoutWalletInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWalletInput, Prisma.UserUncheckedCreateWithoutWalletInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWalletInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWalletInput, Prisma.UserUncheckedUpdateWithoutWalletInput>
+}
+
+export type UserUpdateWithoutWalletInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutOwnerNestedInput
+  tenants?: Prisma.TenantUpdateManyWithoutUserNestedInput
+  createdRooms?: Prisma.RoomUpdateManyWithoutCreatorNestedInput
+  updatedRooms?: Prisma.RoomUpdateManyWithoutUpdaterNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  recentlyViewed?: Prisma.RecentlyViewedUpdateManyWithoutUserNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWalletInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutOwnerNestedInput
+  tenants?: Prisma.TenantUncheckedUpdateManyWithoutUserNestedInput
+  createdRooms?: Prisma.RoomUncheckedUpdateManyWithoutCreatorNestedInput
+  updatedRooms?: Prisma.RoomUncheckedUpdateManyWithoutUpdaterNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  recentlyViewed?: Prisma.RecentlyViewedUncheckedUpdateManyWithoutUserNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPaymentIntentsInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  fullName: string
+  avatarUrl?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutOwnerInput
+  tenants?: Prisma.TenantCreateNestedManyWithoutUserInput
+  createdRooms?: Prisma.RoomCreateNestedManyWithoutCreatorInput
+  updatedRooms?: Prisma.RoomCreateNestedManyWithoutUpdaterInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  recentlyViewed?: Prisma.RecentlyViewedCreateNestedManyWithoutUserInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  reports?: Prisma.ReportCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordCreateNestedManyWithoutUserInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPaymentIntentsInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  fullName: string
+  avatarUrl?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutOwnerInput
+  tenants?: Prisma.TenantUncheckedCreateNestedManyWithoutUserInput
+  createdRooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCreatorInput
+  updatedRooms?: Prisma.RoomUncheckedCreateNestedManyWithoutUpdaterInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  recentlyViewed?: Prisma.RecentlyViewedUncheckedCreateNestedManyWithoutUserInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  billingRecords?: Prisma.BillingRecordUncheckedCreateNestedManyWithoutUserInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPaymentIntentsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentIntentsInput, Prisma.UserUncheckedCreateWithoutPaymentIntentsInput>
+}
+
+export type UserUpsertWithoutPaymentIntentsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPaymentIntentsInput, Prisma.UserUncheckedUpdateWithoutPaymentIntentsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentIntentsInput, Prisma.UserUncheckedCreateWithoutPaymentIntentsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPaymentIntentsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPaymentIntentsInput, Prisma.UserUncheckedUpdateWithoutPaymentIntentsInput>
+}
+
+export type UserUpdateWithoutPaymentIntentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutOwnerNestedInput
+  tenants?: Prisma.TenantUpdateManyWithoutUserNestedInput
+  createdRooms?: Prisma.RoomUpdateManyWithoutCreatorNestedInput
+  updatedRooms?: Prisma.RoomUpdateManyWithoutUpdaterNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  recentlyViewed?: Prisma.RecentlyViewedUpdateManyWithoutUserNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUpdateManyWithoutUserNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPaymentIntentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutOwnerNestedInput
+  tenants?: Prisma.TenantUncheckedUpdateManyWithoutUserNestedInput
+  createdRooms?: Prisma.RoomUncheckedUpdateManyWithoutCreatorNestedInput
+  updatedRooms?: Prisma.RoomUncheckedUpdateManyWithoutUpdaterNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  recentlyViewed?: Prisma.RecentlyViewedUncheckedUpdateManyWithoutUserNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  billingRecords?: Prisma.BillingRecordUncheckedUpdateManyWithoutUserNestedInput
+  supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutBillingRecordsInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  fullName: string
+  avatarUrl?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.UserRoleCreateNestedManyWithoutUserInput
+  properties?: Prisma.PropertyCreateNestedManyWithoutOwnerInput
+  tenants?: Prisma.TenantCreateNestedManyWithoutUserInput
+  createdRooms?: Prisma.RoomCreateNestedManyWithoutCreatorInput
+  updatedRooms?: Prisma.RoomCreateNestedManyWithoutUpdaterInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  recentlyViewed?: Prisma.RecentlyViewedCreateNestedManyWithoutUserInput
+  appointments?: Prisma.AppointmentCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutUserInput
+  reports?: Prisma.ReportCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentCreateNestedManyWithoutUserInput
+  supportTickets?: Prisma.SupportTicketCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBillingRecordsInput = {
+  id?: string
+  email: string
+  phone?: string | null
+  passwordHash?: string | null
+  fullName: string
+  avatarUrl?: string | null
+  status?: $Enums.UserStatus
+  lastLoginAt?: Date | string | null
+  failedLoginCount?: number
+  lockedUntil?: Date | string | null
+  emailVerifiedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  roles?: Prisma.UserRoleUncheckedCreateNestedManyWithoutUserInput
+  properties?: Prisma.PropertyUncheckedCreateNestedManyWithoutOwnerInput
+  tenants?: Prisma.TenantUncheckedCreateNestedManyWithoutUserInput
+  createdRooms?: Prisma.RoomUncheckedCreateNestedManyWithoutCreatorInput
+  updatedRooms?: Prisma.RoomUncheckedCreateNestedManyWithoutUpdaterInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  recentlyViewed?: Prisma.RecentlyViewedUncheckedCreateNestedManyWithoutUserInput
+  appointments?: Prisma.AppointmentUncheckedCreateNestedManyWithoutUserInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutUserInput
+  reports?: Prisma.ReportUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutUserInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  wallet?: Prisma.WalletUncheckedCreateNestedOneWithoutUserInput
+  roomBoosts?: Prisma.RoomBoostUncheckedCreateNestedManyWithoutUserInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedCreateNestedManyWithoutUserInput
+  supportTickets?: Prisma.SupportTicketUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.UserSessionUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBillingRecordsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBillingRecordsInput, Prisma.UserUncheckedCreateWithoutBillingRecordsInput>
+}
+
+export type UserUpsertWithoutBillingRecordsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBillingRecordsInput, Prisma.UserUncheckedUpdateWithoutBillingRecordsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBillingRecordsInput, Prisma.UserUncheckedCreateWithoutBillingRecordsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBillingRecordsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBillingRecordsInput, Prisma.UserUncheckedUpdateWithoutBillingRecordsInput>
+}
+
+export type UserUpdateWithoutBillingRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.UserRoleUpdateManyWithoutUserNestedInput
+  properties?: Prisma.PropertyUpdateManyWithoutOwnerNestedInput
+  tenants?: Prisma.TenantUpdateManyWithoutUserNestedInput
+  createdRooms?: Prisma.RoomUpdateManyWithoutCreatorNestedInput
+  updatedRooms?: Prisma.RoomUpdateManyWithoutUpdaterNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  recentlyViewed?: Prisma.RecentlyViewedUpdateManyWithoutUserNestedInput
+  appointments?: Prisma.AppointmentUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutUserNestedInput
+  reports?: Prisma.ReportUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUpdateManyWithoutUserNestedInput
+  supportTickets?: Prisma.SupportTicketUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.UserSessionUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBillingRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fullName?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  failedLoginCount?: Prisma.IntFieldUpdateOperationsInput | number
+  lockedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  roles?: Prisma.UserRoleUncheckedUpdateManyWithoutUserNestedInput
+  properties?: Prisma.PropertyUncheckedUpdateManyWithoutOwnerNestedInput
+  tenants?: Prisma.TenantUncheckedUpdateManyWithoutUserNestedInput
+  createdRooms?: Prisma.RoomUncheckedUpdateManyWithoutCreatorNestedInput
+  updatedRooms?: Prisma.RoomUncheckedUpdateManyWithoutUpdaterNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  recentlyViewed?: Prisma.RecentlyViewedUncheckedUpdateManyWithoutUserNestedInput
+  appointments?: Prisma.AppointmentUncheckedUpdateManyWithoutUserNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutUserNestedInput
+  reports?: Prisma.ReportUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutUserNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  wallet?: Prisma.WalletUncheckedUpdateOneWithoutUserNestedInput
+  roomBoosts?: Prisma.RoomBoostUncheckedUpdateManyWithoutUserNestedInput
+  paymentIntents?: Prisma.PaymentIntentUncheckedUpdateManyWithoutUserNestedInput
   supportTickets?: Prisma.SupportTicketUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.UserSessionUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -3253,6 +4233,9 @@ export type UserCountOutputType = {
   reports: number
   auditLogs: number
   subscriptions: number
+  roomBoosts: number
+  billingRecords: number
+  paymentIntents: number
   supportTickets: number
   sessions: number
   emailVerificationTokens: number
@@ -3272,6 +4255,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reports?: boolean | UserCountOutputTypeCountReportsArgs
   auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
   subscriptions?: boolean | UserCountOutputTypeCountSubscriptionsArgs
+  roomBoosts?: boolean | UserCountOutputTypeCountRoomBoostsArgs
+  billingRecords?: boolean | UserCountOutputTypeCountBillingRecordsArgs
+  paymentIntents?: boolean | UserCountOutputTypeCountPaymentIntentsArgs
   supportTickets?: boolean | UserCountOutputTypeCountSupportTicketsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   emailVerificationTokens?: boolean | UserCountOutputTypeCountEmailVerificationTokensArgs
@@ -3375,6 +4361,27 @@ export type UserCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runtime.Ty
 /**
  * UserCountOutputType without action
  */
+export type UserCountOutputTypeCountRoomBoostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RoomBoostWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBillingRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BillingRecordWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPaymentIntentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentIntentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
 export type UserCountOutputTypeCountSupportTicketsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.SupportTicketWhereInput
 }
@@ -3428,6 +4435,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reports?: boolean | Prisma.User$reportsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
+  roomBoosts?: boolean | Prisma.User$roomBoostsArgs<ExtArgs>
+  billingRecords?: boolean | Prisma.User$billingRecordsArgs<ExtArgs>
+  paymentIntents?: boolean | Prisma.User$paymentIntentsArgs<ExtArgs>
   supportTickets?: boolean | Prisma.User$supportTicketsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>
@@ -3500,6 +4511,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reports?: boolean | Prisma.User$reportsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  wallet?: boolean | Prisma.User$walletArgs<ExtArgs>
+  roomBoosts?: boolean | Prisma.User$roomBoostsArgs<ExtArgs>
+  billingRecords?: boolean | Prisma.User$billingRecordsArgs<ExtArgs>
+  paymentIntents?: boolean | Prisma.User$paymentIntentsArgs<ExtArgs>
   supportTickets?: boolean | Prisma.User$supportTicketsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>
@@ -3524,6 +4539,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reports: Prisma.$ReportPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
+    wallet: Prisma.$WalletPayload<ExtArgs> | null
+    roomBoosts: Prisma.$RoomBoostPayload<ExtArgs>[]
+    billingRecords: Prisma.$BillingRecordPayload<ExtArgs>[]
+    paymentIntents: Prisma.$PaymentIntentPayload<ExtArgs>[]
     supportTickets: Prisma.$SupportTicketPayload<ExtArgs>[]
     sessions: Prisma.$UserSessionPayload<ExtArgs>[]
     emailVerificationTokens: Prisma.$EmailVerificationTokenPayload<ExtArgs>[]
@@ -3950,6 +4969,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reports<T extends Prisma.User$reportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  wallet<T extends Prisma.User$walletArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$walletArgs<ExtArgs>>): Prisma.Prisma__WalletClient<runtime.Types.Result.GetResult<Prisma.$WalletPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  roomBoosts<T extends Prisma.User$roomBoostsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$roomBoostsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomBoostPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  billingRecords<T extends Prisma.User$billingRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$billingRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BillingRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentIntents<T extends Prisma.User$paymentIntentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentIntentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentIntentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   supportTickets<T extends Prisma.User$supportTicketsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$supportTicketsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupportTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserSessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   emailVerificationTokens<T extends Prisma.User$emailVerificationTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailVerificationTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailVerificationTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4675,6 +5698,97 @@ export type User$subscriptionsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.SubscriptionScalarFieldEnum | Prisma.SubscriptionScalarFieldEnum[]
+}
+
+/**
+ * User.wallet
+ */
+export type User$walletArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Wallet
+   */
+  select?: Prisma.WalletSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Wallet
+   */
+  omit?: Prisma.WalletOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WalletInclude<ExtArgs> | null
+  where?: Prisma.WalletWhereInput
+}
+
+/**
+ * User.roomBoosts
+ */
+export type User$roomBoostsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RoomBoost
+   */
+  select?: Prisma.RoomBoostSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RoomBoost
+   */
+  omit?: Prisma.RoomBoostOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RoomBoostInclude<ExtArgs> | null
+  where?: Prisma.RoomBoostWhereInput
+  orderBy?: Prisma.RoomBoostOrderByWithRelationInput | Prisma.RoomBoostOrderByWithRelationInput[]
+  cursor?: Prisma.RoomBoostWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RoomBoostScalarFieldEnum | Prisma.RoomBoostScalarFieldEnum[]
+}
+
+/**
+ * User.billingRecords
+ */
+export type User$billingRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BillingRecord
+   */
+  select?: Prisma.BillingRecordSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BillingRecord
+   */
+  omit?: Prisma.BillingRecordOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BillingRecordInclude<ExtArgs> | null
+  where?: Prisma.BillingRecordWhereInput
+  orderBy?: Prisma.BillingRecordOrderByWithRelationInput | Prisma.BillingRecordOrderByWithRelationInput[]
+  cursor?: Prisma.BillingRecordWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BillingRecordScalarFieldEnum | Prisma.BillingRecordScalarFieldEnum[]
+}
+
+/**
+ * User.paymentIntents
+ */
+export type User$paymentIntentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PaymentIntent
+   */
+  select?: Prisma.PaymentIntentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PaymentIntent
+   */
+  omit?: Prisma.PaymentIntentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentIntentInclude<ExtArgs> | null
+  where?: Prisma.PaymentIntentWhereInput
+  orderBy?: Prisma.PaymentIntentOrderByWithRelationInput | Prisma.PaymentIntentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentIntentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentIntentScalarFieldEnum | Prisma.PaymentIntentScalarFieldEnum[]
 }
 
 /**

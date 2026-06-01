@@ -71,11 +71,15 @@ enum ReportStatus {
 
 enum PlanCode {
   FREE
+  BASIC
+  FEATURED
+  VIP
   PRO
   BUSINESS
 }
 
 enum SubscriptionStatus {
+  PENDING
   ACTIVE
   PAST_DUE
   CANCELLED
@@ -86,6 +90,64 @@ enum TransactionType {
   CHARGE
   REFUND
   ADJUSTMENT
+  CREDIT_TOPUP
+  CREDIT_USAGE
+  CREDIT_REFUND
+  SUBSCRIPTION_PURCHASE
+  ROOM_BOOST_PURCHASE
+}
+
+enum RoomBoostType {
+  PUSH
+  FEATURED
+  VIP
+}
+
+enum RoomBoostStatus {
+  PENDING
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+enum WalletTransactionType {
+  TOPUP
+  SPEND
+  REFUND
+  ADJUSTMENT
+}
+
+enum WalletTransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+enum BillingRecordType {
+  SUBSCRIPTION
+  ROOM_BOOST
+  WALLET_TOPUP
+  REFUND
+  ADJUSTMENT
+}
+
+enum BillingRecordStatus {
+  DRAFT
+  PENDING
+  PAID
+  FAILED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentIntentStatus {
+  CREATED
+  PENDING
+  SUCCEEDED
+  FAILED
+  CANCELLED
+  EXPIRED
 }
 
 enum DepositStatus {
@@ -139,6 +201,10 @@ model User {
   reports        Report[]
   auditLogs      AuditLog[]
   subscriptions  Subscription[]
+  wallet         Wallet?
+  roomBoosts     RoomBoost[]
+  billingRecords BillingRecord[]
+  paymentIntents PaymentIntent[]
   supportTickets SupportTicket[]
   sessions       UserSession[]
   emailVerificationTokens EmailVerificationToken[]
@@ -433,6 +499,7 @@ model Room {
   appointments     Appointment[]
   reviews          Review[]
   reports          Report[]
+  boosts           RoomBoost[]
 
   @@index([price, deletedAt])
   @@index([districtId, price, status, deletedAt])
@@ -728,6 +795,7 @@ model Payment {
   invoicePayments InvoicePayment[]
   transactions    Transaction[]
   refunds         Refund[]
+  paymentIntents PaymentIntent[]
 
   @@index([status, paidAt])
   @@index([provider, status])
@@ -959,35 +1027,147 @@ model Plan {
   id            String         @id @default(cuid())
   code          PlanCode       @unique
   name          String
+  description   String?
   price         Decimal        @db.Decimal(12, 2)
   durationDays  Int
+  listingLimit  Int            @default(0)
+  displayOrder  Int            @default(0)
   features      Json?
+  benefits      Json?
   isActive      Boolean        @default(true)
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   deletedAt     DateTime?
   subscriptions Subscription[]
+  roomBoosts    RoomBoost[]
 
+  @@index([isActive, displayOrder, deletedAt])
   @@map("plans")
 }
 
 model Subscription {
-  id        String                @id @default(cuid())
-  userId    String
-  planId    String
-  status    SubscriptionStatus    @default(ACTIVE)
-  startsAt  DateTime
-  endsAt    DateTime
-  createdAt DateTime              @default(now())
-  updatedAt DateTime              @updatedAt
-  deletedAt DateTime?
-  user      User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  plan      Plan                  @relation(fields: [planId], references: [id], onDelete: Restrict)
-  invoices  SubscriptionInvoice[]
+  id          String                @id @default(cuid())
+  userId      String
+  planId      String
+  status      SubscriptionStatus    @default(PENDING)
+  startsAt    DateTime?
+  endsAt      DateTime?
+  cancelledAt DateTime?
+  metadata    Json?
+  createdAt   DateTime              @default(now())
+  updatedAt   DateTime              @updatedAt
+  deletedAt   DateTime?
+  user        User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan        Plan                  @relation(fields: [planId], references: [id], onDelete: Restrict)
+  invoices    SubscriptionInvoice[]
+  billingRecords BillingRecord[]
 
-  @@index([userId, status])
+  @@index([userId, status, deletedAt])
   @@index([endsAt, status])
   @@map("subscriptions")
+}
+
+model RoomBoost {
+  id        String          @id @default(cuid())
+  roomId    String
+  userId    String
+  planId    String?
+  type      RoomBoostType
+  status    RoomBoostStatus @default(PENDING)
+  priority  Int             @default(0)
+  startsAt  DateTime?
+  endsAt    DateTime?
+  metadata  Json?
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  deletedAt DateTime?
+  room      Room            @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan      Plan?           @relation(fields: [planId], references: [id], onDelete: SetNull)
+  billingRecords BillingRecord[]
+
+  @@index([roomId, status, startsAt, endsAt])
+  @@index([type, status, priority])
+  @@map("room_boosts")
+}
+
+model Wallet {
+  id            String              @id @default(cuid())
+  userId        String              @unique
+  balance       Int                 @default(0)
+  lockedBalance Int                 @default(0)
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  deletedAt     DateTime?
+  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions  WalletTransaction[]
+
+  @@index([balance])
+  @@map("wallets")
+}
+
+model WalletTransaction {
+  id             String                  @id @default(cuid())
+  walletId       String
+  type           WalletTransactionType
+  status         WalletTransactionStatus @default(PENDING)
+  amount         Int
+  balanceAfter   Int?
+  referenceType  String?
+  referenceId    String?
+  idempotencyKey String?                 @unique
+  metadata       Json?
+  createdAt      DateTime                @default(now())
+  wallet         Wallet                  @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([walletId, createdAt])
+  @@index([referenceType, referenceId])
+  @@map("wallet_transactions")
+}
+
+model PaymentIntent {
+  id                 String              @id @default(cuid())
+  userId             String
+  paymentId          String?
+  provider           PaymentProvider
+  status             PaymentIntentStatus @default(CREATED)
+  amount             Decimal             @db.Decimal(12, 2)
+  currency           String              @default("VND")
+  externalId         String?             @unique
+  idempotencyKey     String              @unique
+  callbackVerifiedAt DateTime?
+  metadata           Json?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+  user               User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payment            Payment?            @relation(fields: [paymentId], references: [id], onDelete: SetNull)
+
+  @@index([provider, status, createdAt])
+  @@index([userId, status])
+  @@map("payment_intents")
+}
+
+model BillingRecord {
+  id             String              @id @default(cuid())
+  code           String              @unique
+  userId         String
+  subscriptionId String?
+  roomBoostId    String?
+  type           BillingRecordType
+  status         BillingRecordStatus @default(PENDING)
+  amount         Decimal             @db.Decimal(12, 2)
+  paidAt         DateTime?
+  metadata       Json?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  deletedAt      DateTime?
+  user           User                @relation(fields: [userId], references: [id], onDelete: Restrict)
+  subscription   Subscription?       @relation(fields: [subscriptionId], references: [id], onDelete: SetNull)
+  roomBoost      RoomBoost?          @relation(fields: [roomBoostId], references: [id], onDelete: SetNull)
+
+  @@index([userId, status, createdAt])
+  @@index([type, status, createdAt])
+  @@map("billing_records")
 }
 
 model SubscriptionInvoice {

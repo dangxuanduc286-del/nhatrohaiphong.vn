@@ -97,6 +97,9 @@ export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus]
 
 export const PlanCode = {
   FREE: 'FREE',
+  BASIC: 'BASIC',
+  FEATURED: 'FEATURED',
+  VIP: 'VIP',
   PRO: 'PRO',
   BUSINESS: 'BUSINESS'
 } as const
@@ -105,6 +108,7 @@ export type PlanCode = (typeof PlanCode)[keyof typeof PlanCode]
 
 
 export const SubscriptionStatus = {
+  PENDING: 'PENDING',
   ACTIVE: 'ACTIVE',
   PAST_DUE: 'PAST_DUE',
   CANCELLED: 'CANCELLED',
@@ -117,10 +121,89 @@ export type SubscriptionStatus = (typeof SubscriptionStatus)[keyof typeof Subscr
 export const TransactionType = {
   CHARGE: 'CHARGE',
   REFUND: 'REFUND',
-  ADJUSTMENT: 'ADJUSTMENT'
+  ADJUSTMENT: 'ADJUSTMENT',
+  CREDIT_TOPUP: 'CREDIT_TOPUP',
+  CREDIT_USAGE: 'CREDIT_USAGE',
+  CREDIT_REFUND: 'CREDIT_REFUND',
+  SUBSCRIPTION_PURCHASE: 'SUBSCRIPTION_PURCHASE',
+  ROOM_BOOST_PURCHASE: 'ROOM_BOOST_PURCHASE'
 } as const
 
 export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
+
+export const RoomBoostType = {
+  PUSH: 'PUSH',
+  FEATURED: 'FEATURED',
+  VIP: 'VIP'
+} as const
+
+export type RoomBoostType = (typeof RoomBoostType)[keyof typeof RoomBoostType]
+
+
+export const RoomBoostStatus = {
+  PENDING: 'PENDING',
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type RoomBoostStatus = (typeof RoomBoostStatus)[keyof typeof RoomBoostStatus]
+
+
+export const WalletTransactionType = {
+  TOPUP: 'TOPUP',
+  SPEND: 'SPEND',
+  REFUND: 'REFUND',
+  ADJUSTMENT: 'ADJUSTMENT'
+} as const
+
+export type WalletTransactionType = (typeof WalletTransactionType)[keyof typeof WalletTransactionType]
+
+
+export const WalletTransactionStatus = {
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type WalletTransactionStatus = (typeof WalletTransactionStatus)[keyof typeof WalletTransactionStatus]
+
+
+export const BillingRecordType = {
+  SUBSCRIPTION: 'SUBSCRIPTION',
+  ROOM_BOOST: 'ROOM_BOOST',
+  WALLET_TOPUP: 'WALLET_TOPUP',
+  REFUND: 'REFUND',
+  ADJUSTMENT: 'ADJUSTMENT'
+} as const
+
+export type BillingRecordType = (typeof BillingRecordType)[keyof typeof BillingRecordType]
+
+
+export const BillingRecordStatus = {
+  DRAFT: 'DRAFT',
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type BillingRecordStatus = (typeof BillingRecordStatus)[keyof typeof BillingRecordStatus]
+
+
+export const PaymentIntentStatus = {
+  CREATED: 'CREATED',
+  PENDING: 'PENDING',
+  SUCCEEDED: 'SUCCEEDED',
+  FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type PaymentIntentStatus = (typeof PaymentIntentStatus)[keyof typeof PaymentIntentStatus]
 
 
 export const DepositStatus = {
