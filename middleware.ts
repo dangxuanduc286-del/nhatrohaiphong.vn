@@ -3,9 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import type { SystemRole } from "@/server/auth/constants";
 
 const ROUTE_RULES: Array<{ prefix: string; roles: SystemRole[]; permission?: string }> = [
-  { prefix: "/admin", roles: ["ADMIN"], permission: "system.manage" },
-  { prefix: "/api/admin", roles: ["ADMIN"], permission: "system.manage" },
-  { prefix: "/landlord", roles: ["LANDLORD", "ADMIN"], permission: "room.create" },
+  { prefix: "/api/admin", roles: ["SUPER_ADMIN", "ADMIN", "MODERATOR"], permission: "system.manage" },
   { prefix: "/api/landlord", roles: ["LANDLORD", "ADMIN"], permission: "room.create" },
 ];
 
@@ -72,5 +70,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/landlord/:path*", "/api/admin/:path*", "/api/landlord/:path*"],
+  matcher: ["/api/admin/:path*", "/api/landlord/:path*"],
 };

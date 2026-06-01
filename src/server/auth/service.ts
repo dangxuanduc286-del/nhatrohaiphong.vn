@@ -191,6 +191,23 @@ export async function login(input: LoginInput, meta: RequestMeta) {
   return { user: serializeUser(user), ...session };
 }
 
+export async function getAuthFromRefreshToken(refreshToken: string) {
+  const session = await db.userSession.findFirst({
+    where: { refreshTokenHash: hashToken(refreshToken), deletedAt: null, expiresAt: { gt: new Date() } },
+    include: { user: { select: userSelect } },
+  });
+
+  if (!session || session.user.status !== "ACTIVE" || session.user.deletedAt) {
+    throw new AppError("Unauthorized", 401, "UNAUTHORIZED");
+  }
+
+  const role = primaryRole(session.user);
+  return {
+    user: serializeUser(session.user),
+    payload: { userId: session.userId, role, sessionId: session.id },
+  };
+}
+
 export async function refresh(refreshToken: string, meta: RequestMeta) {
   const currentHash = hashToken(refreshToken);
   const session = await db.userSession.findFirst({
