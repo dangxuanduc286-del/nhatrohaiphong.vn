@@ -4,7 +4,6 @@ import type { SystemRole } from "@/server/auth/constants";
 
 const ROUTE_RULES: Array<{ prefix: string; roles: SystemRole[]; permission?: string }> = [
   { prefix: "/api/admin", roles: ["SUPER_ADMIN", "ADMIN", "MODERATOR"], permission: "system.manage" },
-  { prefix: "/api/landlord", roles: ["LANDLORD", "ADMIN"], permission: "room.create" },
 ];
 
 function getRule(pathname: string) {
@@ -70,5 +69,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/api/admin/:path*", "/api/landlord/:path*"],
+  matcher: ["/api/admin/:path*"],
 };

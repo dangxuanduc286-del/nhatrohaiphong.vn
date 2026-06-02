@@ -8,6 +8,7 @@ import { signAccessToken, verifyAccessToken } from "./jwt";
 import { checkLoginRateLimit } from "./rate-limit";
 import { assertSystemRole } from "./rbac";
 import { writeAuditLog } from "./audit";
+import { sendAuthEmail } from "./email";
 import type { LoginInput, RegisterInput } from "./validators";
 
 type RequestMeta = {
@@ -143,6 +144,7 @@ export async function register(input: RegisterInput, meta: RequestMeta) {
     },
   });
 
+  await sendAuthEmail({ kind: "verify-email", to: user.email, token: verificationToken });
   await writeAuditLog({ userId: user.id, action: "REGISTER", entityType: "User", entityId: user.id, ipAddress: meta.ipAddress, userAgent: meta.userAgent });
 
   const session = await createSession(user.id, input.role, meta);
@@ -286,12 +288,13 @@ export async function logoutAll(userId: string, meta: RequestMeta) {
 }
 
 export async function requestPasswordReset(email: string, meta: RequestMeta) {
-  const user = await db.user.findFirst({ where: { email, deletedAt: null }, select: { id: true } });
+  const user = await db.user.findFirst({ where: { email, deletedAt: null }, select: { id: true, email: true } });
   if (!user) {
     return { resetToken: null };
   }
   const resetToken = generateOpaqueToken(48);
   await db.passwordResetToken.create({ data: { userId: user.id, tokenHash: hashToken(resetToken), expiresAt: addMinutes(new Date(), 30) } });
+  await sendAuthEmail({ kind: "reset-password", to: user.email, token: resetToken });
   await writeAuditLog({ userId: user.id, action: "PASSWORD_RESET_REQUEST", entityType: "PasswordResetToken", ipAddress: meta.ipAddress, userAgent: meta.userAgent });
   return { resetToken };
 }
