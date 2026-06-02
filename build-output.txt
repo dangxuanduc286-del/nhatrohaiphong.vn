@@ -6,15 +6,15 @@
 - Environments: .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 4.1s
+✓ Compiled successfully in 4.4s
   Running TypeScript ...
-  Finished TypeScript in 4.1s ...
+  Finished TypeScript in 6.0s ...
   Collecting page data using 11 workers ...
-  Generating static pages using 11 workers (0/55) ...
-  Generating static pages using 11 workers (13/55) 
-  Generating static pages using 11 workers (27/55) 
-  Generating static pages using 11 workers (41/55) 
-✓ Generating static pages using 11 workers (55/55) in 533ms
+  Generating static pages using 11 workers (0/57) ...
+  Generating static pages using 11 workers (14/57) 
+  Generating static pages using 11 workers (28/57) 
+  Generating static pages using 11 workers (42/57) 
+✓ Generating static pages using 11 workers (57/57) in 570ms
   Finalizing page optimization ...
 
 Route (app)                                      Revalidate  Expire
@@ -62,6 +62,8 @@ Route (app)                                      Revalidate  Expire
 ├ ƒ /api/internal/auth/authorize
 ├ ƒ /api/landlord/checkout/payment-intents
 ├ ƒ /api/landlord/checkout/payment-intents/[id]
+├ ƒ /api/landlord/rooms
+├ ƒ /api/landlord/rooms/[id]
 ├ ƒ /api/search
 ├ ƒ /api/search/landing-page
 ├ ƒ /api/search/nearby
@@ -70,6 +72,8 @@ Route (app)                                      Revalidate  Expire
 ├ ƒ /landlord
 ├ ƒ /landlord/billing
 ├ ƒ /landlord/checkout
+├ ƒ /landlord/rooms/[id]/edit
+├ ƒ /landlord/rooms/new
 ├ ƒ /landlord/wallet
 ├ ƒ /phong/[slug]
 ├ ○ /robots.txt

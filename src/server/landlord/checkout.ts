@@ -68,8 +68,11 @@ export async function createLandlordCheckoutIntent(input: z.input<typeof checkou
   return { intent, billingRecordId };
 }
 
+const paymentIntentIdSchema = z.string().min(1).max(191);
+
 export async function getLandlordPaymentStatus(userId: string, intentId: string) {
-  const intent = await db.paymentIntent.findFirst({ where: { id: intentId, userId } });
+  const parsedIntentId = paymentIntentIdSchema.parse(intentId);
+  const intent = await db.paymentIntent.findFirst({ where: { id: parsedIntentId, userId } });
   if (!intent) throw new AppError("Payment intent not found", 404, "PAYMENT_INTENT_NOT_FOUND");
   return intent;
 }
