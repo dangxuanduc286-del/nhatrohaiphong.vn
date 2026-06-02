@@ -91,13 +91,107 @@ node_modules/**
 
 trừ khi cần kiểm tra source code package cụ thể, typings, hoặc package API.
 
-Nếu file không tồn tại:
+Trước khi đọc bất kỳ file nào:
+
+* Kiểm tra file tồn tại bằng filesystem thực tế.
+* Chỉ đọc file thực sự tồn tại.
+* Không ưu tiên context cũ, prompt cũ, memory cũ hoặc template cũ hơn filesystem thực tế.
+
+Nếu file không tồn tại hoặc gặp ENOENT:
 
 * Không retry
 * Không thử lại đường dẫn tương tự
+* Không suy đoán route group
+* Không tạo vòng lặp đọc file
 * Không đọc file thay thế trong cùng thư mục
-* Báo lỗi 1 lần
-* Tiếp tục thực hiện nhiệm vụ
+* Ghi log 1 lần
+* Đánh dấu unavailable
+* Tiếp tục công việc bằng source hiện có
+
+Không suy luận:
+
+* `src/app/(dashboard)` => có `layout.tsx`
+* `src/app/(admin)` => có `page.tsx`
+
+Project-specific ENOENT log:
+
+* `src/app/(dashboard)/layout.tsx`: không tồn tại. Không đọc lại, không retry, không thử `src/app/dashboard/layout.tsx` thay thế.
+* `src/app/dashboard/layout.tsx`: không tồn tại. Không đọc lại, không retry, không thử route group tương tự.
+* `src/app/(dashboard)/`: tồn tại nhưng đang rỗng, không có `layout.tsx`.
+
+==================================================
+STOP FEATURE EXPANSION
+======================
+
+Khi Admin Core chưa hoàn thành, không triển khai thêm business features.
+
+Không triển khai thêm:
+
+* User-facing business features
+* Landlord-facing business features
+* Payment integrations
+* Subscription integrations
+* Wallet
+* Billing
+* Subscription
+* Payment Gateway
+* Room Boost
+* VIP Boost
+
+Nguyên tắc ưu tiên phát triển:
+
+1. Admin First
+2. Landlord Second
+3. Public Third
+
+Mọi phát triển mới phải ưu tiên Admin quản lý được dữ liệu trước.
+Nếu phát hiện feature mới không thuộc Admin Core: dừng và báo cáo.
+
+MODULE COMPLETION RULE:
+
+Mỗi Prompt phải hoàn thành 100% module hiện tại trước khi được phép chuyển module khác.
+Prompt hiện tại: Prompt 04 = Admin Core.
+
+Bắt buộc hoàn thành Prompt 04 / Admin Core:
+
+* Admin Layout
+* Admin Sidebar
+* Admin Dashboard
+* User Management
+* Landlord Management
+* Role Management
+* Permission Management
+* Audit Logs
+* Landing Pages
+* POI Management
+* Cities
+* Districts
+* Wards
+* Settings
+
+Sau khi toàn bộ PASS mới được chuyển sang Prompt 05:
+
+* Build PASS
+* Typecheck PASS
+* Lint PASS
+
+Không được triển khai trước khi Prompt hiện tại chưa hoàn thành:
+
+* Search
+* Maps
+* Landlord Features
+* Room Features
+* Payment Features
+
+Admin phải quản lý được trước khi tiếp tục phát triển monetization:
+
+* Users
+* Landlords
+* Subscriptions
+* Payment Intents
+* Wallet Transactions
+* Billing Records
+* Room Boosts
 
 ==================================================
 BẢO TOÀN HỆ THỐNG

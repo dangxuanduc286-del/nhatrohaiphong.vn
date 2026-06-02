@@ -6,10 +6,15 @@ import { requirePermissionValue, requireRoleValue } from "@/server/auth/rbac";
 import { requirePermission, requireRole } from "@/server/auth/server";
 import { getAuthFromRefreshToken } from "@/server/auth/service";
 
-const ADMIN_ROLES = ["SUPER_ADMIN", "ADMIN", "MODERATOR"] as const;
+const ADMIN_ROLES = ["SUPER_ADMIN", "ADMIN"] as const;
+const MODERATOR_ADMIN_PERMISSIONS = ["audit.view", "room.moderate"] as const;
+
+function getAllowedAdminRoles(permission: string) {
+  return MODERATOR_ADMIN_PERMISSIONS.includes(permission as (typeof MODERATOR_ADMIN_PERMISSIONS)[number]) ? [...ADMIN_ROLES, "MODERATOR" as const] : [...ADMIN_ROLES];
+}
 
 export async function requireAdmin(authorization: string | null, permission = "system.manage") {
-  const auth = await requireRole(authorization, [...ADMIN_ROLES]);
+  const auth = await requireRole(authorization, getAllowedAdminRoles(permission));
   await requirePermission(authorization, permission);
   return auth;
 }
@@ -23,7 +28,7 @@ export async function requireAdminPage(permission = "system.manage") {
 
   try {
     const auth = await getAuthFromRefreshToken(refreshToken);
-    requireRoleValue(auth.payload.role, [...ADMIN_ROLES]);
+    requireRoleValue(auth.payload.role, getAllowedAdminRoles(permission));
     await requirePermissionValue(auth.payload.role, permission);
     return auth;
   } catch {

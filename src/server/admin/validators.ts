@@ -6,6 +6,8 @@ export const statusSchema = z.object({ status: z.enum(["ACTIVE", "INACTIVE", "BA
 
 export const userStatusUpdateSchema = idSchema.merge(statusSchema);
 
+export const userRoleAssignSchema = idSchema.extend({ roleIds: z.array(z.string().min(1)).default([]) });
+
 export const roomModerationSchema = z.object({
   id: z.string().min(1),
   action: z.enum(["APPROVE", "REJECT", "HIDE", "LOCK", "REOPEN", "MAINTENANCE", "OCCUPIED", "RESERVED"]),
