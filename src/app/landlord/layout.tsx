@@ -5,6 +5,7 @@ import { requireLandlordPage } from "@/server/landlord/utils";
 
 const landlordNav = [
   { label: "Dashboard", href: "/landlord" },
+  { label: "Đăng phòng", href: "/landlord/rooms/new" },
   { label: "Wallet", href: "/landlord/wallet" },
   { label: "Billing", href: "/landlord/billing" },
   { label: "Checkout", href: "/landlord/checkout" },

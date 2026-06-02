@@ -359,11 +359,18 @@ async function batchLandingPageRoomSearch(targets: LandingPageSearchTarget[]) {
 
 export async function getLandingPageSearch(query: LandingPageQuery) {
   const cacheKey = createCacheKey("landing-page", query);
-  const cached = await getCachedJson<unknown>(cacheKey);
+  const cached = await getCachedJson<Awaited<ReturnType<typeof executeLandingPageSearch>>>(cacheKey);
 
   if (cached) {
     return cached;
   }
+
+  const data = await executeLandingPageSearch(query);
+  await setCachedJson(cacheKey, data, LANDING_PAGE_CACHE_TTL_SECONDS);
+  return data;
+}
+
+async function executeLandingPageSearch(query: LandingPageQuery) {
 
   const where: Prisma.LandingPageWhereInput = {
     deletedAt: null,
@@ -391,7 +398,5 @@ export async function getLandingPageSearch(query: LandingPageQuery) {
     search: searches.get(page.id) ?? { items: [], total: 0, page: 1, limit: 12, map: null, poi: null },
   }));
 
-  const data = { items };
-  await setCachedJson(cacheKey, data, LANDING_PAGE_CACHE_TTL_SECONDS);
-  return data;
+  return { items };
 }

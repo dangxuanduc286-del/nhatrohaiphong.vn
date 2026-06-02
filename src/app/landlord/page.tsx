@@ -24,8 +24,13 @@ export default async function LandlordDashboardPage() {
     <section className="space-y-6">
       <div className="rounded-3xl border bg-white p-6 shadow-sm">
         <p className="text-sm font-semibold uppercase tracking-wide text-blue-600">Chưa tích hợp gateway thật</p>
-        <h2 className="mt-2 text-3xl font-bold">Quản lý gói, VIP/Boost, ví và thanh toán</h2>
-        <p className="mt-2 max-w-3xl text-sm text-slate-600">Các luồng mua/gia hạn/kích hoạt hiện tạo billing và payment intent ở trạng thái pending để kiểm thử nghiệp vụ trước khi tích hợp cổng thanh toán thật.</p>
+        <div className="mt-2 flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
+          <div>
+            <h2 className="text-3xl font-bold">Quản lý gói, VIP/Boost, ví và thanh toán</h2>
+            <p className="mt-2 max-w-3xl text-sm text-slate-600">Các luồng mua/gia hạn/kích hoạt hiện tạo billing và payment intent ở trạng thái pending để kiểm thử nghiệp vụ trước khi tích hợp cổng thanh toán thật.</p>
+          </div>
+          <Link href="/landlord/rooms/new" className="inline-flex rounded-xl bg-blue-700 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-800">Đăng phòng</Link>
+        </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">
@@ -58,7 +63,7 @@ export default async function LandlordDashboardPage() {
             {rooms.length ? rooms.map((room) => (
               <div key={room.id} className="rounded-xl bg-slate-50 p-3">
                 <div className="truncate text-sm font-medium">{room.title}</div><div className="text-xs text-slate-500">{room.roomCode} · {room.status}</div>
-                <div className="mt-3 flex flex-wrap gap-2"><Link href={`/landlord/checkout?type=boost&boostType=VIP&roomId=${room.id}`} className="rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-semibold text-white">VIP</Link><Link href={`/landlord/checkout?type=boost&boostType=FEATURED&roomId=${room.id}`} className="rounded-lg bg-purple-600 px-3 py-1.5 text-xs font-semibold text-white">Boost</Link></div>
+                <div className="mt-3 flex flex-wrap gap-2"><Link href={`/landlord/rooms/${room.id}/edit`} className="rounded-lg border bg-white px-3 py-1.5 text-xs font-semibold hover:border-blue-300 hover:text-blue-700">Sửa</Link><Link href={`/landlord/checkout?type=boost&boostType=VIP&roomId=${room.id}`} className="rounded-lg bg-amber-500 px-3 py-1.5 text-xs font-semibold text-white">VIP</Link><Link href={`/landlord/checkout?type=boost&boostType=FEATURED&roomId=${room.id}`} className="rounded-lg bg-purple-600 px-3 py-1.5 text-xs font-semibold text-white">Boost</Link></div>
               </div>
             )) : <p className="text-sm text-slate-500">Chưa có phòng để kích hoạt VIP/Boost.</p>}
           </div>

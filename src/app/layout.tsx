@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { appConfig } from "@/config/app";
+import { createSeoMetadata, JsonLdScript, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -15,10 +16,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createSeoMetadata({
   title: appConfig.name,
   description: appConfig.description,
-};
+  path: "/",
+  keywords: ["phòng trọ Hải Phòng", "nhà trọ Hải Phòng", "thuê phòng Hải Phòng"],
+});
 
 export default function RootLayout({
   children,
@@ -27,7 +30,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full bg-background text-foreground">{children}</body>
+      <body className="min-h-full bg-background text-foreground">
+        <JsonLdScript data={[organizationJsonLd(), websiteJsonLd()]} />
+        {children}
+      </body>
     </html>
   );
 }
