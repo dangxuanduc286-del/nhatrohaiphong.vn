@@ -1,17 +1,53 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
+const forbiddenSecretValues = new Set([
+  "changeme",
+  "change-me",
+  "default",
+  "default-secret",
+  "jwt-secret",
+  "secret",
+  "your-secret",
+  "your-jwt-secret",
+  "replace-me",
+  "placeholder",
+]);
+
+function isPlaceholder(value: string) {
+  const normalized = value.trim().toLowerCase();
+  return forbiddenSecretValues.has(normalized) || normalized.includes("placeholder") || normalized.includes("changeme") || normalized.includes("replace-me");
+}
+
+const productionSecret = z.string().min(32).superRefine((value, ctx) => {
+  if (isPlaceholder(value)) {
+    ctx.addIssue({ code: "custom", message: "Secret must not use a default or placeholder value" });
+  }
+});
+
+const productionCookieName = z.string().min(3).superRefine((value, ctx) => {
+  if (isPlaceholder(value)) {
+    ctx.addIssue({ code: "custom", message: "Cookie name must not use a default or placeholder value" });
+  }
+});
+
+const productionUrl = z.string().url().superRefine((value, ctx) => {
+  if (isPlaceholder(value) || value.includes("example.com")) {
+    ctx.addIssue({ code: "custom", message: "URL must not use a placeholder value" });
+  }
+});
+
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.string().url(),
-    DIRECT_URL: z.string().url(),
-    REDIS_URL: z.string().url(),
+    DATABASE_URL: productionUrl,
+    DIRECT_URL: productionUrl,
+    REDIS_URL: productionUrl,
     LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace", "silent"]).default("info"),
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
-    JWT_SECRET: z.string().min(32),
+    JWT_SECRET: productionSecret,
     ACCESS_TOKEN_EXPIRES_IN: z.string().default("15m"),
     REFRESH_TOKEN_EXPIRES_IN_DAYS: z.coerce.number().int().positive().default(30),
-    AUTH_COOKIE_NAME: z.string().default("nht_auth_refresh"),
+    AUTH_COOKIE_NAME: productionCookieName,
     EMAIL_PROVIDER: z.enum(["console", "resend", "brevo", "smtp"]).default("console"),
     EMAIL_FROM: z.string().email().optional(),
     RESEND_API_KEY: z.string().optional(),
@@ -23,7 +59,7 @@ export const env = createEnv({
     AUTH_DEBUG_TOKENS: z.coerce.boolean().default(false),
   },
   client: {
-    NEXT_PUBLIC_APP_URL: z.string().url(),
+    NEXT_PUBLIC_APP_URL: productionUrl,
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
