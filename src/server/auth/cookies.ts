@@ -1,6 +1,6 @@
 import { cookies, headers } from "next/headers";
 
-import { env } from "@/lib/env";
+import { env } from "@/lib/env/index";
 
 import { AUTH_COOKIE_OPTIONS } from "./constants";
 

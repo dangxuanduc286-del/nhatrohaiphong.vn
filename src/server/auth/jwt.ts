@@ -1,6 +1,6 @@
 import { jwtVerify, SignJWT } from "jose";
 
-import { env } from "@/lib/env";
+import { env } from "@/lib/env/index";
 
 import { ACCESS_TOKEN_TTL_SECONDS, type SystemRole } from "./constants";
 

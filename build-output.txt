@@ -6,15 +6,15 @@
 - Environments: .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 3.5s
+✓ Compiled successfully in 4.7s
   Running TypeScript ...
-  Finished TypeScript in 3.2s ...
+  Finished TypeScript in 4.3s ...
   Collecting page data using 11 workers ...
-  Generating static pages using 11 workers (0/27) ...
-  Generating static pages using 11 workers (6/27) 
-  Generating static pages using 11 workers (13/27) 
-  Generating static pages using 11 workers (20/27) 
-✓ Generating static pages using 11 workers (27/27) in 467ms
+  Generating static pages using 11 workers (0/53) ...
+  Generating static pages using 11 workers (13/53) 
+  Generating static pages using 11 workers (26/53) 
+  Generating static pages using 11 workers (39/53) 
+✓ Generating static pages using 11 workers (53/53) in 440ms
   Finalizing page optimization ...
 
 Route (app)
@@ -23,15 +23,31 @@ Route (app)
 ├ ƒ /admin
 ├ ƒ /admin/analytics
 ├ ƒ /admin/audit-logs
+├ ƒ /admin/cities
+├ ƒ /admin/districts
+├ ƒ /admin/landing-pages
 ├ ƒ /admin/landlords
 ├ ƒ /admin/monetization
+├ ƒ /admin/permissions
+├ ƒ /admin/points-of-interest
 ├ ƒ /admin/properties
 ├ ƒ /admin/roles
 ├ ƒ /admin/rooms
 ├ ƒ /admin/settings
 ├ ƒ /admin/users
+├ ƒ /admin/wards
+├ ƒ /api/admin/audit-logs
+├ ƒ /api/admin/cities
+├ ƒ /api/admin/districts
+├ ƒ /api/admin/landing-pages
+├ ƒ /api/admin/landlords
+├ ƒ /api/admin/permissions
+├ ƒ /api/admin/poi
+├ ƒ /api/admin/roles
 ├ ƒ /api/admin/rooms
+├ ƒ /api/admin/settings
 ├ ƒ /api/admin/users
+├ ƒ /api/admin/wards
 ├ ƒ /api/auth/change-password
 ├ ƒ /api/auth/forgot-password
 ├ ƒ /api/auth/login
@@ -42,7 +58,18 @@ Route (app)
 ├ ƒ /api/auth/register
 ├ ƒ /api/auth/reset-password
 ├ ƒ /api/auth/verify-email
-└ ƒ /api/internal/auth/authorize
+├ ƒ /api/internal/auth/authorize
+├ ƒ /api/landlord/checkout/payment-intents
+├ ƒ /api/landlord/checkout/payment-intents/[id]
+├ ƒ /api/search
+├ ƒ /api/search/landing-page
+├ ƒ /api/search/nearby
+├ ƒ /api/search/poi
+├ ƒ /api/search/suggestions
+├ ƒ /landlord
+├ ƒ /landlord/billing
+├ ƒ /landlord/checkout
+└ ƒ /landlord/wallet
 
 
 ƒ Proxy (Middleware)

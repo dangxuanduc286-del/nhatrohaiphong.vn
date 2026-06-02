@@ -502,6 +502,7 @@ model Room {
   boosts           RoomBoost[]
 
   @@index([price, deletedAt])
+  @@index([area, status, deletedAt])
   @@index([districtId, price, status, deletedAt])
   @@index([wardId, price, status, deletedAt])
   @@index([status, availableFrom, deletedAt])

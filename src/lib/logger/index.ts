@@ -1,6 +1,6 @@
 import pino from "pino";
 
-import { env } from "@/lib/env";
+import { env } from "@/lib/env/index";
 
 export const logger = pino({
   level: env.LOG_LEVEL,
