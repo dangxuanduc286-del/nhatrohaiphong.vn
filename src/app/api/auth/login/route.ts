@@ -1,7 +1,13 @@
+import { NextResponse } from "next/server";
+
 import { fail, ok } from "@/server/api/response";
 import { getRequestMeta, setRefreshCookie } from "@/server/auth/cookies";
 import { login } from "@/server/auth/service";
 import { loginSchema } from "@/server/auth/validators";
+
+export async function GET() {
+  return NextResponse.json({ message: "Use login page instead", loginUrl: "/login" }, { status: 200 });
+}
 
 export async function POST(request: Request) {
   try {

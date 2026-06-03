@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import { AnalyticsScripts } from "@/components/analytics/analytics-scripts";
+import { AnalyticsEventTracker } from "@/components/analytics/event-tracker";
 import { appConfig } from "@/config/app";
-import { createSeoMetadata, JsonLdScript, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { createSeoMetadata, JsonLdScript, localBusinessJsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 import "./globals.css";
 
@@ -16,12 +18,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = createSeoMetadata({
+const baseMetadata = createSeoMetadata({
   title: appConfig.name,
   description: appConfig.description,
   path: "/",
   keywords: ["phòng trọ Hải Phòng", "nhà trọ Hải Phòng", "thuê phòng Hải Phòng"],
 });
+
+export const metadata: Metadata = {
+  ...baseMetadata,
+  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } : undefined,
+};
 
 export default function RootLayout({
   children,
@@ -31,7 +38,9 @@ export default function RootLayout({
   return (
     <html lang="vi" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full bg-background text-foreground">
-        <JsonLdScript data={[organizationJsonLd(), websiteJsonLd()]} />
+        <AnalyticsScripts />
+        <AnalyticsEventTracker />
+        <JsonLdScript data={[organizationJsonLd(), websiteJsonLd(), localBusinessJsonLd()]} />
         {children}
       </body>
     </html>

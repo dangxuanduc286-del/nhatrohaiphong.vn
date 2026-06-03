@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+import { trackEvent } from "@/components/analytics/event-tracker";
 import { RoomLocationPicker } from "@/components/rooms/room-location-picker";
 
 type Option = {
@@ -61,6 +62,7 @@ export function LandlordRoomForm({ mode, room, districts, wards, buildings }: La
   async function submitRoom(formData: FormData) {
     setError(null);
     setIsSubmitting(true);
+    trackEvent("landlord_room_form_submit", { location: "landlord_room_form", mode });
 
     try {
       const endpoint = mode === "create" ? "/api/landlord/rooms" : `/api/landlord/rooms/${room?.id}`;
@@ -75,26 +77,30 @@ export function LandlordRoomForm({ mode, room, districts, wards, buildings }: La
         throw new Error(payload?.error?.message ?? "Không thể lưu phòng.");
       }
 
+      trackEvent(mode === "create" ? "landlord_room_create_success" : "landlord_room_edit_success", { location: "landlord_room_form", mode });
       router.push("/landlord");
       router.refresh();
     } catch (caughtError) {
+      trackEvent("client_error", { location: "landlord_room_form", category: mode === "create" ? "room_create_failed" : "room_edit_failed" });
       setError(caughtError instanceof Error ? caughtError.message : "Không thể lưu phòng.");
     } finally {
       setIsSubmitting(false);
     }
   }
 
+  const hasBuildings = buildings.length > 0;
+
   return (
     <form action={submitRoom} className="space-y-6">
+      <section className="rounded-2xl border bg-white p-5 shadow-sm">
+        <h3 className="font-semibold text-slate-900">Thông tin bắt buộc để đăng nhanh</h3>
+        <p className="mt-1 text-sm text-slate-500">Hoàn thành các trường này trước. Mô tả và chi phí chi tiết có thể cập nhật sau.</p>
+      </section>
+
       <section className="grid gap-4 rounded-2xl border bg-white p-5 shadow-sm md:grid-cols-2">
         <label className="block text-sm font-medium text-slate-700 md:col-span-2">
           Tiêu đề phòng
           <input name="title" defaultValue={optionalString(room?.title)} required minLength={5} maxLength={180} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm" />
-        </label>
-
-        <label className="block text-sm font-medium text-slate-700 md:col-span-2">
-          Mô tả
-          <textarea name="description" defaultValue={optionalString(room?.description)} rows={4} maxLength={2000} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm" />
         </label>
 
         <label className="block text-sm font-medium text-slate-700">
@@ -147,14 +153,25 @@ export function LandlordRoomForm({ mode, room, districts, wards, buildings }: La
 
         <label className="block text-sm font-medium text-slate-700">
           Nhà/Tòa nhà
-          <select name="buildingId" defaultValue={optionalString(room?.buildingId)} required className="mt-1 w-full rounded-xl border px-3 py-2 text-sm">
-            <option value="">Chọn nhà/tòa nhà</option>
+          <select name="buildingId" defaultValue={optionalString(room?.buildingId)} required disabled={!hasBuildings} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm disabled:cursor-not-allowed disabled:bg-slate-100">
+            <option value="">{hasBuildings ? "Chọn nhà/tòa nhà" : "Chưa có nhà/tòa nhà"}</option>
             {buildings.map((building) => <option key={building.id} value={building.id}>{building.label}</option>)}
           </select>
         </label>
+        {!hasBuildings ? <p className="text-sm font-medium text-orange-700 md:col-span-3">Bạn cần có nhà/tòa nhà trước khi tạo phòng. Điều này giữ nguyên logic hiện tại và tránh submit lỗi.</p> : null}
       </section>
 
-      <section className="grid gap-4 rounded-2xl border bg-white p-5 shadow-sm md:grid-cols-3">
+      <section className="grid gap-4 rounded-2xl border bg-white p-5 shadow-sm md:grid-cols-2">
+        <label className="block text-sm font-medium text-slate-700 md:col-span-2">
+          Mô tả
+          <textarea name="description" defaultValue={optionalString(room?.description)} rows={4} maxLength={2000} className="mt-1 w-full rounded-xl border px-3 py-2 text-sm" />
+        </label>
+      </section>
+
+      <section className="rounded-2xl border bg-white p-5 shadow-sm">
+        <h3 className="font-semibold text-slate-900">Chi phí có thể bổ sung sau</h3>
+        <p className="mt-1 text-sm text-slate-500">Các trường dưới đây giúp tin rõ ràng hơn nhưng không cần suy nghĩ quá lâu khi đăng phòng đầu tiên.</p>
+        <div className="mt-4 grid gap-4 md:grid-cols-3">
         <label className="block text-sm font-medium text-slate-700">
           Giá điện
           <input name="electricPrice" defaultValue={optionalString(room?.electricPrice)} type="number" min="0" step="100" className="mt-1 w-full rounded-xl border px-3 py-2 text-sm" />
@@ -175,6 +192,7 @@ export function LandlordRoomForm({ mode, room, districts, wards, buildings }: La
           Phí gửi xe
           <input name="parkingFee" defaultValue={optionalString(room?.parkingFee)} type="number" min="0" step="1000" className="mt-1 w-full rounded-xl border px-3 py-2 text-sm" />
         </label>
+        </div>
       </section>
 
       <RoomLocationPicker defaultAddress={room?.address} defaultLatitude={room?.latitude === null || typeof room?.latitude === "undefined" ? null : Number(room.latitude)} defaultLongitude={room?.longitude === null || typeof room?.longitude === "undefined" ? null : Number(room.longitude)} />
@@ -183,7 +201,7 @@ export function LandlordRoomForm({ mode, room, districts, wards, buildings }: La
 
       <div className="flex flex-wrap justify-end gap-3">
         <button type="button" onClick={() => router.push("/landlord")} className="rounded-xl border px-5 py-2 text-sm font-semibold hover:border-blue-300 hover:text-blue-700">Hủy</button>
-        <button disabled={isSubmitting} className="rounded-xl bg-blue-700 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-60">
+        <button disabled={isSubmitting || !hasBuildings} className="rounded-xl bg-blue-700 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-60">
           {isSubmitting ? "Đang lưu..." : mode === "create" ? "Tạo phòng" : "Lưu thay đổi"}
         </button>
       </div>

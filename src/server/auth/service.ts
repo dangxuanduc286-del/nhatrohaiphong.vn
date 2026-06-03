@@ -9,6 +9,7 @@ import { checkLoginRateLimit } from "./rate-limit";
 import { assertSystemRole } from "./rbac";
 import { writeAuditLog } from "./audit";
 import { sendAuthEmail } from "./email";
+import { isEmailIdentifier } from "./validators";
 import type { LoginInput, RegisterInput } from "./validators";
 
 type RequestMeta = {
@@ -105,30 +106,33 @@ async function createSession(userId: string, role: SystemRole, meta: RequestMeta
 }
 
 export async function register(input: RegisterInput, meta: RequestMeta) {
+  const orConditions = [input.email ? { email: input.email } : null, input.phone ? { phone: input.phone } : null].filter(Boolean) as Array<{ email: string } | { phone: string }>;
   const existing = await db.user.findFirst({
     where: {
       deletedAt: null,
-      OR: [{ email: input.email }, { phone: input.phone }],
+      OR: orConditions,
     },
     select: { id: true, email: true, phone: true },
   });
 
-  if (existing?.email === input.email) {
-    throw new AppError("Email already exists", 409, "EMAIL_EXISTS");
+  if (input.email && existing?.email === input.email) {
+    throw new AppError("Email đã tồn tại", 409, "EMAIL_EXISTS");
   }
 
-  if (existing?.phone === input.phone) {
-    throw new AppError("Phone already exists", 409, "PHONE_EXISTS");
+  if (input.phone && existing?.phone === input.phone) {
+    throw new AppError("Số điện thoại đã tồn tại", 409, "PHONE_EXISTS");
   }
 
   const role = await ensureRole(input.role);
   const passwordHash = await hashPassword(input.password);
+  const email = input.email ?? `${input.phone}@phone.nhatrohaiphong.vn`;
+  const fullName = input.fullName || "Người dùng Nhatrohaiphong";
 
   const user = await db.user.create({
     data: {
-      email: input.email,
+      email,
       phone: input.phone,
-      fullName: input.fullName,
+      fullName,
       passwordHash,
       roles: { create: { roleId: role.id } },
     },
@@ -152,24 +156,24 @@ export async function register(input: RegisterInput, meta: RequestMeta) {
 }
 
 export async function login(input: LoginInput, meta: RequestMeta) {
-  const rateLimitIdentifier = `${meta.ipAddress ?? "unknown"}:${input.email}`;
+  const rateLimitIdentifier = `${meta.ipAddress ?? "unknown"}:${input.identifier}`;
   const allowed = await checkLoginRateLimit(rateLimitIdentifier);
   if (!allowed) {
-    throw new AppError("Too many login attempts", 429, "LOGIN_RATE_LIMITED");
+    throw new AppError("Quá nhiều lần đăng nhập. Vui lòng thử lại sau.", 429, "LOGIN_RATE_LIMITED");
   }
 
-  const user = await db.user.findFirst({ where: { email: input.email, deletedAt: null }, select: userSelect });
+  const user = await db.user.findFirst({ where: { ...(isEmailIdentifier(input.identifier) ? { email: input.identifier } : { phone: input.identifier }), deletedAt: null }, select: userSelect });
 
   if (!user || !user.passwordHash) {
-    throw new AppError("Invalid credentials", 401, "INVALID_CREDENTIALS");
+    throw new AppError("Email hoặc số điện thoại không đúng", 401, "INVALID_CREDENTIALS");
   }
 
   if (user.status !== "ACTIVE") {
-    throw new AppError("Account is not active", 403, "ACCOUNT_INACTIVE");
+    throw new AppError("Tài khoản bị khóa hoặc chưa hoạt động", 403, "ACCOUNT_INACTIVE");
   }
 
   if (user.lockedUntil && user.lockedUntil > new Date()) {
-    throw new AppError("Account is temporarily locked", 423, "ACCOUNT_LOCKED");
+    throw new AppError("Tài khoản bị khóa tạm thời", 423, "ACCOUNT_LOCKED");
   }
 
   const valid = await verifyPassword(user.passwordHash, input.password);
@@ -182,7 +186,7 @@ export async function login(input: LoginInput, meta: RequestMeta) {
         lockedUntil: nextCount >= LOGIN_MAX_ATTEMPTS ? addMinutes(new Date(), ACCOUNT_LOCKOUT_MINUTES) : null,
       },
     });
-    throw new AppError("Invalid credentials", 401, "INVALID_CREDENTIALS");
+    throw new AppError("Mật khẩu không đúng", 401, "INVALID_PASSWORD");
   }
 
   await db.user.update({ where: { id: user.id }, data: { failedLoginCount: 0, lockedUntil: null, lastLoginAt: new Date() } });
@@ -287,8 +291,8 @@ export async function logoutAll(userId: string, meta: RequestMeta) {
   return { revoked: revoked.count };
 }
 
-export async function requestPasswordReset(email: string, meta: RequestMeta) {
-  const user = await db.user.findFirst({ where: { email, deletedAt: null }, select: { id: true, email: true } });
+export async function requestPasswordReset(identifier: string, meta: RequestMeta) {
+  const user = await db.user.findFirst({ where: { ...(isEmailIdentifier(identifier) ? { email: identifier } : { phone: identifier }), deletedAt: null }, select: { id: true, email: true } });
   if (!user) {
     return { resetToken: null };
   }

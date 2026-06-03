@@ -23,7 +23,7 @@ export async function requireAdminPage(permission = "system.manage") {
   const refreshToken = await getRefreshCookie();
 
   if (!refreshToken) {
-    redirect("/api/auth/login");
+    redirect("/login");
   }
 
   try {
@@ -32,7 +32,7 @@ export async function requireAdminPage(permission = "system.manage") {
     await requirePermissionValue(auth.payload.role, permission);
     return auth;
   } catch {
-    redirect("/api/auth/login");
+    redirect("/login");
   }
 }
 

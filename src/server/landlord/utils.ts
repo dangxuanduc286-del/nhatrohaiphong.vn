@@ -10,7 +10,7 @@ export async function requireLandlordPage(permission = "room.create") {
   const refreshToken = await getRefreshCookie();
 
   if (!refreshToken) {
-    redirect("/api/auth/login");
+    redirect("/login");
   }
 
   try {
@@ -19,7 +19,7 @@ export async function requireLandlordPage(permission = "room.create") {
     await requirePermissionValue(auth.payload.role, permission);
     return auth;
   } catch {
-    redirect("/api/auth/login");
+    redirect("/login");
   }
 }
 

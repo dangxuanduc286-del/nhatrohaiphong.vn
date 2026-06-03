@@ -44,14 +44,14 @@ export function PoiDistanceList({ roomLatitude, roomLongitude, pois }: PoiDistan
   }
 
   return (
-    <section className="rounded-2xl border bg-white p-6 shadow-sm">
-      <h2 className="text-xl font-bold text-slate-950">Khoảng cách tiện ích gần phòng</h2>
-      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+    <section className="rounded-2xl border bg-white p-6 shadow-sm transition-all hover:shadow-lg">
+      <h2 className="text-3xl font-bold text-[#111827]">Khoảng cách tiện ích gần phòng</h2>
+      <div className="mt-5 grid gap-6 sm:grid-cols-2">
         {distances.map((poi) => (
-          <div key={poi.id} className="rounded-xl border p-4">
-            <div className="text-sm font-semibold text-slate-950">{poi.name}</div>
-            <div className="mt-1 text-xs text-slate-500">{categoryLabels[poi.category] ?? poi.category}</div>
-            <div className="mt-3 text-lg font-bold text-blue-700">{poi.distanceKm?.toLocaleString("vi-VN")} km</div>
+          <div key={poi.id} className="rounded-2xl border p-6 shadow-sm transition-all hover:shadow-lg">
+            <div className="text-lg font-semibold text-[#111827]">{poi.name}</div>
+            <div className="mt-1 text-sm font-normal text-[#6B7280]">{categoryLabels[poi.category] ?? poi.category}</div>
+            <div className="mt-3 text-lg font-semibold text-[#2563EB]">{poi.distanceKm?.toLocaleString("vi-VN")} km</div>
           </div>
         ))}
       </div>

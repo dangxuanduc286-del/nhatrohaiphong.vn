@@ -18,26 +18,24 @@ const dashboardCards = [
   { label: "Tổng Rooms", key: "rooms", tone: "border-cyan-200 bg-cyan-50 text-cyan-900" },
   { label: "Tổng Contracts", key: "contracts", tone: "border-violet-200 bg-violet-50 text-violet-900" },
   { label: "Tổng Invoices", key: "invoices", tone: "border-amber-200 bg-amber-50 text-amber-900" },
-  { label: "Tổng Subscriptions", key: "subscriptions", tone: "border-purple-200 bg-purple-50 text-purple-900" },
   { label: "Tổng POI", key: "poi", tone: "border-rose-200 bg-rose-50 text-rose-900" },
   { label: "Tổng Landing Pages", key: "landingPages", tone: "border-green-200 bg-green-50 text-green-900" },
 ] as const;
 
 export default async function AdminDashboardPage() {
-  const [users, landlords, properties, rooms, contracts, invoices, subscriptions, poi, landingPages, recentAuditLogs] = await Promise.all([
+  const [users, landlords, properties, rooms, contracts, invoices, poi, landingPages, recentAuditLogs] = await Promise.all([
     db.user.count({ where: { deletedAt: null } }),
     db.user.count({ where: { deletedAt: null, roles: { some: { role: { slug: "landlord", deletedAt: null } } } } }),
     db.property.count({ where: { deletedAt: null } }),
     db.room.count({ where: { deletedAt: null } }),
     db.contract.count({ where: { deletedAt: null } }),
     db.invoice.count({ where: { deletedAt: null } }),
-    db.subscription.count({ where: { deletedAt: null } }),
     db.pointOfInterest.count({ where: { deletedAt: null } }),
     db.landingPage.count({ where: { deletedAt: null } }),
     db.auditLog.findMany({ orderBy: { createdAt: "desc" }, take: 8, select: { id: true, action: true, entityType: true, entityId: true, createdAt: true, user: { select: { fullName: true, email: true } } } }),
   ]);
 
-  const values = { users, landlords, properties, rooms, contracts, invoices, subscriptions, poi, landingPages };
+  const values = { users, landlords, properties, rooms, contracts, invoices, poi, landingPages };
 
   return (
     <section className="space-y-8">
@@ -45,7 +43,7 @@ export default async function AdminDashboardPage() {
         <div>
           <p className="text-sm font-medium uppercase tracking-wide text-slate-500">Admin Core Production</p>
           <h2 className="text-2xl font-bold text-slate-950 sm:text-3xl">Dashboard quản trị nền tảng</h2>
-          <p className="mt-2 max-w-3xl text-sm text-slate-600">Tổng quan dữ liệu quản trị cốt lõi. Không triển khai search/maps/landlord/payment features trong Prompt 04.</p>
+          <p className="mt-2 max-w-3xl text-sm text-slate-600">Tổng quan dữ liệu quản trị cốt lõi cho user, landlord, phòng trọ, hợp đồng, hóa đơn, POI và landing pages.</p>
         </div>
         <div className="rounded-full border bg-white px-4 py-2 text-sm text-slate-600 shadow-sm">Cập nhật: {formatDate(new Date())}</div>
       </div>

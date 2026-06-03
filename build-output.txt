@@ -6,19 +6,19 @@
 - Environments: .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 4.4s
+✓ Compiled successfully in 3.7s
   Running TypeScript ...
-  Finished TypeScript in 6.0s ...
+  Finished TypeScript in 6.1s ...
   Collecting page data using 11 workers ...
   Generating static pages using 11 workers (0/57) ...
   Generating static pages using 11 workers (14/57) 
   Generating static pages using 11 workers (28/57) 
   Generating static pages using 11 workers (42/57) 
-✓ Generating static pages using 11 workers (57/57) in 570ms
+✓ Generating static pages using 11 workers (57/57) in 584ms
   Finalizing page optimization ...
 
-Route (app)                                      Revalidate  Expire
-┌ ○ /                                                    5m      1y
+Route (app)                       Revalidate  Expire
+┌ ○ /                                     5m      1y
 ├ ○ /_not-found
 ├ ƒ /[slug]
 ├ ƒ /admin
@@ -28,7 +28,6 @@ Route (app)                                      Revalidate  Expire
 ├ ƒ /admin/districts
 ├ ƒ /admin/landing-pages
 ├ ƒ /admin/landlords
-├ ƒ /admin/monetization
 ├ ƒ /admin/permissions
 ├ ƒ /admin/points-of-interest
 ├ ƒ /admin/properties
@@ -59,9 +58,8 @@ Route (app)                                      Revalidate  Expire
 ├ ƒ /api/auth/register
 ├ ƒ /api/auth/reset-password
 ├ ƒ /api/auth/verify-email
+├ ƒ /api/health
 ├ ƒ /api/internal/auth/authorize
-├ ƒ /api/landlord/checkout/payment-intents
-├ ƒ /api/landlord/checkout/payment-intents/[id]
 ├ ƒ /api/landlord/rooms
 ├ ƒ /api/landlord/rooms/[id]
 ├ ƒ /api/search
@@ -69,15 +67,16 @@ Route (app)                                      Revalidate  Expire
 ├ ƒ /api/search/nearby
 ├ ƒ /api/search/poi
 ├ ƒ /api/search/suggestions
+├ ○ /forgot-password
 ├ ƒ /landlord
-├ ƒ /landlord/billing
-├ ƒ /landlord/checkout
 ├ ƒ /landlord/rooms/[id]/edit
 ├ ƒ /landlord/rooms/new
-├ ƒ /landlord/wallet
+├ ○ /login
 ├ ƒ /phong/[slug]
+├ ○ /register
+├ ○ /reset-password
 ├ ○ /robots.txt
-└ ○ /sitemap.xml                                         5m      1y
+└ ○ /sitemap.xml                          5m      1y
 
 
 ƒ Proxy (Middleware)

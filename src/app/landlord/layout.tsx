@@ -6,9 +6,6 @@ import { requireLandlordPage } from "@/server/landlord/utils";
 const landlordNav = [
   { label: "Dashboard", href: "/landlord" },
   { label: "Đăng phòng", href: "/landlord/rooms/new" },
-  { label: "Wallet", href: "/landlord/wallet" },
-  { label: "Billing", href: "/landlord/billing" },
-  { label: "Checkout", href: "/landlord/checkout" },
 ] as const;
 
 export default async function LandlordLayout({ children }: { children: ReactNode }) {
@@ -21,7 +18,7 @@ export default async function LandlordLayout({ children }: { children: ReactNode
           <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Landlord Dashboard</p>
-              <h1 className="text-2xl font-bold">Monetization & Billing</h1>
+              <h1 className="text-2xl font-bold">Quản lý phòng trọ miễn phí</h1>
             </div>
             <div className="rounded-full bg-slate-100 px-4 py-2 text-sm text-slate-700">{auth.user?.fullName ?? auth.user?.email ?? "Landlord"}</div>
           </div>

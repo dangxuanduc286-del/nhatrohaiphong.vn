@@ -1,0 +1,3 @@
+{"identifier":"0564162222","ok":true,"role":"ADMIN","phone":"0564162222","email":"0564162222@nhatrohaiphong.vn"}
+{"identifier":"0564162222@nhatrohaiphong.vn","ok":true,"role":"ADMIN","phone":"0564162222","email":"0564162222@nhatrohaiphong.vn"}
+{"identifier":"0564162222@nhatrohaiphong.vn","ok":true,"role":"ADMIN","phone":"0564162222","email":"0564162222@nhatrohaiphong.vn"}

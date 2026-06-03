@@ -30,6 +30,10 @@ export function canonicalPath(path = "/") {
   return normalizedPath === "/" ? "/" : `/${trimSlashes(normalizedPath)}`;
 }
 
+function canonicalUrl(path = "/") {
+  return /^https?:\/\//i.test(path) ? path : absoluteUrl(canonicalPath(path));
+}
+
 export function createSeoMetadata(input: {
   title: string;
   description: string;
@@ -38,8 +42,7 @@ export function createSeoMetadata(input: {
   image?: string;
   noIndex?: boolean;
 }): Metadata {
-  const path = canonicalPath(input.path ?? "/");
-  const url = absoluteUrl(path);
+  const url = canonicalUrl(input.path ?? "/");
   const title = input.title.includes(appConfig.name) ? input.title : `${input.title} | ${appConfig.name}`;
 
   return {
@@ -89,8 +92,24 @@ export function websiteJsonLd(): JsonLd {
     url: SITE_URL,
     potentialAction: {
       "@type": "SearchAction",
-      target: `${SITE_URL}/api/search?q={search_term_string}`,
+      target: `${SITE_URL}/phong-tro-hai-phong?q={search_term_string}`,
       "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+export function localBusinessJsonLd(input: { name?: string; url?: string; areaServed?: string; description?: string } = {}): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: input.name ?? appConfig.name,
+    url: input.url ? absoluteUrl(input.url) : SITE_URL,
+    description: input.description ?? appConfig.description,
+    areaServed: input.areaServed ?? "Hải Phòng, Hải Dương",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Hải Phòng",
+      addressCountry: "VN",
     },
   };
 }

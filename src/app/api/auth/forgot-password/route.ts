@@ -9,8 +9,8 @@ export async function POST(request: Request) {
   try {
     const input = forgotPasswordSchema.parse(await request.json());
     const meta = await getRequestMeta();
-    await enforceAuthActionRateLimit("forgot-password", `${meta.ipAddress ?? "unknown"}:${input.email}`);
-    const result = await requestPasswordReset(input.email, meta);
+    await enforceAuthActionRateLimit("forgot-password", `${meta.ipAddress ?? "unknown"}:${input.identifier}`);
+    const result = await requestPasswordReset(input.identifier, meta);
     return ok({ success: true, debug: shouldExposeAuthDebugTokens() ? { resetToken: result.resetToken } : undefined });
   } catch (error) {
     return fail(error);
