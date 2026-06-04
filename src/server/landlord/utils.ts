@@ -4,7 +4,7 @@ import { getRefreshCookie } from "@/server/auth/cookies";
 import { requirePermissionValue, requireRoleValue } from "@/server/auth/rbac";
 import { getAuthFromRefreshToken } from "@/server/auth/service";
 
-const LANDLORD_ROLES = ["LANDLORD", "ADMIN", "SUPER_ADMIN"] as const;
+const LANDLORD_ROLES = ["LANDLORD"] as const;
 
 export async function requireLandlordPage(permission = "room.create") {
   const refreshToken = await getRefreshCookie();
@@ -25,10 +25,16 @@ export async function requireLandlordPage(permission = "room.create") {
 
 export function formatCurrency(value: { toString(): string } | number) {
   const amount = typeof value === "number" ? value : Number(value.toString());
-  return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND", maximumFractionDigits: 0 }).format(amount);
+  return new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+    maximumFractionDigits: 0,
+  }).format(amount);
 }
 
 export function formatDate(value: Date | null | undefined) {
   if (!value) return "—";
-  return new Intl.DateTimeFormat("vi-VN", { dateStyle: "medium", timeStyle: "short" }).format(value);
+  return new Intl.DateTimeFormat("vi-VN", { dateStyle: "medium", timeStyle: "short" }).format(
+    value,
+  );
 }

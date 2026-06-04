@@ -1,7 +1,19 @@
 import { z } from "zod";
 
-const optionalEmail = z.string().trim().email("Email không hợp lệ").toLowerCase().optional().or(z.literal(""));
-const optionalPhone = z.string().trim().min(8, "Số điện thoại không hợp lệ").max(20, "Số điện thoại không hợp lệ").optional().or(z.literal(""));
+const optionalEmail = z
+  .string()
+  .trim()
+  .email("Email không hợp lệ")
+  .toLowerCase()
+  .optional()
+  .or(z.literal(""));
+const optionalPhone = z
+  .string()
+  .trim()
+  .min(8, "Số điện thoại không hợp lệ")
+  .max(20, "Số điện thoại không hợp lệ")
+  .optional()
+  .or(z.literal(""));
 
 export function normalizeIdentifier(value: string) {
   return value.trim().toLowerCase();
@@ -17,11 +29,15 @@ export const registerSchema = z
     email: optionalEmail,
     phone: optionalPhone,
     password: z.string().min(8, "Mật khẩu phải có ít nhất 8 ký tự").max(128),
-    role: z.enum(["USER", "LANDLORD"]).default("USER"),
+    role: z.literal("USER").default("USER"),
   })
   .superRefine((value, ctx) => {
     if (!value.email && !value.phone) {
-      ctx.addIssue({ code: "custom", path: ["identifier"], message: "Vui lòng nhập email hoặc số điện thoại" });
+      ctx.addIssue({
+        code: "custom",
+        path: ["identifier"],
+        message: "Vui lòng nhập email hoặc số điện thoại",
+      });
     }
   })
   .transform((value) => ({
@@ -39,7 +55,11 @@ export const loginSchema = z
   })
   .superRefine((value, ctx) => {
     if (!value.identifier && !value.email) {
-      ctx.addIssue({ code: "custom", path: ["identifier"], message: "Vui lòng nhập email hoặc số điện thoại" });
+      ctx.addIssue({
+        code: "custom",
+        path: ["identifier"],
+        message: "Vui lòng nhập email hoặc số điện thoại",
+      });
     }
   })
   .transform((value) => ({
@@ -54,7 +74,11 @@ export const forgotPasswordSchema = z
   })
   .superRefine((value, ctx) => {
     if (!value.identifier && !value.email) {
-      ctx.addIssue({ code: "custom", path: ["identifier"], message: "Vui lòng nhập email hoặc số điện thoại" });
+      ctx.addIssue({
+        code: "custom",
+        path: ["identifier"],
+        message: "Vui lòng nhập email hoặc số điện thoại",
+      });
     }
   })
   .transform((value) => ({

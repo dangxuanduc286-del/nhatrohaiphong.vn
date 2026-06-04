@@ -5,10 +5,22 @@ import { PrismaClient } from "../src/generated/prisma/client";
 
 import { hashPassword, verifyPassword } from "../src/server/auth/crypto";
 
-const ADMIN_PHONE = "0564162222";
-const ADMIN_PASSWORD = "Duc120897";
-const ADMIN_EMAIL = `${ADMIN_PHONE}@nhatrohaiphong.vn`;
-const ADMIN_FULL_NAME = "Admin Nhatrohaiphong";
+const BOOTSTRAP_ROLE = process.env.BOOTSTRAP_ROLE === "SUPER_ADMIN" ? "SUPER_ADMIN" : "ADMIN";
+const BOOTSTRAP_PHONE = process.env.BOOTSTRAP_PHONE;
+const BOOTSTRAP_EMAIL = process.env.BOOTSTRAP_EMAIL;
+const BOOTSTRAP_PASSWORD = process.env.BOOTSTRAP_PASSWORD;
+const BOOTSTRAP_FULL_NAME = process.env.BOOTSTRAP_FULL_NAME ?? `${BOOTSTRAP_ROLE} Nhatrohaiphong`;
+
+if (!BOOTSTRAP_PHONE && !BOOTSTRAP_EMAIL) {
+  throw new Error("BOOTSTRAP_PHONE or BOOTSTRAP_EMAIL is required");
+}
+
+if (!BOOTSTRAP_PASSWORD || BOOTSTRAP_PASSWORD.length < 12) {
+  throw new Error("BOOTSTRAP_PASSWORD is required and must be at least 12 characters");
+}
+
+const BOOTSTRAP_IDENTIFIER_EMAIL = BOOTSTRAP_EMAIL ?? `${BOOTSTRAP_PHONE}@nhatrohaiphong.vn`;
+const bootstrapPassword = BOOTSTRAP_PASSWORD;
 
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,
@@ -16,22 +28,30 @@ const adapter = new PrismaPg({
 
 const db = new PrismaClient({ adapter });
 
-async function ensureAdminRole() {
+async function ensureBootstrapRole() {
+  const roleSlug = BOOTSTRAP_ROLE.toLowerCase();
   return db.role.upsert({
-    where: { slug: "admin" },
-    update: { name: "ADMIN", deletedAt: null },
-    create: { name: "ADMIN", slug: "admin", description: "Administrator role" },
+    where: { slug: roleSlug },
+    update: { name: BOOTSTRAP_ROLE, deletedAt: null },
+    create: {
+      name: BOOTSTRAP_ROLE,
+      slug: roleSlug,
+      description:
+        BOOTSTRAP_ROLE === "SUPER_ADMIN" ? "Super administrator role" : "Administrator role",
+    },
   });
 }
 
 async function main() {
-  const adminRole = await ensureAdminRole();
-  const passwordHash = await hashPassword(ADMIN_PASSWORD);
+  const adminRole = await ensureBootstrapRole();
+  const passwordHash = await hashPassword(bootstrapPassword);
 
   const existingUser = await db.user.findFirst({
     where: {
       deletedAt: null,
-      OR: [{ phone: ADMIN_PHONE }, { email: ADMIN_EMAIL }],
+      OR: [{ phone: BOOTSTRAP_PHONE ?? undefined }, { email: BOOTSTRAP_IDENTIFIER_EMAIL }].filter(
+        (item) => Object.values(item)[0],
+      ),
     },
     select: {
       id: true,
@@ -46,7 +66,7 @@ async function main() {
     ? await db.user.update({
         where: { id: existingUser.id },
         data: {
-          phone: existingUser.phone ?? ADMIN_PHONE,
+          phone: existingUser.phone ?? BOOTSTRAP_PHONE,
           passwordHash,
           status: "ACTIVE",
           deletedAt: null,
@@ -57,9 +77,9 @@ async function main() {
       })
     : await db.user.create({
         data: {
-          email: ADMIN_EMAIL,
-          phone: ADMIN_PHONE,
-          fullName: ADMIN_FULL_NAME,
+          email: BOOTSTRAP_IDENTIFIER_EMAIL,
+          phone: BOOTSTRAP_PHONE,
+          fullName: BOOTSTRAP_FULL_NAME,
           passwordHash,
           status: "ACTIVE",
           emailVerifiedAt: new Date(),
@@ -84,12 +104,14 @@ async function main() {
     },
   });
 
-  const passwordMatches = verified.passwordHash ? await verifyPassword(verified.passwordHash, ADMIN_PASSWORD) : false;
+  const passwordMatches = verified.passwordHash
+    ? await verifyPassword(verified.passwordHash, bootstrapPassword)
+    : false;
   const roleSlugs = verified.roles.map((item) => item.role.slug);
-  const hasAdminRole = roleSlugs.includes("admin");
+  const hasAdminRole = roleSlugs.includes(BOOTSTRAP_ROLE.toLowerCase());
 
   if (!passwordMatches || !hasAdminRole || verified.status !== "ACTIVE") {
-    throw new Error("Admin verification failed after upsert");
+    throw new Error("Admin bootstrap verification failed after upsert");
   }
 
   console.log(
@@ -97,6 +119,7 @@ async function main() {
       {
         ok: true,
         action: existingUser ? "updated_existing_user" : "created_new_user",
+        bootstrapRole: BOOTSTRAP_ROLE,
         user: {
           id: verified.id,
           email: verified.email,

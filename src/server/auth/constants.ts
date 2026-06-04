@@ -7,7 +7,30 @@ export const SYSTEM_ROLES = ["USER", "LANDLORD", "MODERATOR", "ADMIN", "SUPER_AD
 
 export type SystemRole = (typeof SYSTEM_ROLES)[number];
 
-export const ROLE_PERMISSIONS: Record<SystemRole, string[]> = {
+export const RBAC_PERMISSIONS = [
+  "room.view",
+  "room.favorite",
+  "appointment.create",
+  "room.create",
+  "room.update",
+  "room.delete",
+  "room.moderate",
+  "tenant.manage",
+  "contract.manage",
+  "invoice.manage",
+  "system.manage",
+  "user.manage",
+  "role.manage",
+  "permission.manage",
+  "audit.view",
+  "report.manage",
+  "analytics.view",
+  "settings.manage",
+] as const;
+
+export type RbacPermission = (typeof RBAC_PERMISSIONS)[number];
+
+export const ROLE_PERMISSIONS: Record<SystemRole, RbacPermission[]> = {
   USER: ["room.view", "room.favorite", "appointment.create"],
   LANDLORD: [
     "room.view",
@@ -20,53 +43,17 @@ export const ROLE_PERMISSIONS: Record<SystemRole, string[]> = {
     "contract.manage",
     "invoice.manage",
   ],
-  MODERATOR: [
-    "room.view",
-    "room.moderate",
-    "report.manage",
-    "audit.view",
-  ],
+  // MODERATOR is retained for read-only moderation surfaces only. It is not an admin governance role.
+  MODERATOR: ["room.view", "room.moderate", "report.manage", "audit.view"],
   ADMIN: [
-    "room.view",
-    "room.favorite",
-    "appointment.create",
-    "room.create",
-    "room.update",
-    "room.delete",
-    "tenant.manage",
-    "contract.manage",
-    "invoice.manage",
     "system.manage",
     "user.manage",
-    "role.manage",
-    "permission.manage",
-    "audit.manage",
     "room.moderate",
-    "report.manage",
-    "analytics.view",
-    "settings.manage",
-  ],
-  SUPER_ADMIN: [
-    "room.view",
-    "room.favorite",
-    "appointment.create",
-    "room.create",
-    "room.update",
-    "room.delete",
-    "room.moderate",
-    "tenant.manage",
-    "contract.manage",
-    "invoice.manage",
-    "system.manage",
-    "user.manage",
-    "role.manage",
-    "permission.manage",
-    "audit.manage",
     "audit.view",
-    "report.manage",
     "analytics.view",
     "settings.manage",
   ],
+  SUPER_ADMIN: [...RBAC_PERMISSIONS],
 };
 
 export const AUTH_COOKIE_OPTIONS = {

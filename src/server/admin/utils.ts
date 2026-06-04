@@ -3,23 +3,30 @@ import { redirect } from "next/navigation";
 import { AppError } from "@/lib/errors";
 import { getRefreshCookie } from "@/server/auth/cookies";
 import { requirePermissionValue, requireRoleValue } from "@/server/auth/rbac";
-import { requirePermission, requireRole } from "@/server/auth/server";
+import { requireAuth } from "@/server/auth/server";
 import { getAuthFromRefreshToken } from "@/server/auth/service";
 
-const ADMIN_ROLES = ["SUPER_ADMIN", "ADMIN"] as const;
-const MODERATOR_ADMIN_PERMISSIONS = ["audit.view", "room.moderate"] as const;
+import {
+  ADMIN_ACCESS_ROLES,
+  getAllowedAdminRoles,
+  roleHasSeededPermission,
+  type AdminPermission,
+} from "./rbac";
 
-function getAllowedAdminRoles(permission: string) {
-  return MODERATOR_ADMIN_PERMISSIONS.includes(permission as (typeof MODERATOR_ADMIN_PERMISSIONS)[number]) ? [...ADMIN_ROLES, "MODERATOR" as const] : [...ADMIN_ROLES];
-}
-
-export async function requireAdmin(authorization: string | null, permission = "system.manage") {
-  const auth = await requireRole(authorization, getAllowedAdminRoles(permission));
-  await requirePermission(authorization, permission);
+export async function requireAdmin(
+  authorization: string | null,
+  permission: AdminPermission = "system.manage",
+) {
+  const auth = await requireAuth(authorization);
+  requireRoleValue(auth.payload.role, getAllowedAdminRoles(permission));
+  if (!roleHasSeededPermission(auth.payload.role, permission)) {
+    throw new AppError("Forbidden", 403, "FORBIDDEN");
+  }
+  await requirePermissionValue(auth.payload.role, permission);
   return auth;
 }
 
-export async function requireAdminPage(permission = "system.manage") {
+export async function requireAdminAccessPage() {
   const refreshToken = await getRefreshCookie();
 
   if (!refreshToken) {
@@ -28,7 +35,21 @@ export async function requireAdminPage(permission = "system.manage") {
 
   try {
     const auth = await getAuthFromRefreshToken(refreshToken);
+    requireRoleValue(auth.payload.role, [...ADMIN_ACCESS_ROLES]);
+    return auth;
+  } catch {
+    redirect("/login");
+  }
+}
+
+export async function requireAdminPage(permission: AdminPermission = "system.manage") {
+  const auth = await requireAdminAccessPage();
+
+  try {
     requireRoleValue(auth.payload.role, getAllowedAdminRoles(permission));
+    if (!roleHasSeededPermission(auth.payload.role, permission)) {
+      throw new AppError("Forbidden", 403, "FORBIDDEN");
+    }
     await requirePermissionValue(auth.payload.role, permission);
     return auth;
   } catch {

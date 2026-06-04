@@ -6,21 +6,22 @@
 - Environments: .env
 
   Creating an optimized production build ...
-✓ Compiled successfully in 3.7s
+✓ Compiled successfully in 3.8s
   Running TypeScript ...
   Finished TypeScript in 6.1s ...
   Collecting page data using 11 workers ...
-  Generating static pages using 11 workers (0/57) ...
-  Generating static pages using 11 workers (14/57) 
-  Generating static pages using 11 workers (28/57) 
-  Generating static pages using 11 workers (42/57) 
-✓ Generating static pages using 11 workers (57/57) in 584ms
+  Generating static pages using 11 workers (0/59) ...
+  Generating static pages using 11 workers (14/59) 
+  Generating static pages using 11 workers (29/59) 
+  Generating static pages using 11 workers (44/59) 
+✓ Generating static pages using 11 workers (59/59) in 516ms
   Finalizing page optimization ...
 
 Route (app)                       Revalidate  Expire
 ┌ ○ /                                     5m      1y
 ├ ○ /_not-found
 ├ ƒ /[slug]
+├ ƒ /account/upgrade-landlord
 ├ ƒ /admin
 ├ ƒ /admin/analytics
 ├ ƒ /admin/audit-logs
@@ -34,6 +35,7 @@ Route (app)                       Revalidate  Expire
 ├ ƒ /admin/roles
 ├ ƒ /admin/rooms
 ├ ƒ /admin/settings
+├ ƒ /admin/upgrade-requests
 ├ ƒ /admin/users
 ├ ƒ /admin/wards
 ├ ƒ /api/admin/audit-logs

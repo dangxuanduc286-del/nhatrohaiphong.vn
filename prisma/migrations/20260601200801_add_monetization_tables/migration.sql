@@ -1,0 +1,3 @@
+-- Reconstructed placeholder for production migration history reconciliation.
+-- This migration was already applied in the database before the local Phase 15-18 restore.
+-- Do not add SQL here: schema differences are reconciled by 20260604195800_hotfix_reconcile_phase_15_18_schema.
