@@ -1,3 +1,4 @@
+import { Select } from "@/components/ui";
 import {
   AdminDataTable,
   AdminEmptyState,
@@ -116,7 +117,7 @@ export default async function AdminLandingPagesPage({
       </div>
       <AdminFilters>
         <AdminSearch defaultValue={data.search} placeholder="Tìm title, slug, path" />
-        <select
+        <Select
           name="status"
           defaultValue={data.status}
           className="rounded-xl border px-3 py-2 text-sm"
@@ -124,7 +125,7 @@ export default async function AdminLandingPagesPage({
           <option value="">Tất cả</option>
           <option value="published">Published</option>
           <option value="draft">Draft</option>
-        </select>
+        </Select>
       </AdminFilters>
       <AdminDataTable
         columns={columns}

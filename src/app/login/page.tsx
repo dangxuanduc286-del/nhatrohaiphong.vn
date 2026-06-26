@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useState } from "react";
 
 import { trackEvent } from "@/components/analytics/event-tracker";
+import { Button, Input } from "@/components/ui";
 
 type AuthResponse = {
   data?: {
@@ -85,7 +86,7 @@ function LoginForm() {
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
           <label className="block text-sm font-medium text-slate-700">
             Email hoặc số điện thoại
-            <input
+            <Input
               name="identifier"
               type="text"
               autoComplete="username"
@@ -96,7 +97,7 @@ function LoginForm() {
           </label>
           <label className="block text-sm font-medium text-slate-700">
             Mật khẩu
-            <input
+            <Input
               name="password"
               type="password"
               autoComplete="current-password"
@@ -109,13 +110,13 @@ function LoginForm() {
             <p className="rounded-xl bg-red-50 p-3 text-sm font-medium text-red-700">{error}</p>
           ) : null}
 
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
             className="w-full rounded-xl bg-blue-700 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? "Đang đăng nhập..." : "Đăng nhập"}
-          </button>
+          </Button>
         </form>
 
         <div className="mt-6 flex items-center justify-between text-sm">

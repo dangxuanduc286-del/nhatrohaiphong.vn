@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 
+import { Button, Input } from "@/components/ui";
+
 type AuthResponse = {
   error?: {
     message?: string;
@@ -78,7 +80,7 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
           <label className="block text-sm font-medium text-slate-700">
             Họ tên
-            <input
+            <Input
               name="fullName"
               type="text"
               autoComplete="name"
@@ -88,7 +90,7 @@ export default function RegisterPage() {
           </label>
           <label className="block text-sm font-medium text-slate-700">
             Email
-            <input
+            <Input
               name="email"
               type="email"
               autoComplete="email"
@@ -98,7 +100,7 @@ export default function RegisterPage() {
           </label>
           <label className="block text-sm font-medium text-slate-700">
             Số điện thoại
-            <input
+            <Input
               name="phone"
               type="tel"
               autoComplete="tel"
@@ -108,7 +110,7 @@ export default function RegisterPage() {
           </label>
           <label className="block text-sm font-medium text-slate-700">
             Mật khẩu
-            <input
+            <Input
               name="password"
               type="password"
               autoComplete="new-password"
@@ -131,13 +133,13 @@ export default function RegisterPage() {
             </ol>
           </div>
 
-          <button
+          <Button
             type="submit"
             disabled={isSubmitting}
             className="w-full rounded-xl bg-blue-700 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? "Đang tạo tài khoản..." : "Tạo tài khoản"}
-          </button>
+          </Button>
         </form>
 
         <div className="mt-6 text-center text-sm text-slate-600">

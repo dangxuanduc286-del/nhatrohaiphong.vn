@@ -1,3 +1,4 @@
+import { Input } from "@/components/ui";
 import {
   AdminDataTable,
   AdminEmptyState,
@@ -117,13 +118,13 @@ export default async function AdminAuditLogsPage({
       </div>
       <AdminFilters>
         <AdminSearch defaultValue={data.search} placeholder="Tìm action, entity, IP" />
-        <input
+        <Input
           name="entityType"
           defaultValue={data.entityType}
           placeholder="Entity type"
           className="rounded-xl border px-3 py-2 text-sm"
         />
-        <input
+        <Input
           name="action"
           defaultValue={data.action}
           placeholder="Action"

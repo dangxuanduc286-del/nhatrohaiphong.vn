@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
+import { Button, Input, Textarea } from "@/components/ui";
 import { db } from "@/lib/db";
 import { getRefreshCookie } from "@/server/auth/cookies";
 import { requireRoleValue } from "@/server/auth/rbac";
@@ -218,7 +219,7 @@ export default async function UpgradeLandlordPage() {
               </div>
               <label className="block text-sm font-medium text-slate-700">
                 Họ tên
-                <input
+                <Input
                   name="fullName"
                   defaultValue={auth.user?.fullName ?? ""}
                   required
@@ -229,7 +230,7 @@ export default async function UpgradeLandlordPage() {
               </label>
               <label className="block text-sm font-medium text-slate-700">
                 Số điện thoại
-                <input
+                <Input
                   name="phone"
                   defaultValue={auth.user?.phone ?? ""}
                   required
@@ -241,7 +242,7 @@ export default async function UpgradeLandlordPage() {
               </label>
               <label className="block text-sm font-medium text-slate-700">
                 Ghi chú
-                <textarea
+                <Textarea
                   name="note"
                   rows={5}
                   maxLength={1000}
@@ -249,9 +250,9 @@ export default async function UpgradeLandlordPage() {
                   className="mt-1 w-full rounded-xl border px-3 py-3 text-base outline-none focus:border-blue-600 sm:text-sm"
                 />
               </label>
-              <button className="min-h-12 w-full rounded-xl bg-blue-700 px-5 py-3 text-sm font-bold text-white hover:bg-blue-800">
+              <Button className="min-h-12 w-full rounded-xl bg-blue-700 px-5 py-3 text-sm font-bold text-white hover:bg-blue-800">
                 {currentStatus === "REJECTED" ? "Gửi lại yêu cầu" : "Gửi yêu cầu nâng cấp"}
-              </button>
+              </Button>
               <p className="text-xs leading-5 text-slate-500">
                 Hệ thống tự chặn gửi trùng khi đang PENDING để bảo vệ workflow duyệt.
               </p>

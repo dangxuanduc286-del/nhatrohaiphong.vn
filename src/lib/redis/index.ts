@@ -44,16 +44,10 @@ function createRedisOptions(redisUrl: string): RedisOptions {
 }
 
 function attachRedisListeners(client: Redis): void {
-  client.on("connect", () => {
-    logger.debug("redis: connect");
-  });
-
-  client.on("ready", () => {
-    logger.debug("redis: ready");
-  });
-
+  // Error listener must remain attached to prevent unhandled Redis errors
+  // from crashing the process. Logged at warn level for production visibility.
   client.on("error", (error) => {
-    logger.debug(
+    logger.warn(
       {
         err: {
           message: error.message,
@@ -62,14 +56,6 @@ function attachRedisListeners(client: Redis): void {
       },
       "redis: error",
     );
-  });
-
-  client.on("close", () => {
-    logger.debug("redis: close");
-  });
-
-  client.on("reconnecting", (delay: number) => {
-    logger.debug({ delay }, "redis: reconnecting");
   });
 }
 

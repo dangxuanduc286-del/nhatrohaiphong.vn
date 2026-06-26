@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Button, Input, Select } from "@/components/ui";
 import { AdminActionButton } from "@/components/ui/admin-action-button";
 import type { RoomStatus } from "@/generated/prisma/enums";
 import { db } from "@/lib/db";
@@ -81,13 +82,13 @@ export default async function AdminPropertiesPage({
         </p>
       </div>
       <form className="grid gap-3 rounded-2xl border bg-white p-4 shadow-sm sm:grid-cols-[1fr_180px_auto]">
-        <input
+        <Input
           name="search"
           defaultValue={search}
           placeholder="Tìm phòng, mã, địa chỉ"
           className="min-w-0 rounded-xl border px-3 py-2 text-sm outline-none focus:border-slate-900"
         />
-        <select
+        <Select
           name="status"
           defaultValue={status ?? ""}
           className="rounded-xl border px-3 py-2 text-sm outline-none focus:border-slate-900"
@@ -98,10 +99,10 @@ export default async function AdminPropertiesPage({
           <option value="RESERVED">RESERVED</option>
           <option value="MAINTENANCE">MAINTENANCE</option>
           <option value="HIDDEN">HIDDEN</option>
-        </select>
-        <button className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">
+        </Select>
+        <Button className="rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white">
           Lọc
-        </button>
+        </Button>
       </form>
       <div className="overflow-hidden rounded-2xl border bg-white shadow-sm">
         <div className="overflow-x-auto">
@@ -149,9 +150,9 @@ export default async function AdminPropertiesPage({
                         View
                       </Link>
                       <form action={moderateRoomAction}>
-                        <input type="hidden" name="id" value={room.id} />
-                        <input type="hidden" name="action" value="HIDE" />
-                        <input
+                        <Input type="hidden" name="id" value={room.id} />
+                        <Input type="hidden" name="action" value="HIDE" />
+                        <Input
                           type="hidden"
                           name="reason"
                           value="Moderate from property management"

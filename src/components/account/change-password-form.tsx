@@ -2,6 +2,8 @@
 
 import { FormEvent, useState, useTransition } from "react";
 
+import { Button, Input } from "@/components/ui";
+
 export function ChangePasswordForm() {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -44,7 +46,7 @@ export function ChangePasswordForm() {
       </div>
       <label className="block text-sm font-medium text-slate-700">
         Mật khẩu hiện tại
-        <input
+        <Input
           name="currentPassword"
           type="password"
           autoComplete="current-password"
@@ -54,7 +56,7 @@ export function ChangePasswordForm() {
       </label>
       <label className="block text-sm font-medium text-slate-700">
         Mật khẩu mới
-        <input
+        <Input
           name="password"
           type="password"
           autoComplete="new-password"
@@ -71,12 +73,12 @@ export function ChangePasswordForm() {
           {message}
         </p>
       ) : null}
-      <button
+      <Button
         disabled={isPending}
         className="min-h-12 rounded-xl bg-blue-700 px-5 py-3 text-sm font-bold text-white hover:bg-blue-800 disabled:opacity-60"
       >
         {isPending ? "Đang lưu..." : "Đổi mật khẩu"}
-      </button>
+      </Button>
     </form>
   );
 }

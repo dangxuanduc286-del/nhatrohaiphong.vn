@@ -1,3 +1,4 @@
+import { Input } from "@/components/ui";
 import { AdminActionButton } from "@/components/ui/admin-action-button";
 import { db } from "@/lib/db";
 import { requireAdminPage } from "@/server/admin/utils";
@@ -128,9 +129,9 @@ export default async function AdminRoomsPage() {
                       <div className="flex flex-wrap gap-2">
                         {moderationActions.map((item) => (
                           <form key={item.action} action={moderateRoomAction}>
-                            <input type="hidden" name="id" value={room.id} />
-                            <input type="hidden" name="action" value={item.action} />
-                            <input type="hidden" name="reason" value={`Admin ${item.label}`} />
+                            <Input type="hidden" name="id" value={room.id} />
+                            <Input type="hidden" name="action" value={item.action} />
+                            <Input type="hidden" name="reason" value={`Admin ${item.label}`} />
                             <AdminActionButton
                               label={item.label}
                               message={`${item.label} tin ${room.roomCode}?`}

@@ -8,6 +8,7 @@ import {
   type AdminTableColumn,
 } from "@/components/ui/admin-data-table";
 import type { UserStatus } from "@/generated/prisma/enums";
+import { Select } from "@/components/ui";
 import { db } from "@/lib/db";
 import { getPagination, requireAdminPage } from "@/server/admin/utils";
 
@@ -161,7 +162,7 @@ export default async function AdminLandlordsPage({
       </div>
       <AdminFilters>
         <AdminSearch defaultValue={data.search} placeholder="Tìm landlord" />
-        <select
+        <Select
           name="status"
           defaultValue={data.status}
           className="rounded-xl border px-3 py-2 text-sm"
@@ -169,7 +170,7 @@ export default async function AdminLandlordsPage({
           <option value="ACTIVE">ACTIVE</option>
           <option value="INACTIVE">INACTIVE</option>
           <option value="BANNED">BANNED</option>
-        </select>
+        </Select>
       </AdminFilters>
       <AdminDataTable
         columns={columns}

@@ -1,3 +1,4 @@
+import { Button, Input, Select, Textarea } from "@/components/ui";
 import {
   getSettingCategories,
   getSystemSettings,
@@ -37,13 +38,13 @@ export default async function AdminSettingsPage({
       </div>
 
       <form className="flex flex-col gap-3 rounded-2xl border bg-white p-4 shadow-sm sm:flex-row sm:items-center">
-        <input
+        <Input
           name="search"
           defaultValue={data.search}
           placeholder="Tìm key, mô tả, giá trị"
           className="min-h-11 flex-1 rounded-xl border px-3 py-2 text-sm"
         />
-        <select
+        <Select
           name="category"
           defaultValue={data.category}
           className="min-h-11 rounded-xl border px-3 py-2 text-sm"
@@ -54,13 +55,13 @@ export default async function AdminSettingsPage({
               {category}
             </option>
           ))}
-        </select>
-        <button
+        </Select>
+        <Button
           className="min-h-11 rounded-xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
           type="submit"
         >
           Search / Filter
-        </button>
+        </Button>
       </form>
 
       <div className="grid gap-4 md:hidden">
@@ -70,7 +71,7 @@ export default async function AdminSettingsPage({
             action={saveSystemSettingAction}
             className="rounded-2xl border bg-white p-4 shadow-sm"
           >
-            <input type="hidden" name="key" value={setting.key} />
+            <Input type="hidden" name="key" value={setting.key} />
             <div className="flex items-start justify-between gap-3">
               <div>
                 <div className="font-semibold">{setting.label}</div>
@@ -83,23 +84,23 @@ export default async function AdminSettingsPage({
             <p className="mt-3 text-sm text-slate-600">{setting.description}</p>
             <div className="mt-4">
               {setting.input === "textarea" ? (
-                <textarea
+                <Textarea
                   name="value"
                   defaultValue={setting.value}
                   rows={3}
                   className="w-full rounded-xl border px-3 py-2 text-sm"
                 />
               ) : setting.input === "boolean" ? (
-                <select
+                <Select
                   name="value"
                   defaultValue={setting.value}
                   className="min-h-11 w-full rounded-xl border px-3 py-2 text-sm"
                 >
                   <option value="true">Enabled</option>
                   <option value="false">Disabled</option>
-                </select>
+                </Select>
               ) : (
-                <input
+                <Input
                   name="value"
                   type={setting.input}
                   defaultValue={setting.value}
@@ -111,12 +112,12 @@ export default async function AdminSettingsPage({
               Updated: {formatDate(setting.updatedAt)}
               {setting.updaterName ? ` bởi ${setting.updaterName}` : ""}
             </div>
-            <button
+            <Button
               type="submit"
               className="mt-4 min-h-11 w-full rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white"
             >
               Save
-            </button>
+            </Button>
           </form>
         ))}
       </div>
@@ -154,25 +155,25 @@ export default async function AdminSettingsPage({
                       action={saveSystemSettingAction}
                       className="min-w-72"
                     >
-                      <input type="hidden" name="key" value={setting.key} />
+                      <Input type="hidden" name="key" value={setting.key} />
                       {setting.input === "textarea" ? (
-                        <textarea
+                        <Textarea
                           name="value"
                           defaultValue={setting.value}
                           rows={2}
                           className="w-full rounded-xl border px-3 py-2 text-sm"
                         />
                       ) : setting.input === "boolean" ? (
-                        <select
+                        <Select
                           name="value"
                           defaultValue={setting.value}
                           className="min-h-10 w-full rounded-xl border px-3 py-2 text-sm"
                         >
                           <option value="true">Enabled</option>
                           <option value="false">Disabled</option>
-                        </select>
+                        </Select>
                       ) : (
-                        <input
+                        <Input
                           name="value"
                           type={setting.input}
                           defaultValue={setting.value}
@@ -188,13 +189,13 @@ export default async function AdminSettingsPage({
                     ) : null}
                   </td>
                   <td className="px-4 py-3 align-top">
-                    <button
+                    <Button
                       form={`setting-${setting.key}`}
                       type="submit"
                       className="min-h-10 rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white"
                     >
                       Save
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}

@@ -1,3 +1,4 @@
+import { Input, Select } from "@/components/ui";
 import { AdminActionButton } from "@/components/ui/admin-action-button";
 import {
   AdminDataTable,
@@ -154,17 +155,17 @@ export default async function AdminUpgradeRequestsPage({
         item.status === "PENDING" ? (
           <div className="flex flex-col gap-2">
             <form action={reviewLandlordApprovalRequestAction} className="flex flex-wrap gap-2">
-              <input type="hidden" name="id" value={item.id} />
-              <input type="hidden" name="action" value="APPROVE" />
+              <Input type="hidden" name="id" value={item.id} />
+              <Input type="hidden" name="action" value="APPROVE" />
               <AdminActionButton
                 label="Duyệt"
                 message={`Duyệt ${item.user.email} thành LANDLORD?`}
               />
             </form>
             <form action={reviewLandlordApprovalRequestAction} className="flex flex-col gap-2">
-              <input type="hidden" name="id" value={item.id} />
-              <input type="hidden" name="action" value="REJECT" />
-              <input
+              <Input type="hidden" name="id" value={item.id} />
+              <Input type="hidden" name="action" value="REJECT" />
+              <Input
                 name="rejectionReason"
                 required
                 minLength={2}
@@ -213,7 +214,7 @@ export default async function AdminUpgradeRequestsPage({
         </div>
       </div>
       <AdminFilters>
-        <select
+        <Select
           name="status"
           defaultValue={data.status}
           className="rounded-xl border px-3 py-2 text-sm"
@@ -222,7 +223,7 @@ export default async function AdminUpgradeRequestsPage({
           <option value="APPROVED">Approved</option>
           <option value="REJECTED">Rejected</option>
           <option value="">Tất cả</option>
-        </select>
+        </Select>
       </AdminFilters>
       <AdminDataTable
         columns={columns}

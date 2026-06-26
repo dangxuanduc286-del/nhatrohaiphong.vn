@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/admin-data-table";
 import type { UserStatus } from "@/generated/prisma/enums";
 import { AdminActionButton } from "@/components/ui/admin-action-button";
+import { Input, Select } from "@/components/ui";
 import { db } from "@/lib/db";
 import { getPagination, requireAdminPage } from "@/server/admin/utils";
 import { updateUserAction } from "@/server/admin/actions";
@@ -169,8 +170,8 @@ export default async function AdminUsersPage({
         <div className="flex flex-wrap gap-2">
           {userActions.map((item) => (
             <form key={item.action} action={updateUserAction}>
-              <input type="hidden" name="id" value={user.id} />
-              <input type="hidden" name="action" value={item.action} />
+              <Input type="hidden" name="id" value={user.id} />
+              <Input type="hidden" name="action" value={item.action} />
               <AdminActionButton label={item.label} message={`${item.label} user ${user.email}?`} />
             </form>
           ))}
@@ -219,7 +220,7 @@ export default async function AdminUsersPage({
       </div>
       <AdminFilters>
         <AdminSearch defaultValue={data.search} placeholder="Tìm email, phone, họ tên" />
-        <select
+        <Select
           name="status"
           defaultValue={data.status}
           className="rounded-xl border px-3 py-2 text-sm"
@@ -228,15 +229,15 @@ export default async function AdminUsersPage({
           <option value="ACTIVE">ACTIVE</option>
           <option value="INACTIVE">INACTIVE</option>
           <option value="BANNED">BANNED</option>
-        </select>
-        <select
+        </Select>
+        <Select
           name="deleted"
           defaultValue={data.deleted}
           className="rounded-xl border px-3 py-2 text-sm"
         >
           <option value="0">Chưa xóa</option>
           <option value="1">Đã xóa mềm</option>
-        </select>
+        </Select>
       </AdminFilters>
       <AdminDataTable
         columns={columns}

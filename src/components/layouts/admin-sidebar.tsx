@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Button } from "@/components/ui";
 import { adminNavigation } from "@/config/admin-navigation";
 import type { AdminPermission } from "@/server/admin/rbac";
 
@@ -36,9 +37,9 @@ export function AdminSidebar({ permissions }: AdminNavProps) {
           </Link>
         ))}
         <form action="/api/auth/logout" method="post">
-          <button className="block min-h-11 w-full rounded-xl px-3 py-2.5 text-left text-sm text-red-700 hover:bg-red-50">
+          <Button className="block min-h-11 w-full rounded-xl px-3 py-2.5 text-left text-sm text-red-700 hover:bg-red-50">
             Đăng xuất
-          </button>
+          </Button>
         </form>
       </nav>
     </aside>
@@ -69,9 +70,9 @@ export function AdminMobileNav({ permissions }: AdminNavProps) {
         </Link>
       ))}
       <form action="/api/auth/logout" method="post" className="shrink-0">
-        <button className="min-h-11 rounded-full border border-red-200 px-4 py-2 text-xs font-medium text-red-700 hover:bg-red-50">
+        <Button className="min-h-11 rounded-full border border-red-200 px-4 py-2 text-xs font-medium text-red-700 hover:bg-red-50">
           Đăng xuất
-        </button>
+        </Button>
       </form>
     </nav>
   );

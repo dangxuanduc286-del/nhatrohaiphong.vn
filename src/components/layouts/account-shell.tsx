@@ -5,6 +5,8 @@ import { usePathname, useRouter } from "next/navigation";
 import type { ReactNode } from "react";
 import { useState, useTransition } from "react";
 
+import { Button } from "@/components/ui";
+
 type AccountShellItem = {
   label: string;
   href: string;
@@ -90,7 +92,7 @@ export function AccountShell({
                 <span>{item.label}</span>
               </Link>
             ))}
-            <button
+            <Button
               type="button"
               onClick={handleLogout}
               disabled={isPending}
@@ -100,7 +102,7 @@ export function AccountShell({
                 ⇥
               </span>
               <span>{isPending ? "Đang đăng xuất..." : "Đăng xuất"}</span>
-            </button>
+            </Button>
           </nav>
           {error ? (
             <p className="mt-3 rounded-xl bg-red-50 px-3 py-2 text-xs font-medium text-red-700">
@@ -147,7 +149,7 @@ export function AccountShell({
                 <span>{item.label}</span>
               </Link>
             ))}
-            <button
+            <Button
               type="button"
               onClick={handleLogout}
               disabled={isPending}
@@ -155,7 +157,7 @@ export function AccountShell({
             >
               <span aria-hidden="true">⇥</span>
               <span>{isPending ? "Đang thoát" : "Đăng xuất"}</span>
-            </button>
+            </Button>
           </nav>
 
           <main className="p-4 sm:p-6 lg:p-8">{children}</main>
