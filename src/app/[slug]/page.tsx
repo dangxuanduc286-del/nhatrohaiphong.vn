@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { AnalyticsView } from "@/components/analytics/event-tracker";
+import { Breadcrumb } from "@/components/ui";
 import { db } from "@/lib/db";
 import {
   absoluteUrl,
@@ -156,18 +157,12 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
       <JsonLdScript data={jsonLd} />
       <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
-          <nav aria-label="Breadcrumb" className="text-sm font-normal text-[#9CA3AF]">
-            <ol className="flex flex-wrap gap-2">
-              {breadcrumbs.map((item, index) => (
-                <li key={`${item.url}-${index}`} className="flex items-center gap-2">
-                  {index > 0 ? <span>/</span> : null}
-                  <Link className="hover:text-[#2563EB]" href={item.url}>
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </nav>
+          <Breadcrumb
+            aria-label="Breadcrumb"
+            className="text-sm font-normal text-[#9CA3AF]"
+            linkComponent={Link}
+            items={breadcrumbs.map((item) => ({ label: item.name, href: item.url }))}
+          />
           <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px] lg:items-start">
             <div>
               <p className="text-sm font-normal uppercase tracking-wide text-[#2563EB]">

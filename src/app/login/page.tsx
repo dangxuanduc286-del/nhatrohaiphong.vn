@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useState } from "react";
 
 import { trackEvent } from "@/components/analytics/event-tracker";
-import { Button, Input } from "@/components/ui";
+import { Button, Input, Skeleton } from "@/components/ui";
 
 type AuthResponse = {
   data?: {
@@ -138,12 +138,12 @@ export default function LoginPage() {
       fallback={
         <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12">
           <section className="w-full max-w-md rounded-3xl border bg-white p-6 shadow-sm">
-            <div className="h-8 animate-pulse rounded bg-slate-200" />
-            <div className="mt-6 h-10 animate-pulse rounded bg-slate-200" />
+            <Skeleton className="h-8 rounded" />
+            <Skeleton className="mt-6 h-10 rounded" />
             <div className="mt-8 space-y-4">
-              <div className="h-12 animate-pulse rounded-xl bg-slate-100" />
-              <div className="h-12 animate-pulse rounded-xl bg-slate-100" />
-              <div className="h-12 animate-pulse rounded-xl bg-slate-200" />
+              <Skeleton className="h-12 rounded-xl bg-slate-100" />
+              <Skeleton className="h-12 rounded-xl bg-slate-100" />
+              <Skeleton className="h-12 rounded-xl" />
             </div>
           </section>
         </main>

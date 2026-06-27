@@ -1,3 +1,5 @@
+import { Container } from "@/components/ui";
+
 import { conversionTrustItems } from "./constants";
 
 interface StatsSectionProps {
@@ -12,7 +14,10 @@ export function StatsSection({ roomCount, landlordCount, districtCount }: StatsS
 
   return (
     <section className="border-y border-slate-200 bg-white px-4 py-5 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-7xl gap-3 text-sm font-bold text-[#374151] sm:grid-cols-3 lg:grid-cols-6">
+      <Container
+        flush
+        className="grid gap-3 text-sm font-bold text-[#374151] sm:grid-cols-3 lg:grid-cols-6"
+      >
         <span className="rounded-2xl bg-blue-50 px-4 py-3 text-[#2563EB]">
           {roomCount.toLocaleString("vi-VN")} phòng đang trống
         </span>
@@ -27,7 +32,7 @@ export function StatsSection({ roomCount, landlordCount, districtCount }: StatsS
             ✓ {item}
           </span>
         ))}
-      </div>
+      </Container>
     </section>
   );
 }

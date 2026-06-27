@@ -1,4 +1,4 @@
-import { Input, Select } from "@/components/ui";
+import { Card, Input, Select } from "@/components/ui";
 import { AdminActionButton } from "@/components/ui/admin-action-button";
 import {
   AdminDataTable,
@@ -196,22 +196,22 @@ export default async function AdminUpgradeRequestsPage({
         </p>
       </div>
       <div className="grid gap-3 sm:grid-cols-3">
-        <div className="rounded-2xl border bg-white p-4 shadow-sm">
+        <Card className="p-4">
           <p className="text-xs text-slate-500">Pending</p>
           <strong className="text-2xl text-amber-700">
             {data.pending.toLocaleString("vi-VN")}
           </strong>
-        </div>
-        <div className="rounded-2xl border bg-white p-4 shadow-sm">
+        </Card>
+        <Card className="p-4">
           <p className="text-xs text-slate-500">Approved</p>
           <strong className="text-2xl text-emerald-700">
             {data.approved.toLocaleString("vi-VN")}
           </strong>
-        </div>
-        <div className="rounded-2xl border bg-white p-4 shadow-sm">
+        </Card>
+        <Card className="p-4">
           <p className="text-xs text-slate-500">Rejected</p>
           <strong className="text-2xl text-red-700">{data.rejected.toLocaleString("vi-VN")}</strong>
-        </div>
+        </Card>
       </div>
       <AdminFilters>
         <Select

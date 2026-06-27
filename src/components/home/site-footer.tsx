@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { Container } from "@/components/ui";
+
 import type { PostRoomCta } from "./types";
 
 type FooterDistrict = {
@@ -16,7 +18,7 @@ export function SiteFooter({
 }) {
   return (
     <footer className="border-t border-slate-200 bg-white px-4 py-12 pb-28 sm:px-6 lg:px-8 lg:py-16">
-      <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-4">
+      <Container flush className="grid gap-8 md:grid-cols-4">
         <div>
           <div className="text-3xl font-extrabold text-[#2563EB]">Nhatrohaiphong.vn</div>
           <p className="mt-3 text-sm leading-6 text-[#64748B]">
@@ -51,7 +53,7 @@ export function SiteFooter({
             <span>Chính sách</span>
           </div>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

@@ -1,14 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { Container, Section } from "@/components/ui";
+
 import { heroImages, heroTrustItems } from "./constants";
 import type { PostRoomCta } from "./types";
 import { SearchSection } from "./search-section";
 
 export function HeroSection({ postRoomCta }: { postRoomCta: PostRoomCta }) {
   return (
-    <section className="relative overflow-hidden bg-white px-4 py-8 sm:px-6 sm:py-14 lg:px-8 lg:py-16">
-      <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+    <Section spacing="md" className="relative overflow-hidden bg-white px-4 sm:px-6 lg:px-8">
+      <Container flush className="grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <div>
           <div className="inline-flex rounded-2xl bg-blue-50 px-4 py-2 text-xs font-bold uppercase tracking-wide text-[#2563EB] sm:text-sm">
             Marketplace phòng trọ đã xác minh
@@ -95,7 +97,7 @@ export function HeroSection({ postRoomCta }: { postRoomCta: PostRoomCta }) {
             />
           </div>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { Container } from "@/components/ui";
+
 import { poiLabels } from "./constants";
 import { SkeletonCard } from "./skeleton-card";
 
@@ -12,7 +14,7 @@ type Poi = {
 export function PoiSection({ pois }: { pois: Poi[] }) {
   return (
     <section id="tien-ich" className="bg-[#F8FAFC] px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
-      <div className="mx-auto max-w-7xl">
+      <Container flush>
         <div>
           <p className="text-sm font-bold uppercase tracking-wide text-[#2563EB]">Gần tiện ích</p>
           <h2 className="mt-2 text-3xl font-extrabold text-[#111827]">Tiện ích quan trọng</h2>
@@ -50,7 +52,7 @@ export function PoiSection({ pois }: { pois: Poi[] }) {
             <SkeletonCard type="poi" />
           </div>
         )}
-      </div>
+      </Container>
     </section>
   );
 }

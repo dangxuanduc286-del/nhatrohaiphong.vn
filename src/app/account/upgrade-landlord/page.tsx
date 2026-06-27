@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
-import { Button, Input, Textarea } from "@/components/ui";
+import { Button, Card, Input, Textarea } from "@/components/ui";
 import { db } from "@/lib/db";
 import { getRefreshCookie } from "@/server/auth/cookies";
 import { requireRoleValue } from "@/server/auth/rbac";
@@ -172,7 +172,7 @@ export default async function UpgradeLandlordPage() {
               ) : null}
             </div>
 
-            <div className="rounded-3xl border bg-white p-5 shadow-sm sm:p-6">
+            <Card className="rounded-3xl p-5 sm:p-6">
               <h2 className="text-xl font-bold text-slate-950">Quy trình xét duyệt</h2>
               <p className="mt-2 text-sm leading-6 text-slate-600">
                 Thời gian xử lý dự kiến: trong 24–48 giờ làm việc, tùy số lượng yêu cầu và độ đầy đủ
@@ -200,7 +200,7 @@ export default async function UpgradeLandlordPage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </Card>
           </div>
 
           {canSubmit ? (

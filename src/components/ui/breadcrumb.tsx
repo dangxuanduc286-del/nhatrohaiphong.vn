@@ -5,9 +5,18 @@ import { cn } from "@/lib/utils";
 /**
  * UI Primitive — Breadcrumb
  *
- * Nền tảng breadcrumb dùng chung. KHÔNG thay thế component cũ.
+ * Nền tảng breadcrumb dùng chung.
  *
- * Accessibility: nav + aria-label="breadcrumb", aria-current="page" cho mục hiện tại.
+ * Accessibility: nav + aria-label="breadcrumb", aria-current="page" cho mục hiện tại,
+ * separator aria-hidden="true".
+ *
+ * Props:
+ * - items: danh sách breadcrumb item { label, href? }. Mục có href render link,
+ *   mục không href render span. Mục cuối có href vẫn render link (giữ behavior
+ *   clickable) và nhận aria-current="page".
+ * - separator: ký tự phân cách (default "/").
+ * - linkComponent: component render link (vd: next/link Link) để giữ client-side
+ *   navigation + prefetch. Default "a" (anchor thuần).
  */
 
 export interface BreadcrumbItem {
@@ -19,33 +28,37 @@ export interface BreadcrumbProps extends React.HTMLAttributes<HTMLElement> {
   items: BreadcrumbItem[];
   /** Ký tự phân cách. */
   separator?: React.ReactNode;
+  /** Component render link (vd: next/link Link). Default: "a". */
+  linkComponent?: React.ElementType;
 }
 
-export function Breadcrumb({ items, separator = "/", className, ...props }: BreadcrumbProps) {
+export function Breadcrumb({
+  items,
+  separator = "/",
+  className,
+  linkComponent,
+  ...props
+}: BreadcrumbProps) {
+  const Link = linkComponent ?? "a";
   return (
     <nav aria-label="breadcrumb" className={cn("text-sm", className)} {...props}>
-      <ol className="flex flex-wrap items-center gap-1.5 text-[#737373]">
+      <ol className="flex flex-wrap gap-2">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
           return (
-            <li key={`${item.label}-${index}`} className="inline-flex items-center gap-1.5">
-              {item.href && !isLast ? (
-                <a href={item.href} className="hover:text-[#2563EB] hover:underline">
-                  {item.label}
-                </a>
-              ) : (
-                <span
+            <li key={`${item.label}-${index}`} className="flex items-center gap-2">
+              {item.href ? (
+                <Link
+                  href={item.href}
+                  className="hover:text-[#2563EB]"
                   aria-current={isLast ? "page" : undefined}
-                  className={isLast ? "font-medium text-[#111827]" : undefined}
                 >
                   {item.label}
-                </span>
+                </Link>
+              ) : (
+                <span aria-current={isLast ? "page" : undefined}>{item.label}</span>
               )}
-              {!isLast ? (
-                <span aria-hidden="true" className="text-[#CBD5E1]">
-                  {separator}
-                </span>
-              ) : null}
+              {!isLast ? <span aria-hidden="true">{separator}</span> : null}
             </li>
           );
         })}

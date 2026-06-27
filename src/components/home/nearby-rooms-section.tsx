@@ -1,14 +1,11 @@
 import dynamic from "next/dynamic";
 
+import { Card } from "@/components/ui";
+
 const NearMeSearch = dynamic(
   () => import("@/components/search/near-me-search").then((mod) => mod.NearMeSearch),
   {
-    loading: () => (
-      <div
-        className="min-h-64 rounded-2xl border bg-white shadow-sm"
-        aria-label="Đang tải tìm phòng gần tôi"
-      />
-    ),
+    loading: () => <Card className="min-h-64" aria-label="Đang tải tìm phòng gần tôi" />,
   },
 );
 

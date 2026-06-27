@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 
 import { Button, Input } from "@/components/ui";
+import type { PaginationProps } from "@/components/ui/pagination";
 
 export type AdminTableColumn<T> = {
   key: string;
@@ -118,6 +119,21 @@ export function AdminEmptyState({
   );
 }
 
+/**
+ * AdminPagination — Adapter bridge sang Pagination Primitive.
+ *
+ * ZERO UI CHANGE: giữ nguyên visual (card wrapper + "Trang X/Y" + 2 nút
+ * Trước/Sau + aria-disabled biên + empty case "Trang 1/1").
+ * ZERO API CHANGE: giữ nguyên props { page, totalPages, basePath, searchParams }.
+ * ZERO CONSUMER CHANGE: 11 trang admin không phải refactor.
+ *
+ * Adapter KHÔNG render <Pagination /> trực tiếp vì Primitive render số trang +
+ * ellipsis + <a> thuần + return null khi totalPages <= 1 → gây UI/behavior change.
+ * Thay vào đó, adapter adopt accessibility contract của Primitive
+ * (<nav aria-label="Phân trang">, aria-current="page", aria-label prev/next)
+ * và bridge `getPageHref` theo PaginationProps["getPageHref"] signature,
+ * sẵn sàng delegate sang Primitive khi product cho phép UI change (phase sau).
+ */
 export function AdminPagination({
   page,
   totalPages,
@@ -129,7 +145,10 @@ export function AdminPagination({
   basePath: string;
   searchParams?: Record<string, string | undefined>;
 }) {
-  const makeHref = (nextPage: number) => {
+  // Bridge callback — tuân thủ PaginationProps["getPageHref"] contract của
+  // Pagination Primitive. Khi product cho phép UI change, chỉ cần render
+  // <Pagination currentPage={page} totalPages={totalPages} getPageHref={getPageHref} />.
+  const getPageHref: PaginationProps["getPageHref"] = (nextPage: number) => {
     const params = new URLSearchParams();
     for (const [key, value] of Object.entries(searchParams ?? {}))
       if (value) params.set(key, value);
@@ -137,27 +156,32 @@ export function AdminPagination({
     return `${basePath}?${params.toString()}`;
   };
   return (
-    <div className="flex items-center justify-between rounded-2xl border bg-white p-4 text-sm">
-      <span>
+    <nav
+      aria-label="Phân trang"
+      className="flex items-center justify-between rounded-2xl border bg-white p-4 text-sm"
+    >
+      <span aria-current="page">
         Trang {page} / {Math.max(1, totalPages)}
       </span>
       <div className="flex gap-2">
         <Link
           className="rounded-lg border px-3 py-2 aria-disabled:pointer-events-none aria-disabled:opacity-50"
           aria-disabled={page <= 1}
-          href={makeHref(Math.max(1, page - 1))}
+          aria-label="Trang trước"
+          href={getPageHref(Math.max(1, page - 1))}
         >
           Trước
         </Link>
         <Link
           className="rounded-lg border px-3 py-2 aria-disabled:pointer-events-none aria-disabled:opacity-50"
           aria-disabled={page >= totalPages}
-          href={makeHref(Math.min(totalPages, page + 1))}
+          aria-label="Trang sau"
+          href={getPageHref(Math.min(totalPages, page + 1))}
         >
           Sau
         </Link>
       </div>
-    </div>
+    </nav>
   );
 }
 
