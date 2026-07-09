@@ -31,3 +31,137 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ============================================================
+ * PHASE 3 — DESIGN SYSTEM FOUNDATION (ZERO UI CHANGE)
+ *
+ * Block bên dưới CHỈ THÊM CSS Variables và token mới.
+ * KHÔNG thay đổi màu/spacing/typography/radius/shadow/animation đang dùng.
+ * KHÔNG thay đổi output CSS hiện tại.
+ *
+ * Namespace `--ds-*` (design system) tránh xung đột với biến hiện có.
+ * Các Phase sau sẽ dùng các biến này để nâng cấp UI an toàn.
+ * ============================================================ */
+
+:root {
+  /* Brand colors */
+  --ds-brand-primary: #2563eb;
+  --ds-brand-primary-foreground: #ffffff;
+  --ds-brand-secondary: #1d4ed8;
+  --ds-brand-secondary-foreground: #ffffff;
+  --ds-brand-accent: #ea580c;
+  --ds-brand-accent-foreground: #ffffff;
+
+  /* Semantic colors */
+  --ds-success: #16a34a;
+  --ds-success-foreground: #ffffff;
+  --ds-warning: #f59e0b;
+  --ds-warning-foreground: #1f2937;
+  --ds-error: #dc2626;
+  --ds-error-foreground: #ffffff;
+  --ds-info: #2563eb;
+  --ds-info-foreground: #ffffff;
+
+  /* Surface tokens (đồng bộ với biến hiện có, không ghi đè) */
+  --ds-surface: #ffffff;
+  --ds-card: #ffffff;
+  --ds-overlay: rgba(15, 23, 42, 0.5);
+  --ds-content-strong: #111827;
+  --ds-content-secondary: #4b5563;
+
+  /* Radius scale */
+  --ds-radius-xs: 2px;
+  --ds-radius-sm: calc(0.75rem - 4px);
+  --ds-radius-md: calc(0.75rem - 2px);
+  --ds-radius-lg: 0.75rem;
+  --ds-radius-xl: 1rem;
+  --ds-radius-2xl: 1.5rem;
+  --ds-radius-full: 9999px;
+
+  /* Shadow scale */
+  --ds-shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --ds-shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.1), 0 1px 2px -1px rgba(15, 23, 42, 0.1);
+  --ds-shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.1), 0 2px 4px -2px rgba(15, 23, 42, 0.1);
+  --ds-shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.1), 0 4px 6px -4px rgba(15, 23, 42, 0.1);
+  --ds-shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.1);
+
+  /* Z-index scale */
+  --ds-z-dropdown: 10;
+  --ds-z-sticky: 20;
+  --ds-z-fixed: 30;
+  --ds-z-popover: 40;
+  --ds-z-modal: 50;
+  --ds-z-toast: 60;
+  --ds-z-tooltip: 70;
+
+  /* Motion */
+  --ds-duration-fast: 150ms;
+  --ds-duration-normal: 200ms;
+  --ds-duration-slow: 300ms;
+  --ds-easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ds-easing-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Design System tokens ánh xạ sang Tailwind v4 theme.
+   Dùng namespace `brand`/`accent`/`semantic` để tránh xung đột.
+   Utility class chỉ generate on-demand (JIT) nên không tăng output nếu không dùng. */
+@theme inline {
+  --color-brand-primary: var(--ds-brand-primary);
+  --color-brand-primary-foreground: var(--ds-brand-primary-foreground);
+  --color-brand-secondary: var(--ds-brand-secondary);
+  --color-brand-secondary-foreground: var(--ds-brand-secondary-foreground);
+  --color-brand-accent: var(--ds-brand-accent);
+  --color-brand-accent-foreground: var(--ds-brand-accent-foreground);
+
+  --color-success: var(--ds-success);
+  --color-success-foreground: var(--ds-success-foreground);
+  --color-warning: var(--ds-warning);
+  --color-warning-foreground: var(--ds-warning-foreground);
+  --color-error: var(--ds-error);
+  --color-error-foreground: var(--ds-error-foreground);
+  --color-info: var(--ds-info);
+  --color-info-foreground: var(--ds-info-foreground);
+
+  --color-surface: var(--ds-surface);
+  --color-card: var(--ds-card);
+  --color-overlay: var(--ds-overlay);
+
+  --radius-xs: var(--ds-radius-xs);
+  --radius-xl: var(--ds-radius-xl);
+  --radius-2xl: var(--ds-radius-2xl);
+  --radius-full: var(--ds-radius-full);
+
+  --shadow-xs: var(--ds-shadow-xs);
+  --shadow-sm: var(--ds-shadow-sm);
+  --shadow-md: var(--ds-shadow-md);
+  --shadow-lg: var(--ds-shadow-lg);
+  --shadow-xl: var(--ds-shadow-xl);
+
+  --z-dropdown: var(--ds-z-dropdown);
+  --z-sticky: var(--ds-z-sticky);
+  --z-fixed: var(--ds-z-fixed);
+  --z-popover: var(--ds-z-popover);
+  --z-modal: var(--ds-z-modal);
+  --z-toast: var(--ds-z-toast);
+  --z-tooltip: var(--ds-z-tooltip);
+}
+
+/* Utility class dùng chung — chỉ thêm, không thay đổi class hiện có. */
+@utility ds-focus-ring {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--ds-brand-primary),
+    0 0 0 4px #fff;
+}
+
+@utility ds-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -5,7 +5,7 @@ import { getAuthFromRefreshToken } from "@/server/auth/service";
 import { requirePermissionValue, requireRoleValue } from "@/server/auth/rbac";
 import type { LandlordRoomInput } from "@/server/landlord/room-validators";
 
-const LANDLORD_ROLES = ["LANDLORD", "ADMIN", "SUPER_ADMIN"] as const;
+const LANDLORD_ROLES = ["LANDLORD"] as const;
 
 export async function requireLandlordApi(refreshToken: string | null, permission = "room.create") {
   if (!refreshToken) {

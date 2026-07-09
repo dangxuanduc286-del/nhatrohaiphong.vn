@@ -4,12 +4,30 @@ import { db } from "@/lib/db";
 import { env } from "@/lib/env/index";
 import { fail, ok } from "@/server/api/response";
 import { landlordRoomInputSchema } from "@/server/landlord/room-validators";
-import { assertLandlordBuildingAccess, assertLandlordRoomAccess, requireLandlordApi, toRoomData } from "@/server/landlord/rooms";
+import {
+  assertLandlordBuildingAccess,
+  assertLandlordRoomAccess,
+  requireLandlordApi,
+  toRoomData,
+} from "@/server/landlord/rooms";
+
+const LANDLORD_ROOM_SELECT = {
+  id: true,
+  roomCode: true,
+  title: true,
+  slug: true,
+  latitude: true,
+  longitude: true,
+  updatedAt: true,
+} as const;
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const cookieStore = await cookies();
-    const auth = await requireLandlordApi(cookieStore.get(env.AUTH_COOKIE_NAME)?.value ?? null, "room.update");
+    const auth = await requireLandlordApi(
+      cookieStore.get(env.AUTH_COOKIE_NAME)?.value ?? null,
+      "room.update",
+    );
     const { id } = await params;
     await assertLandlordRoomAccess(id, auth.payload.userId);
 
@@ -18,8 +36,33 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
     const room = await db.room.update({
       where: { id },
-      data: toRoomData({ ...body, districtId: building.districtId, wardId: building.wardId }, auth.payload.userId),
-      select: { id: true, roomCode: true, title: true, slug: true, latitude: true, longitude: true, updatedAt: true },
+      data: toRoomData(
+        { ...body, districtId: building.districtId, wardId: building.wardId },
+        auth.payload.userId,
+      ),
+      select: LANDLORD_ROOM_SELECT,
+    });
+
+    return ok({ room });
+  } catch (error) {
+    return fail(error);
+  }
+}
+
+export async function DELETE(_request: Request, { params }: { params: Promise<{ id: string }> }) {
+  try {
+    const cookieStore = await cookies();
+    const auth = await requireLandlordApi(
+      cookieStore.get(env.AUTH_COOKIE_NAME)?.value ?? null,
+      "room.delete",
+    );
+    const { id } = await params;
+    await assertLandlordRoomAccess(id, auth.payload.userId);
+
+    const room = await db.room.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+      select: LANDLORD_ROOM_SELECT,
     });
 
     return ok({ room });

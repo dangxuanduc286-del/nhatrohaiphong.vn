@@ -5,10 +5,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useState } from "react";
 
 import { trackEvent } from "@/components/analytics/event-tracker";
+import { Button, Input, Skeleton } from "@/components/ui";
 
 type AuthResponse = {
   data?: {
     accessToken?: string;
+    user?: {
+      role?: string;
+    };
   };
   error?: {
     message?: string;
@@ -45,9 +49,25 @@ function LoginForm() {
       return;
     }
 
-    const next = searchParams.get("next") ?? "/landlord";
-    const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/landlord";
-    trackEvent("landlord_login_success", { location: "login_form", next: safeNext });
+    const role = payload.data?.user?.role ?? "USER";
+    const roleHome =
+      role === "ADMIN" || role === "SUPER_ADMIN"
+        ? "/admin"
+        : role === "LANDLORD"
+          ? "/landlord"
+          : "/";
+    const next = searchParams.get("next");
+    const isLocalPath = Boolean(next?.startsWith("/") && !next.startsWith("//"));
+    const isAdminPath = Boolean(next === "/admin" || next?.startsWith("/admin/"));
+    const isLandlordPath = Boolean(next === "/landlord" || next?.startsWith("/landlord/"));
+    const canUseNext =
+      isLocalPath &&
+      (role === "SUPER_ADMIN" ||
+        (role === "ADMIN" && !isLandlordPath) ||
+        (role === "LANDLORD" && !isAdminPath) ||
+        (role === "USER" && !isAdminPath && !isLandlordPath));
+    const safeNext = canUseNext && next ? next : roleHome;
+    trackEvent("login_success", { location: "login_form", next: safeNext, role });
     router.push(safeNext);
     router.refresh();
   }
@@ -56,7 +76,9 @@ function LoginForm() {
     <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12">
       <section className="w-full max-w-md rounded-3xl border bg-white p-6 shadow-sm">
         <div className="text-center">
-          <Link href="/" className="text-2xl font-extrabold tracking-tight text-blue-600">Nhatrohaiphong.vn</Link>
+          <Link href="/" className="text-2xl font-extrabold tracking-tight text-blue-600">
+            Nhatrohaiphong.vn
+          </Link>
           <h1 className="mt-6 text-3xl font-bold text-slate-900">Đăng nhập</h1>
           <p className="mt-2 text-sm text-slate-600">Đăng nhập để quản lý tin đăng và tài khoản.</p>
         </div>
@@ -64,23 +86,46 @@ function LoginForm() {
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
           <label className="block text-sm font-medium text-slate-700">
             Email hoặc số điện thoại
-            <input name="identifier" type="text" autoComplete="username" required placeholder="Nhập email hoặc số điện thoại" className="mt-1 w-full rounded-xl border px-3 py-3 text-sm outline-none focus:border-blue-600" />
+            <Input
+              name="identifier"
+              type="text"
+              autoComplete="username"
+              required
+              placeholder="Nhập email hoặc số điện thoại"
+              className="mt-1 w-full rounded-xl border px-3 py-3 text-sm outline-none focus:border-blue-600"
+            />
           </label>
           <label className="block text-sm font-medium text-slate-700">
             Mật khẩu
-            <input name="password" type="password" autoComplete="current-password" required className="mt-1 w-full rounded-xl border px-3 py-3 text-sm outline-none focus:border-blue-600" />
+            <Input
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              required
+              className="mt-1 w-full rounded-xl border px-3 py-3 text-sm outline-none focus:border-blue-600"
+            />
           </label>
 
-          {error ? <p className="rounded-xl bg-red-50 p-3 text-sm font-medium text-red-700">{error}</p> : null}
+          {error ? (
+            <p className="rounded-xl bg-red-50 p-3 text-sm font-medium text-red-700">{error}</p>
+          ) : null}
 
-          <button type="submit" disabled={isSubmitting} className="w-full rounded-xl bg-blue-700 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-60">
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full rounded-xl bg-blue-700 px-5 py-3 text-sm font-semibold text-white hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-60"
+          >
             {isSubmitting ? "Đang đăng nhập..." : "Đăng nhập"}
-          </button>
+          </Button>
         </form>
 
         <div className="mt-6 flex items-center justify-between text-sm">
-          <Link href="/forgot-password" className="font-medium text-blue-700 hover:text-blue-800">Quên mật khẩu?</Link>
-          <Link href="/register" className="font-medium text-blue-700 hover:text-blue-800">Đăng ký</Link>
+          <Link href="/forgot-password" className="font-medium text-blue-700 hover:text-blue-800">
+            Quên mật khẩu?
+          </Link>
+          <Link href="/register" className="font-medium text-blue-700 hover:text-blue-800">
+            Đăng ký
+          </Link>
         </div>
       </section>
     </main>
@@ -89,7 +134,21 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<main className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12"><section className="w-full max-w-md rounded-3xl border bg-white p-6 shadow-sm"><div className="h-8 animate-pulse rounded bg-slate-200" /><div className="mt-6 h-10 animate-pulse rounded bg-slate-200" /><div className="mt-8 space-y-4"><div className="h-12 animate-pulse rounded-xl bg-slate-100" /><div className="h-12 animate-pulse rounded-xl bg-slate-100" /><div className="h-12 animate-pulse rounded-xl bg-slate-200" /></div></section></main>}>
+    <Suspense
+      fallback={
+        <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12">
+          <section className="w-full max-w-md rounded-3xl border bg-white p-6 shadow-sm">
+            <Skeleton className="h-8 rounded" />
+            <Skeleton className="mt-6 h-10 rounded" />
+            <div className="mt-8 space-y-4">
+              <Skeleton className="h-12 rounded-xl bg-slate-100" />
+              <Skeleton className="h-12 rounded-xl bg-slate-100" />
+              <Skeleton className="h-12 rounded-xl" />
+            </div>
+          </section>
+        </main>
+      }
+    >
       <LoginForm />
     </Suspense>
   );

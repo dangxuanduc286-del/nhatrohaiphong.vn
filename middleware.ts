@@ -1,17 +1,20 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-import type { SystemRole } from "@/server/auth/constants";
-
-const ROUTE_RULES: Array<{ prefix: string; roles: SystemRole[]; permission?: string }> = [
-  { prefix: "/api/admin", roles: ["SUPER_ADMIN", "ADMIN", "MODERATOR"], permission: "system.manage" },
-];
+import { getAdminRouteRule } from "@/server/admin/rbac";
 
 function getRule(pathname: string) {
-  return ROUTE_RULES.find((rule) => pathname === rule.prefix || pathname.startsWith(`${rule.prefix}/`));
+  if (!pathname.startsWith("/api/admin")) return null;
+  const adminPathname = pathname
+    .replace(/^\/api\/admin\/poi(?=\/|$)/, "/admin/points-of-interest")
+    .replace(/^\/api\/admin/, "/admin");
+  return getAdminRouteRule(adminPathname);
 }
 
 function unauthorized() {
-  return NextResponse.json({ error: { code: "UNAUTHORIZED", message: "Unauthorized" } }, { status: 401 });
+  return NextResponse.json(
+    { error: { code: "UNAUTHORIZED", message: "Unauthorized" } },
+    { status: 401 },
+  );
 }
 
 function forbidden() {
@@ -52,7 +55,9 @@ export async function middleware(request: NextRequest) {
     return unauthorized();
   }
 
-  const data = (await response.json()) as { data?: { userId?: string; role?: string; sessionId?: string } };
+  const data = (await response.json()) as {
+    data?: { userId?: string; role?: string; sessionId?: string };
+  };
   const nextResponse = NextResponse.next();
 
   if (data.data?.userId) {

@@ -22,6 +22,7 @@ const userSelect = {
   email: true,
   phone: true,
   fullName: true,
+  avatarUrl: true,
   status: true,
   passwordHash: true,
   failedLoginCount: true,
@@ -29,6 +30,8 @@ const userSelect = {
   emailVerifiedAt: true,
   deletedAt: true,
   roles: {
+    orderBy: { createdAt: "asc" },
+    take: 1,
     include: {
       role: {
         include: {
@@ -55,15 +58,14 @@ function serializeUser(user: Awaited<ReturnType<typeof getUserByIdForAuth>>) {
   }
 
   const role = primaryRole(user);
-  const permissions = Array.from(
-    new Set(user.roles.flatMap((userRole) => userRole.role.permissions.map((item) => item.permission.slug))),
-  );
+  const permissions = user.roles[0]?.role.permissions.map((item) => item.permission.slug) ?? [];
 
   return {
     id: user.id,
     email: user.email,
     phone: user.phone,
     fullName: user.fullName,
+    avatarUrl: user.avatarUrl,
     status: user.status,
     role,
     permissions,
@@ -106,7 +108,10 @@ async function createSession(userId: string, role: SystemRole, meta: RequestMeta
 }
 
 export async function register(input: RegisterInput, meta: RequestMeta) {
-  const orConditions = [input.email ? { email: input.email } : null, input.phone ? { phone: input.phone } : null].filter(Boolean) as Array<{ email: string } | { phone: string }>;
+  const orConditions = [
+    input.email ? { email: input.email } : null,
+    input.phone ? { phone: input.phone } : null,
+  ].filter(Boolean) as Array<{ email: string } | { phone: string }>;
   const existing = await db.user.findFirst({
     where: {
       deletedAt: null,
@@ -123,7 +128,7 @@ export async function register(input: RegisterInput, meta: RequestMeta) {
     throw new AppError("Số điện thoại đã tồn tại", 409, "PHONE_EXISTS");
   }
 
-  const role = await ensureRole(input.role);
+  const role = await ensureRole("USER");
   const passwordHash = await hashPassword(input.password);
   const email = input.email ?? `${input.phone}@phone.nhatrohaiphong.vn`;
   const fullName = input.fullName || "Người dùng Nhatrohaiphong";
@@ -149,9 +154,16 @@ export async function register(input: RegisterInput, meta: RequestMeta) {
   });
 
   await sendAuthEmail({ kind: "verify-email", to: user.email, token: verificationToken });
-  await writeAuditLog({ userId: user.id, action: "REGISTER", entityType: "User", entityId: user.id, ipAddress: meta.ipAddress, userAgent: meta.userAgent });
+  await writeAuditLog({
+    userId: user.id,
+    action: "REGISTER",
+    entityType: "User",
+    entityId: user.id,
+    ipAddress: meta.ipAddress,
+    userAgent: meta.userAgent,
+  });
 
-  const session = await createSession(user.id, input.role, meta);
+  const session = await createSession(user.id, "USER", meta);
   return { user: serializeUser(user), ...session, verificationToken };
 }
 
@@ -162,7 +174,15 @@ export async function login(input: LoginInput, meta: RequestMeta) {
     throw new AppError("Quá nhiều lần đăng nhập. Vui lòng thử lại sau.", 429, "LOGIN_RATE_LIMITED");
   }
 
-  const user = await db.user.findFirst({ where: { ...(isEmailIdentifier(input.identifier) ? { email: input.identifier } : { phone: input.identifier }), deletedAt: null }, select: userSelect });
+  const user = await db.user.findFirst({
+    where: {
+      ...(isEmailIdentifier(input.identifier)
+        ? { email: input.identifier }
+        : { phone: input.identifier }),
+      deletedAt: null,
+    },
+    select: userSelect,
+  });
 
   if (!user || !user.passwordHash) {
     throw new AppError("Email hoặc số điện thoại không đúng", 401, "INVALID_CREDENTIALS");
@@ -183,14 +203,24 @@ export async function login(input: LoginInput, meta: RequestMeta) {
       where: { id: user.id },
       data: {
         failedLoginCount: nextCount,
-        lockedUntil: nextCount >= LOGIN_MAX_ATTEMPTS ? addMinutes(new Date(), ACCOUNT_LOCKOUT_MINUTES) : null,
+        lockedUntil:
+          nextCount >= LOGIN_MAX_ATTEMPTS ? addMinutes(new Date(), ACCOUNT_LOCKOUT_MINUTES) : null,
       },
     });
     throw new AppError("Mật khẩu không đúng", 401, "INVALID_PASSWORD");
   }
 
-  await db.user.update({ where: { id: user.id }, data: { failedLoginCount: 0, lockedUntil: null, lastLoginAt: new Date() } });
-  await writeAuditLog({ userId: user.id, action: "LOGIN", entityType: "UserSession", ipAddress: meta.ipAddress, userAgent: meta.userAgent });
+  await db.user.update({
+    where: { id: user.id },
+    data: { failedLoginCount: 0, lockedUntil: null, lastLoginAt: new Date() },
+  });
+  await writeAuditLog({
+    userId: user.id,
+    action: "LOGIN",
+    entityType: "UserSession",
+    ipAddress: meta.ipAddress,
+    userAgent: meta.userAgent,
+  });
 
   const role = primaryRole(user);
   const session = await createSession(user.id, role, meta);
@@ -199,7 +229,11 @@ export async function login(input: LoginInput, meta: RequestMeta) {
 
 export async function getAuthFromRefreshToken(refreshToken: string) {
   const session = await db.userSession.findFirst({
-    where: { refreshTokenHash: hashToken(refreshToken), deletedAt: null, expiresAt: { gt: new Date() } },
+    where: {
+      refreshTokenHash: hashToken(refreshToken),
+      deletedAt: null,
+      expiresAt: { gt: new Date() },
+    },
     include: { user: { select: userSelect } },
   });
 
@@ -257,11 +291,26 @@ export async function refresh(refreshToken: string, meta: RequestMeta) {
 
   await db.userSession.update({
     where: { id: session.id },
-    data: { refreshTokenHash: nextHash, expiresAt, lastActivityAt: new Date(), ipAddress: meta.ipAddress, userAgent: meta.userAgent },
+    data: {
+      refreshTokenHash: nextHash,
+      expiresAt,
+      lastActivityAt: new Date(),
+      ipAddress: meta.ipAddress,
+      userAgent: meta.userAgent,
+    },
   });
 
-  const accessToken = await signAccessToken({ userId: session.userId, role, sessionId: session.id });
-  return { accessToken, refreshToken: nextRefreshToken, expiresAt, user: serializeUser(session.user) };
+  const accessToken = await signAccessToken({
+    userId: session.userId,
+    role,
+    sessionId: session.id,
+  });
+  return {
+    accessToken,
+    refreshToken: nextRefreshToken,
+    expiresAt,
+    user: serializeUser(session.user),
+  };
 }
 
 export async function logout(refreshToken: string | null, meta: RequestMeta) {
@@ -272,7 +321,13 @@ export async function logout(refreshToken: string | null, meta: RequestMeta) {
     where: { refreshTokenHash: hashToken(refreshToken), deletedAt: null },
     data: { deletedAt: new Date() },
   });
-  await writeAuditLog({ action: "LOGOUT", entityType: "UserSession", newValues: { revoked: session.count }, ipAddress: meta.ipAddress, userAgent: meta.userAgent });
+  await writeAuditLog({
+    action: "LOGOUT",
+    entityType: "UserSession",
+    newValues: { revoked: session.count },
+    ipAddress: meta.ipAddress,
+    userAgent: meta.userAgent,
+  });
 }
 
 export async function logoutAll(userId: string, meta: RequestMeta) {
@@ -292,33 +347,68 @@ export async function logoutAll(userId: string, meta: RequestMeta) {
 }
 
 export async function requestPasswordReset(identifier: string, meta: RequestMeta) {
-  const user = await db.user.findFirst({ where: { ...(isEmailIdentifier(identifier) ? { email: identifier } : { phone: identifier }), deletedAt: null }, select: { id: true, email: true } });
+  const user = await db.user.findFirst({
+    where: {
+      ...(isEmailIdentifier(identifier) ? { email: identifier } : { phone: identifier }),
+      deletedAt: null,
+    },
+    select: { id: true, email: true },
+  });
   if (!user) {
     return { resetToken: null };
   }
   const resetToken = generateOpaqueToken(48);
-  await db.passwordResetToken.create({ data: { userId: user.id, tokenHash: hashToken(resetToken), expiresAt: addMinutes(new Date(), 30) } });
+  await db.passwordResetToken.create({
+    data: {
+      userId: user.id,
+      tokenHash: hashToken(resetToken),
+      expiresAt: addMinutes(new Date(), 30),
+    },
+  });
   await sendAuthEmail({ kind: "reset-password", to: user.email, token: resetToken });
-  await writeAuditLog({ userId: user.id, action: "PASSWORD_RESET_REQUEST", entityType: "PasswordResetToken", ipAddress: meta.ipAddress, userAgent: meta.userAgent });
+  await writeAuditLog({
+    userId: user.id,
+    action: "PASSWORD_RESET_REQUEST",
+    entityType: "PasswordResetToken",
+    ipAddress: meta.ipAddress,
+    userAgent: meta.userAgent,
+  });
   return { resetToken };
 }
 
 export async function resetPassword(token: string, password: string, meta: RequestMeta) {
-  const item = await db.passwordResetToken.findFirst({ where: { tokenHash: hashToken(token), usedAt: null, expiresAt: { gt: new Date() } } });
+  const item = await db.passwordResetToken.findFirst({
+    where: { tokenHash: hashToken(token), usedAt: null, expiresAt: { gt: new Date() } },
+  });
   if (!item) {
     throw new AppError("Invalid reset token", 400, "INVALID_RESET_TOKEN");
   }
   const passwordHash = await hashPassword(password);
   await db.$transaction([
-    db.user.update({ where: { id: item.userId }, data: { passwordHash, failedLoginCount: 0, lockedUntil: null } }),
+    db.user.update({
+      where: { id: item.userId },
+      data: { passwordHash, failedLoginCount: 0, lockedUntil: null },
+    }),
     db.passwordResetToken.update({ where: { id: item.id }, data: { usedAt: new Date() } }),
-    db.userSession.updateMany({ where: { userId: item.userId, deletedAt: null }, data: { deletedAt: new Date() } }),
+    db.userSession.updateMany({
+      where: { userId: item.userId, deletedAt: null },
+      data: { deletedAt: new Date() },
+    }),
   ]);
-  await writeAuditLog({ userId: item.userId, action: "PASSWORD_RESET", entityType: "User", entityId: item.userId, ipAddress: meta.ipAddress, userAgent: meta.userAgent });
+  await writeAuditLog({
+    userId: item.userId,
+    action: "PASSWORD_RESET",
+    entityType: "User",
+    entityId: item.userId,
+    ipAddress: meta.ipAddress,
+    userAgent: meta.userAgent,
+  });
 }
 
 export async function verifyEmail(token: string, meta: RequestMeta) {
-  const item = await db.emailVerificationToken.findFirst({ where: { tokenHash: hashToken(token), verifiedAt: null, expiresAt: { gt: new Date() } } });
+  const item = await db.emailVerificationToken.findFirst({
+    where: { tokenHash: hashToken(token), verifiedAt: null, expiresAt: { gt: new Date() } },
+  });
   if (!item) {
     throw new AppError("Invalid verification token", 400, "INVALID_VERIFICATION_TOKEN");
   }
@@ -326,11 +416,26 @@ export async function verifyEmail(token: string, meta: RequestMeta) {
     db.user.update({ where: { id: item.userId }, data: { emailVerifiedAt: new Date() } }),
     db.emailVerificationToken.update({ where: { id: item.id }, data: { verifiedAt: new Date() } }),
   ]);
-  await writeAuditLog({ userId: item.userId, action: "EMAIL_VERIFICATION", entityType: "User", entityId: item.userId, ipAddress: meta.ipAddress, userAgent: meta.userAgent });
+  await writeAuditLog({
+    userId: item.userId,
+    action: "EMAIL_VERIFICATION",
+    entityType: "User",
+    entityId: item.userId,
+    ipAddress: meta.ipAddress,
+    userAgent: meta.userAgent,
+  });
 }
 
-export async function changePassword(userId: string, currentPassword: string, nextPassword: string, meta: RequestMeta) {
-  const user = await db.user.findFirst({ where: { id: userId, deletedAt: null }, select: userSelect });
+export async function changePassword(
+  userId: string,
+  currentPassword: string,
+  nextPassword: string,
+  meta: RequestMeta,
+) {
+  const user = await db.user.findFirst({
+    where: { id: userId, deletedAt: null },
+    select: userSelect,
+  });
   if (!user || !user.passwordHash) {
     throw new AppError("Unauthorized", 401, "UNAUTHORIZED");
   }
@@ -340,13 +445,30 @@ export async function changePassword(userId: string, currentPassword: string, ne
     throw new AppError("Invalid current password", 400, "INVALID_CURRENT_PASSWORD");
   }
 
-  await db.user.update({ where: { id: user.id }, data: { passwordHash: await hashPassword(nextPassword) } });
-  await writeAuditLog({ userId: user.id, action: "PASSWORD_CHANGE", entityType: "User", entityId: user.id, ipAddress: meta.ipAddress, userAgent: meta.userAgent });
+  await db.user.update({
+    where: { id: user.id },
+    data: { passwordHash: await hashPassword(nextPassword) },
+  });
+  await writeAuditLog({
+    userId: user.id,
+    action: "PASSWORD_CHANGE",
+    entityType: "User",
+    entityId: user.id,
+    ipAddress: meta.ipAddress,
+    userAgent: meta.userAgent,
+  });
 }
 
 export async function getAuthFromAccessToken(accessToken: string) {
   const payload = await verifyAccessToken(accessToken);
-  const session = await db.userSession.findFirst({ where: { id: payload.sessionId, userId: payload.userId, deletedAt: null, expiresAt: { gt: new Date() } } });
+  const session = await db.userSession.findFirst({
+    where: {
+      id: payload.sessionId,
+      userId: payload.userId,
+      deletedAt: null,
+      expiresAt: { gt: new Date() },
+    },
+  });
   if (!session) {
     throw new AppError("Unauthorized", 401, "UNAUTHORIZED");
   }

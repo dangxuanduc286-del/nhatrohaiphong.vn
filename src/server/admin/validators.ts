@@ -6,17 +6,33 @@ export const statusSchema = z.object({ status: z.enum(["ACTIVE", "INACTIVE", "BA
 
 export const userStatusUpdateSchema = idSchema.merge(statusSchema);
 
-export const userRoleAssignSchema = idSchema.extend({ roleIds: z.array(z.string().min(1)).default([]) });
+export const userRoleAssignSchema = idSchema.extend({
+  roleIds: z.array(z.string().min(1)).length(1, "User must have exactly one role"),
+});
 
 export const roomModerationSchema = z.object({
   id: z.string().min(1),
-  action: z.enum(["APPROVE", "REJECT", "HIDE", "LOCK", "REOPEN", "MAINTENANCE", "OCCUPIED", "RESERVED"]),
+  action: z.enum([
+    "APPROVE",
+    "REJECT",
+    "HIDE",
+    "LOCK",
+    "REOPEN",
+    "MAINTENANCE",
+    "OCCUPIED",
+    "RESERVED",
+  ]),
   reason: z.string().trim().max(500).optional(),
 });
 
 export const roleSchema = z.object({
   name: z.string().trim().min(2).max(80),
-  slug: z.string().trim().min(2).max(80).regex(/^[a-z0-9.-]+$/),
+  slug: z
+    .string()
+    .trim()
+    .min(2)
+    .max(80)
+    .regex(/^[a-z0-9.-]+$/),
   description: z.string().trim().max(255).optional().nullable(),
   permissionIds: z.array(z.string().min(1)).default([]),
 });
@@ -48,7 +64,17 @@ export const poiSchema = z.object({
   cityId: z.string().min(1).nullable().optional(),
   name: z.string().trim().min(2).max(255),
   slug: z.string().trim().min(1).max(255),
-  category: z.enum(["INDUSTRIAL_PARK", "PORT", "AIRPORT", "UNIVERSITY", "HOSPITAL", "TRANSPORT", "SHOPPING_MALL", "TOURISM", "RESIDENTIAL_AREA"]),
+  category: z.enum([
+    "INDUSTRIAL_PARK",
+    "PORT",
+    "AIRPORT",
+    "UNIVERSITY",
+    "HOSPITAL",
+    "TRANSPORT",
+    "SHOPPING_MALL",
+    "TOURISM",
+    "RESIDENTIAL_AREA",
+  ]),
   latitude: z.coerce.number(),
   longitude: z.coerce.number(),
   description: z.string().nullable().optional(),
